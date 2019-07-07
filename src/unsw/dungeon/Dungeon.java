@@ -47,4 +47,16 @@ public class Dungeon {
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
+    
+    public boolean canMove (int x, int y) {
+    	for (Entity e: this.entities) {
+    		if (e == null) {
+    			continue;
+    		}
+    		if ((e.getX() == x) && (e.getY() == y)){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }
