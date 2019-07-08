@@ -39,4 +39,14 @@ public class Entity {
     public int getX() {
         return x().get();
     }
+    
+    public void setX(int x) {
+    	System.out.println("Comes here!");
+    	this.x = new SimpleIntegerProperty(x);
+    }
+
+    public void setY(int y) {
+    	this.y = new SimpleIntegerProperty(y);
+    }
+    
 }

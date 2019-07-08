@@ -1,13 +1,16 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+
 /**
  * The player entity
  * @author Robert Clifton-Everest
  *
  */
-public class Player extends Entity {
+public class Player extends Entity implements Subject {
 
     private Dungeon dungeon;
+    ArrayList<Observer> listObservers = new ArrayList<Observer>();
 
     /**
      * Create a player positioned in square (x,y)
@@ -20,22 +23,55 @@ public class Player extends Entity {
     }
 
     public void moveUp() {
-        if (getY() > 0)
+    	dungeon.findObservers();
+    	String prev = "up";
+        if (getY() > 0) {
             y().set(getY() - 1);
+        }
+        notifyObservers(prev);
     }
 
     public void moveDown() {
-        if (getY() < dungeon.getHeight() - 1)
+    	dungeon.findObservers();
+    	String prev = "down";
+        if (getY() < dungeon.getHeight() - 1) {
             y().set(getY() + 1);
+        }
+        notifyObservers(prev);
     }
 
     public void moveLeft() {
-        if (getX() > 0)
+    	dungeon.findObservers();
+    	String prev = "left";
+        if (getX() > 0) {
             x().set(getX() - 1);
+        }
+        notifyObservers(prev);
     }
 
     public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1)
+    	dungeon.findObservers();
+    	String prev = "right";
+        if (getX() < dungeon.getWidth() - 1) {
             x().set(getX() + 1);
+        }
+        notifyObservers(prev);
     }
+
+	@Override
+	public void registerObserver(Observer o) {
+		if(! listObservers.contains(o)) { listObservers.add(o); }
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		listObservers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers(String prev) {
+		for(Observer obs : listObservers) {
+			obs.update(this, prev);
+		}
+	}
 }

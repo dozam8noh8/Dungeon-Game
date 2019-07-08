@@ -47,4 +47,16 @@ public class Dungeon {
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
+    
+    public void findObservers() {
+    	for (Entity e : entities) {
+    		if (e instanceof Observer) {
+    			addObserver((Observer) e);
+    		}
+    	}
+    }
+    
+    public void addObserver(Observer o) {
+    	player.registerObserver(o);
+    }
 }
