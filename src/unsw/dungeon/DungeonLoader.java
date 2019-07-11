@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javafx.scene.image.Image;
+
 /**
  * Loads a dungeon from a .json file.
  *
@@ -61,13 +63,85 @@ public abstract class DungeonLoader {
             entity = wall;
             break;
         // TODO Handle other possible entities
+        case "exit":
+        	Exit exit = new Exit(dungeon, x, y);
+        	onLoad(exit);
+        	entity = exit;
+        	break;
+        case "enemy":
+        	Enemy enemy = new Enemy(dungeon, x, y);
+        	onLoad(enemy);
+        	entity = enemy;
+        	break;
+        case "door":
+        	Door door = new Door(x, y);
+        	onLoad(door);
+        	entity = door;
+        	break;
+        case "key":
+        	Key key = new Key(x, y);
+        	onLoad(key);
+        	entity = key;
+        	break;
+        case "bomb":
+        	Bomb bomb = new Bomb(x,y);
+        	onLoad(bomb);
+        	entity = bomb;
+        	break;
+        case "boulder":
+        	Boulder boulder = new Boulder(dungeon, x,y);
+        	onLoad(boulder);
+        	entity = boulder;
+        	break;
+        case "switch":
+        	PPlate pPlate = new PPlate(x,y);
+        	onLoad(pPlate);
+        	entity = pPlate;
+        	break;
+        case "treasure":
+        	Treasure treasure = new Treasure (x,y);
+        	onLoad(treasure);
+        	entity = treasure;
+        	break;
+        case "invincibility":
+        	Potion potion = new Potion(x,y);
+        	onLoad(potion);
+        	entity = potion;
+        	break;
+        case "sword":
+        	Sword sword = new Sword(x,y);
+        	onLoad(sword);
+        	entity = sword;
+        	break;
         }
+       
         dungeon.addEntity(entity);
     }
 
     public abstract void onLoad(Entity player);
 
     public abstract void onLoad(Wall wall);
+    
+    public abstract void onLoad(Exit exit);
+    
+    public abstract void onLoad(Enemy enemy);
+    
+    public abstract void onLoad(Treasure treasure);
+    
+    public abstract void onLoad(Bomb bomb);
+    
+    public abstract void onLoad(Boulder boulder);
+    
+    public abstract void onLoad(PPlate p);
+    
+    public abstract void onLoad(Key key);
+    
+    public abstract void onLoad(Door door);
+    
+    public abstract void onLoad(Potion potion);
+    
+    public abstract void onLoad(Sword sword);
+
 
     // TODO Create additional abstract methods for the other entities
 
