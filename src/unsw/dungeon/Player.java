@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The player entity
  * @author Robert Clifton-Everest
@@ -9,8 +12,13 @@ public class Player extends Entity implements Movable, Subject {
 
     private Dungeon dungeon;
     private boolean canMove;
-    private Observer enemy;
-    /**
+    private List<Observer> enemy = new ArrayList<Observer>();
+    private PotionState potionState = new NoPotionState();
+    private SwordState swordState = new NoSwordState();
+    private BombState bombState = new NoBombState();
+    private List<Treasure> treasures = new ArrayList<Treasure>();
+
+	/**
      * Create a player positioned in square (x,y)
      * @param x
      * @param y
@@ -77,7 +85,7 @@ public class Player extends Entity implements Movable, Subject {
 	public void addObserver() {
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
-				enemy = (Observer) e;
+				enemy.add((Observer) e);
 			}
 		}
 	}
@@ -90,7 +98,64 @@ public class Player extends Entity implements Movable, Subject {
 	@Override
 	public void notifyObservers() {
 		// TODO Auto-generated method stub
-		enemy.update(this);
+		for (Observer o : enemy) {
+			o.update(this);
+		}
 	}
 
+	public Dungeon getDungeon() {
+		// TODO Auto-generated method stub
+		return dungeon;
+	}
+	
+	public void changeToPotionState() {
+		potionState = potionState.changeToPotionState();
+	}
+	
+	public void changeToNoPotionState() {
+		potionState = potionState.changeToNoPotionState();
+	}
+
+	public PotionState getPotionState() {
+		// TODO Auto-generated method stub
+		return potionState;
+	}
+	
+	public void changeToSwordState() {
+		swordState = swordState.changeToSwordState();
+	}
+	
+	public void changeToNoSwordState() {
+		swordState = swordState.changeToNoSwordState();
+	}
+
+	public SwordState getSwordState() {
+		// TODO Auto-generated method stub
+		return swordState;
+	}
+	
+	public void changeToBombState() {
+		bombState = bombState.changeToBombState();
+	}
+	
+	public void changeToNoBombState() {
+		bombState = bombState.changeToNoBombState();
+	}
+
+	public BombState getBombState() {
+		// TODO Auto-generated method stub
+		return bombState;
+	}
+
+	public List<Treasure> getTreasures() {
+		return treasures;
+	}
+
+	public void setTreasures(List<Treasure> treasures) {
+		this.treasures = treasures;
+	}
+	
+	public void addTreasure(Treasure treasure) {
+		this.treasures.add(treasure);
+	}
 }

@@ -6,5 +6,13 @@ public class Treasure extends Entity{
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void squareBehav(Player p, String direction) {
+		System.out.println("STEPPED ON AN Treasure");
+		Dungeon dungeon = p.getDungeon();
+		p.addTreasure(this);
+		dungeon.removeEntity(this);
+	}
 
 }

@@ -4,6 +4,7 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -130,6 +131,18 @@ public class Dungeon implements Observer{
 		}
 		if (count == getPlates().size()) {
 			System.exit(1);
+		}
+	}
+
+	public void removeEntity(Entity e1) {
+		// TODO Auto-generated method stub
+		Iterator<Entity> itr = entities.iterator();            
+		while(itr.hasNext()){
+		    Entity e = itr.next();
+		    if(e.equals(e1)){
+		        itr.remove();
+		        e = null;
+		    }
 		}
 	}
 }
