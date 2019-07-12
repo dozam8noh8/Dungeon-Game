@@ -118,13 +118,13 @@ public class Dungeon implements Observer{
 	public void update(Subject o) {
 		int count = 0;
 		setPlates();
-		System.out.println("COMES HERE");
 		// TODO Auto-generated method stub
 		for (PPlate p : getPlates()) {
 			ArrayList<Entity> entOnSq = getEntOnSq( p.getX(), p.getY());
 	    	for (Entity e: entOnSq) {
 	    		if (e instanceof Boulder) {
 	    			count = count +1;
+	    			System.out.println(count + " plates are pressed");
 	    		}
 	    	}
 		}

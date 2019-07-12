@@ -93,7 +93,6 @@ public class Boulder extends Entity implements Subject{
 		for (int i = 0; i < observers.size(); i++) {
 			Observer observer = (Observer)observers.get(i);
 			observer.update(this);
-			System.out.println("TRYING TO NOTIFY");
 		}
 	}
 
