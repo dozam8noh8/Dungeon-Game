@@ -25,6 +25,7 @@ public class Boulder extends Entity implements Subject{
 			if (canMove) {
 	            x().set(getX() + 1);
 	            addObservers();
+	            notifyObservers();
 			}
 			else {
 				p.setCanMove(false);
@@ -35,6 +36,7 @@ public class Boulder extends Entity implements Subject{
 			if (canMove) {
 	            x().set(getX() - 1);
 	            addObservers();
+	            notifyObservers();
 			}
 			else {
 				p.setCanMove(false);
@@ -45,6 +47,7 @@ public class Boulder extends Entity implements Subject{
 			if (canMove) {
 	            y().set(getY() - 1);
 	            addObservers();
+	            notifyObservers();
 			}
 			else {
 				p.setCanMove(false);
@@ -55,6 +58,7 @@ public class Boulder extends Entity implements Subject{
 			if (canMove) {
 	            y().set(getY() + 1);
 	            addObservers();
+	            notifyObservers();
 			}
 			else {
 				p.setCanMove(false);
@@ -65,16 +69,7 @@ public class Boulder extends Entity implements Subject{
 	}
 
 	public void addObservers() {
-		for (Entity e : dungeon.getEntities()) {
-			if (e instanceof PPlate) {
-				if (e.getX() == getX() && e.getY()==getY()) {
-					if (!observers.contains(e)) {
-						registerObserver((Observer) e);
-						System.out.println("On PPlate");
-					}
-				}
-			}
-		}
+		observers.add(dungeon);
 	}
 	
 	@Override
@@ -98,6 +93,7 @@ public class Boulder extends Entity implements Subject{
 		for (int i = 0; i < observers.size(); i++) {
 			Observer observer = (Observer)observers.get(i);
 			observer.update(this);
+			System.out.println("TRYING TO NOTIFY");
 		}
 	}
 

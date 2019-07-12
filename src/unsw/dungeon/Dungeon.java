@@ -15,11 +15,12 @@ import java.util.List;
  * @author Robert Clifton-Everest
  *
  */
-public class Dungeon {
+public class Dungeon implements Observer{
 
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    private List<PPlate> plates = new ArrayList<PPlate>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
     public Dungeon(int width, int height) {
@@ -98,4 +99,37 @@ public class Dungeon {
 		return this.entities;
     	
     }
+
+	public List<PPlate> getPlates() {
+		return plates;
+	}
+
+	public void setPlates() {
+		for (Entity e : entities) {
+			if (e instanceof PPlate) {
+				if (!plates.contains(e)) {
+					plates.add((PPlate) e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update(Subject o) {
+		int count = 0;
+		setPlates();
+		System.out.println("COMES HERE");
+		// TODO Auto-generated method stub
+		for (PPlate p : getPlates()) {
+			ArrayList<Entity> entOnSq = getEntOnSq( p.getX(), p.getY());
+	    	for (Entity e: entOnSq) {
+	    		if (e instanceof Boulder) {
+	    			count = count +1;
+	    		}
+	    	}
+		}
+		if (count == getPlates().size()) {
+			System.exit(1);
+		}
+	}
 }
