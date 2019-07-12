@@ -20,6 +20,7 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
     public Dungeon(int width, int height) {
         this.width = width;
@@ -46,5 +47,55 @@ public class Dungeon {
 
     public void addEntity(Entity entity) {
         entities.add(entity);
+    }
+    
+    public void makeMovePlayer (int x, int y, String direction) {
+    	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
+    	for (Entity e: entOnSq) {
+    		e.squareBehav(this.player, direction); //might need to take in something different later.
+    	}
+    	
+    }
+    public boolean makeMoveBoulder (int x, int y, Boulder b) {
+    	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
+    	for (Entity e: entOnSq) {
+    		if (e == null) continue;
+    		if (e instanceof Wall) {
+    			return false;
+    			
+    		}
+    		if (e instanceof Boulder) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    public ArrayList<Entity> getEntOnSq (int x, int y) {
+    	ArrayList<Entity> entOnSq = new ArrayList<Entity>();
+    	for (Entity e: this.entities) {
+    		if (e == null) {
+    			continue;
+    		}
+    		if ((e.getX() == x) && (e.getY() == y)) { //only if wall.
+    			entOnSq.add(e);
+    		}
+    	}
+		return entOnSq;
+    }
+    public boolean checkDungeonObjectives() {
+    	for (Entity e: this.entities) {
+    		if (e == null) {
+    			continue;
+    		}
+    		//if switch, check if pressed
+    		//if treasure, check if collected
+    		//if enemy, check if killed
+    	}
+    	return true; //justfor testing will always return true.
+    }
+    
+    public List<Entity> getEntities(){
+		return this.entities;
+    	
     }
 }

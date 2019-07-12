@@ -6,4 +6,10 @@ public class Wall extends Entity {
         super(x, y);
     }
 
+	@Override
+	public void squareBehav(Player p, String direction) {
+		p.setCanMove(false);
+	}
+    
+
 }

@@ -39,4 +39,12 @@ public class Entity {
     public int getX() {
         return x().get();
     }
+    /**
+     * If an entity is on the stepped on square, call this func
+     * Should probably be an abstract method
+     * @param p
+     */
+    public void squareBehav(Player p, String direction) {
+    	
+    }
 }

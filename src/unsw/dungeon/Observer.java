@@ -1,5 +1,5 @@
 package unsw.dungeon;
 
 public interface Observer {
-	public void update(Subject obj, String prev);
+	public void update(Subject o);
 }
