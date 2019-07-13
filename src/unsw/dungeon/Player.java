@@ -111,8 +111,8 @@ public class Player extends Entity implements Movable, Subject {
 	
 	public void changeToPotionState() {
 		potionState = potionState.changeToPotionState();
-		PotionStateThread p = new PotionStateThread(this);
-		p.start();
+		PotionStateThread potionThread = new PotionStateThread(this);
+		potionThread.start();
 	}
 	
 	public void changeToNoPotionState() {
