@@ -22,6 +22,8 @@ public class Dungeon implements Observer{
     private List<Entity> entities;
     private Player player;
     private List<PPlate> plates = new ArrayList<PPlate>();
+    private Objective objective = new StrategyObjective(new ArrayList<Objective>());
+    //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
     public Dungeon(int width, int height) {
@@ -29,6 +31,7 @@ public class Dungeon implements Observer{
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        addObjectives();
     }
 
     public int getWidth() {
@@ -125,12 +128,14 @@ public class Dungeon implements Observer{
 	    	for (Entity e: entOnSq) {
 	    		if (e instanceof Boulder) {
 	    			count = count +1;
-	    			System.out.println(count + " plates are pressed");
+	    			//System.out.println(count + " plates are pressed");
 	    		}
 	    	}
 		}
 		if (count == getPlates().size()) {
-			System.exit(1);
+			addBoulderObjective();
+		} else {
+			removeBoulderObjective();
 		}
 	}
 
@@ -144,5 +149,53 @@ public class Dungeon implements Observer{
 		        e = null;
 		    }
 		}
+	}
+	
+	
+	public void addExitObjective() {
+		for (Objective o : objective.getObjectives()) {
+			if (o instanceof ExitObjective) {
+				o.complete(o);
+			}
+		}
+		checkObjectives();
+	}
+
+	private void checkObjectives() {
+		// TODO Auto-generated method stub
+		Boolean finish = objective.isComplete();
+		System.exit(1);
+	}
+	
+	public void addBoulderObjective() {
+		for (Objective o : objective.getObjectives()) {
+			if (o instanceof BoulderObjective) {
+				o.complete(o);
+			}
+		}
+		checkObjectives();
+	}
+	
+	public void addTreasureObjective() {
+		for (Objective o : objective.getObjectives()) {
+			if (o instanceof TreasureObjective) {
+				o.complete(o);
+			}
+		}
+		checkObjectives();
+	}
+	
+	public void removeBoulderObjective() {
+		for (Objective o : objective.getObjectives()) {
+			if (o instanceof BoulderObjective) {
+				o.incomplete(o);
+			}
+		}
+	}
+	
+	public void addObjectives() {
+		objective.addChild(new ExitObjective());
+		objective.addChild(new BoulderObjective());
+		objective.addChild(new TreasureObjective());
 	}
 }

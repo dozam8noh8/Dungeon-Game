@@ -13,7 +13,7 @@ public class Exit extends Entity {
 		System.out.println("Found an exit");
 		if (dungeon.checkDungeonObjectives() == true){ //if dungeon is complete
 			//end game?
-			System.exit(0);
+			dungeon.addExitObjective();
 		}
 	}
 
