@@ -11,5 +11,4 @@ public class Wall extends Entity {
 		p.setCanMove(false);
 	}
     
-
 }

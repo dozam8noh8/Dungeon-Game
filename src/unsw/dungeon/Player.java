@@ -17,6 +17,7 @@ public class Player extends Entity implements Movable, Subject {
     private SwordState swordState = new NoSwordState();
     private BombState bombState = new NoBombState();
     private List<Treasure> treasures = new ArrayList<Treasure>();
+    private Key key;
 
 	/**
      * Create a player positioned in square (x,y)
@@ -157,5 +158,19 @@ public class Player extends Entity implements Movable, Subject {
 	
 	public void addTreasure(Treasure treasure) {
 		this.treasures.add(treasure);
+	}
+	
+	public void setKey(Key k) {
+		if (key != null) {
+			key.setX(k.getX());
+			key.setY(k.getY());
+		}
+		key = k;
+	}
+	
+	// To implement
+	public int getKey() {
+		// TODO Auto-generated method stub
+		return key.getId();
 	}
 }
