@@ -28,7 +28,7 @@ public class Player extends Entity implements Movable, Subject {
         super(x, y);
         this.dungeon = dungeon;
         this.canMove = true;
-        TestThread testThread = new TestThread(this);
+        TestSwordThread testThread = new TestSwordThread(this);
 		testThread.start();
     }
 

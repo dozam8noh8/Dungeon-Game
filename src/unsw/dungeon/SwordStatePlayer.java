@@ -3,11 +3,11 @@ package unsw.dungeon;
 import java.util.ArrayList;
 
 public class SwordStatePlayer implements SwordState {
-
+	private int swordAttacks = 5;
 	@Override
 	public SwordState changeToSwordState() {
 		// TODO Auto-generated method stub
-		return this;
+		return new SwordStatePlayer();
 	}
 
 	@Override
@@ -19,6 +19,9 @@ public class SwordStatePlayer implements SwordState {
 	@Override
 	public void attack(Player player) {
 		// TODO Auto-generated method stub
+		if (swordAttacks < 1) {
+			return;
+		}
 		System.out.println("USING SWORD");
 		Dungeon dungeon = player.getDungeon();
 		int x = player.getX();
@@ -59,6 +62,7 @@ public class SwordStatePlayer implements SwordState {
 				}
 			}
 		}
+		swordAttacks = swordAttacks-1;
 	}
 
 }
