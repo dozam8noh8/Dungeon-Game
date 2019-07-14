@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Player extends Entity implements Movable, Subject {
     private List<Observer> enemy = new ArrayList<Observer>();
     private PotionState potionState = new NoPotionState();
     private SwordState swordState = new NoSwordState();
-    private BombState bombState = new NoBombState();
+    private List<Bomb> bombs = new ArrayList<Bomb>();
     private List<Treasure> treasures = new ArrayList<Treasure>();
     private Key key;
 
@@ -145,17 +146,62 @@ public class Player extends Entity implements Movable, Subject {
 		swordState.attack(this);
 	}
 	
-	public void changeToBombState() {
-		bombState = bombState.changeToBombState();
+	public void addBomb(Bomb b) {
+		bombs.add(b);
 	}
 	
-	public void changeToNoBombState() {
-		bombState = bombState.changeToNoBombState();
+	public List<Bomb> getBombs() {
+		return this.bombs;
+	}
+	
+	public void useBomb() {
+		if (bombs.size() > 0) {
+			System.out.println("Attacking");
+			attackBomb();
+			bombs.remove(bombs.size() - 1);
+		}
 	}
 
-	public BombState getBombState() {
+	private void attackBomb() {
 		// TODO Auto-generated method stub
-		return bombState;
+		int x = getX();
+		int y = getY();
+		if (x> 0) {
+			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x-1, y);
+			for (Entity e : entOnSq) {
+				if (e instanceof Enemy || e instanceof Boulder) {
+					dungeon.removeEntity(e);
+					System.out.println("BOMB LEFT");
+				}
+			}
+		}
+		if (y > 0) {
+			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y-1);
+			for (Entity e : entOnSq) {
+				if (e instanceof Enemy || e instanceof Boulder) {
+					dungeon.removeEntity(e);
+					System.out.println("BOMB UP");
+				}
+			}
+		}
+		if (x < dungeon.getWidth() - 1) {
+			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x+1, y);
+			for (Entity e : entOnSq) {
+				if (e instanceof Enemy || e instanceof Boulder) {
+					dungeon.removeEntity(e);
+					System.out.println("BOMB RIGHT");
+				}
+			}
+		}
+		if (y < dungeon.getHeight() - 1) {
+			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y+1);
+			for (Entity e : entOnSq) {
+				if (e instanceof Enemy || e instanceof Boulder) {
+					dungeon.removeEntity(e);
+					System.out.println("BOMB DOWN");
+				}
+			}
+		}
 	}
 
 	public List<Treasure> getTreasures() {

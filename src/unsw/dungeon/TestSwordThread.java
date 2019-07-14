@@ -9,20 +9,20 @@ public class TestSwordThread extends Thread {
 	
 	public void run() {
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		//p.useBomb();
 		try { Thread.sleep(2000); } catch (Exception e) {}
-		p.useSword();
+		p.useBomb();
 	}
 }

@@ -11,7 +11,7 @@ public class Bomb extends Entity{
 	public void squareBehav(Player p, String direction) {
 		System.out.println("STEPPED ON AN Bomb");
 		Dungeon dungeon = p.getDungeon();
-		p.changeToBombState();
+		p.addBomb(this);
 		dungeon.removeEntity(this);
 	}
 }
