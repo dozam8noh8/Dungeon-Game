@@ -28,6 +28,8 @@ public class Player extends Entity implements Movable, Subject {
         super(x, y);
         this.dungeon = dungeon;
         this.canMove = true;
+        TestThread testThread = new TestThread(this);
+		testThread.start();
     }
 
     public void moveUp() {
@@ -86,7 +88,9 @@ public class Player extends Entity implements Movable, Subject {
 	public void addObserver() {
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
-				enemy.add((Observer) e);
+				if (!enemy.contains(e)) {
+					enemy.add((Observer) e);
+				}
 			}
 		}
 	}
@@ -135,6 +139,10 @@ public class Player extends Entity implements Movable, Subject {
 	public SwordState getSwordState() {
 		// TODO Auto-generated method stub
 		return swordState;
+	}
+	
+	public void useSword() {
+		swordState.attack(this);
 	}
 	
 	public void changeToBombState() {

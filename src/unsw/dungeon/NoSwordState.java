@@ -14,4 +14,10 @@ public class NoSwordState implements SwordState {
 		return this;
 	}
 
+	@Override
+	public void attack(Player player) {
+		// TODO Auto-generated method stub
+		System.out.println("CANNOT USE SWORD");
+	}
+
 }
