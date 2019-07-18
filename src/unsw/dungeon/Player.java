@@ -15,7 +15,7 @@ public class Player extends Entity implements Movable, Subject {
     private boolean canMove;
     private List<Observer> enemies = new ArrayList<Observer>();
     private PotionState potionState = new NoPotionState();
-    private SwordState swordState = new NoSwordState();
+    private Weapon weapon = null;
     private List<Bomb> bombs = new ArrayList<Bomb>();
     private List<Treasure> treasures = new ArrayList<Treasure>();
     private Key key;
@@ -129,22 +129,15 @@ public class Player extends Entity implements Movable, Subject {
 		return potionState;
 	}
 	
-	public void changeToSwordState() {
-		swordState = swordState.changeToSwordState();
+	public void setWeapon(Weapon w) {
+		this.weapon = w;
+	}
+	public void attack() {
+		if (this.weapon != null) {
+		 	weapon.attack(this);
+		} 
 	}
 	
-	public void changeToNoSwordState() {
-		swordState = swordState.changeToNoSwordState();
-	}
-
-	public SwordState getSwordState() {
-		// TODO Auto-generated method stub
-		return swordState;
-	}
-	
-	public void useSword() {
-		swordState.attack(this);
-	}
 	
 	public void addBomb(Bomb b) {
 		bombs.add(b);
@@ -157,41 +150,12 @@ public class Player extends Entity implements Movable, Subject {
 	public void useBomb() {
 		if (bombs.size() > 0) {
 			System.out.println("Attacking");
-			attackBomb();
+			bombs.get(bombs.size()-1).lightBomb();
 			bombs.remove(bombs.size() - 1);
 		}
 	}
 
-	private void checkBombRadius(int x, int y) {
-		ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y);
-		for (Entity e : entOnSq) {
-			if (e instanceof Enemy) {
-				((Enemy) e).killEnemy();
-				dungeon.removeEntity(e);
-			} else if (e instanceof Boulder) {
-				((Boulder) e).killBoulder();
-				dungeon.removeEntity(e);
-			}
 
-		}
-	}
-	private void attackBomb() {
-		// TODO Auto-generated method stub
-		int x = getX();
-		int y = getY();
-		if (x> 0) {
-			checkBombRadius(x-1, y);
-		}
-		if (y > 0) {
-			checkBombRadius(x, y-1);
-		}
-		if (x < dungeon.getWidth() - 1) {
-			checkBombRadius(x+1, y);
-		}
-		if (y < dungeon.getHeight() - 1) {
-			checkBombRadius(x, y+1);
-		}
-	}
 
 	public List<Treasure> getTreasures() {
 		return treasures;

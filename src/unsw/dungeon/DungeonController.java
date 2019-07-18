@@ -65,6 +65,9 @@ public class DungeonController {
         case L:
         	player.useBomb();
         	break;
+        case SPACE:
+        	player.attack();
+        	break;
         default:
             break;
         }

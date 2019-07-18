@@ -86,7 +86,7 @@ public abstract class DungeonLoader {
         	entity = key;
         	break;
         case "bomb":
-        	Bomb bomb = new Bomb(x,y);
+        	Bomb bomb = new Bomb(x,y, dungeon);
         	onLoad(bomb);
         	entity = bomb;
         	break;
