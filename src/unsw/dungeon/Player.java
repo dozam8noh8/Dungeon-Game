@@ -217,16 +217,25 @@ public class Player extends Entity implements Movable, Subject {
 	}
 	
 	public void setKey(Key k) {
-		if (key != null) {
+		if (k == null) { //we could make a property/state called nokey if we wanted to.
+			this.key = null;
+		}
+		if (key != null) { //puts key down where other key was?
+			System.out.println("Player stepped on key, with id " + k.getId());
 			key.setX(k.getX());
 			key.setY(k.getY());
+			key.setPickedUp(false);
+			key.setJustDropped(true);
 		}
 		key = k;
 	}
 	
 	// To implement
-	public int getKey() {
+	public Key getKey() {
 		// TODO Auto-generated method stub
+		return this.key;
+	}
+	public int getKeyId() {
 		return key.getId();
 	}
 }

@@ -81,6 +81,11 @@ public class Dungeon implements Observer{
     		if (e == null) {
     			continue;
     		}
+    		//TEMPORARY REMOVE/move THIS
+    		if (e instanceof Key) {
+    			System.out.println("reset");
+    			((Key) e).setJustDropped(false);
+    		}
     		if ((e.getX() == x) && (e.getY() == y)) { //only if wall.
     			entOnSq.add(e);
     		}
