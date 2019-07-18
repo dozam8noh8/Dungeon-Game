@@ -54,7 +54,7 @@ public class Key extends Entity {
 	}
 
 	public void setJustDropped(boolean b) {
-		System.out.println("setting just dropped to" + b);
+		//System.out.println("setting just dropped to" + b);
 		this.justDropped = b;
 	}
 }

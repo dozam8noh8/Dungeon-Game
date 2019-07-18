@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class StrategyObjective implements Objective {
 	private ArrayList<Objective> children = new ArrayList<Objective>();
-	private ObjectiveCheck strategy = new OrObjectives();
+	private ObjectiveCheck strategy = new AddObjectives();
 	
 	public StrategyObjective(ArrayList<Objective> children) {
 		this.children = children;

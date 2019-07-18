@@ -8,7 +8,9 @@ public class AddObjectives implements ObjectiveCheck {
 	public boolean checkComplete(ArrayList<Objective> children) {
 		// TODO Auto-generated method stub
 		for (Objective o : children) {
+			System.out.println(o);
 			if (!o.isComplete()) {
+				System.out.println(o);
 				return false;
 			}
 		}

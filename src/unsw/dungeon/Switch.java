@@ -15,5 +15,11 @@ public class Switch extends Entity implements Observer {
 			System.out.println("On Switch");
 		}
 	}
+	
+	public void squareBehav(Entity e, String direction) {
+		if (e instanceof Boulder) {
+			
+		}
+	}
 
 }

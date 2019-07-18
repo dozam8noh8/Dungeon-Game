@@ -13,7 +13,7 @@ public class Player extends Entity implements Movable, Subject {
 
     private Dungeon dungeon;
     private boolean canMove;
-    private List<Observer> enemy = new ArrayList<Observer>();
+    private List<Observer> enemies = new ArrayList<Observer>();
     private PotionState potionState = new NoPotionState();
     private SwordState swordState = new NoSwordState();
     private List<Bomb> bombs = new ArrayList<Bomb>();
@@ -83,15 +83,15 @@ public class Player extends Entity implements Movable, Subject {
 
 	@Override
 	public void registerObserver(Observer o) {
-		// TODO Auto-generated method stub
+		if (!enemies.contains(o)) {
+			enemies.add(o);
+		}	
 	}
 
 	public void addObserver() {
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
-				if (!enemy.contains(e)) {
-					enemy.add((Observer) e);
-				}
+				registerObserver((Observer)e);
 			}
 		}
 	}
@@ -104,7 +104,7 @@ public class Player extends Entity implements Movable, Subject {
 	@Override
 	public void notifyObservers() {
 		// TODO Auto-generated method stub
-		for (Observer o : enemy) {
+		for (Observer o : enemies) {
 			o.update(this);
 		}
 	}
@@ -162,45 +162,34 @@ public class Player extends Entity implements Movable, Subject {
 		}
 	}
 
+	private void checkBombRadius(int x, int y) {
+		ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y);
+		for (Entity e : entOnSq) {
+			if (e instanceof Enemy) {
+				((Enemy) e).killEnemy();
+				dungeon.removeEntity(e);
+			} else if (e instanceof Boulder) {
+				((Boulder) e).killBoulder();
+				dungeon.removeEntity(e);
+			}
+
+		}
+	}
 	private void attackBomb() {
 		// TODO Auto-generated method stub
 		int x = getX();
 		int y = getY();
 		if (x> 0) {
-			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x-1, y);
-			for (Entity e : entOnSq) {
-				if (e instanceof Enemy || e instanceof Boulder) {
-					dungeon.removeEntity(e);
-					System.out.println("BOMB LEFT");
-				}
-			}
+			checkBombRadius(x-1, y);
 		}
 		if (y > 0) {
-			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y-1);
-			for (Entity e : entOnSq) {
-				if (e instanceof Enemy || e instanceof Boulder) {
-					dungeon.removeEntity(e);
-					System.out.println("BOMB UP");
-				}
-			}
+			checkBombRadius(x, y-1);
 		}
 		if (x < dungeon.getWidth() - 1) {
-			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x+1, y);
-			for (Entity e : entOnSq) {
-				if (e instanceof Enemy || e instanceof Boulder) {
-					dungeon.removeEntity(e);
-					System.out.println("BOMB RIGHT");
-				}
-			}
+			checkBombRadius(x+1, y);
 		}
 		if (y < dungeon.getHeight() - 1) {
-			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y+1);
-			for (Entity e : entOnSq) {
-				if (e instanceof Enemy || e instanceof Boulder) {
-					dungeon.removeEntity(e);
-					System.out.println("BOMB DOWN");
-				}
-			}
+			checkBombRadius(x, y+1);
 		}
 	}
 

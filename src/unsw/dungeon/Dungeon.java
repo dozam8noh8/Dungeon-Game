@@ -59,9 +59,17 @@ public class Dungeon implements Observer{
     	for (Entity e: entOnSq) {
     		e.squareBehav(this.player, direction); //might need to take in something different later.
     	}
-    	
+    	//this should call squarebehaviour on the next 
     }
-    public boolean makeMoveBoulder (int x, int y, Boulder b) {
+    public void makeMove( int x, int y, String direction) {
+    	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
+    	for (Entity e: entOnSq) {
+    		e.squareBehav(this.player, direction); //might need to take in something different later.
+    	}
+    }
+    //Do we pass in the thing we are trying to move and then (i.e we call make move with *this* as the player or *this* as the boulder
+    //makeMove would still either need multiple functions or to check instance of here.
+    public boolean makeMoveBoulderOrEnemy (int x, int y) {
     	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
     	for (Entity e: entOnSq) {
     		if (e == null) continue;
@@ -71,6 +79,10 @@ public class Dungeon implements Observer{
     		}
     		if (e instanceof Boulder) {
     			return false;
+    		}
+    		if ( e instanceof Player) { //we should try make another interface
+    			System.out.println("Enemy caught a player");
+    			System.exit(1);
     		}
     	}
     	return true;
@@ -83,7 +95,7 @@ public class Dungeon implements Observer{
     		}
     		//TEMPORARY REMOVE/move THIS
     		if (e instanceof Key) {
-    			System.out.println("reset");
+    			//System.out.println("reset");
     			((Key) e).setJustDropped(false);
     		}
     		if ((e.getX() == x) && (e.getY() == y)) { //only if wall.
@@ -145,15 +157,7 @@ public class Dungeon implements Observer{
 	}
 
 	public void removeEntity(Entity e1) {
-		// TODO Auto-generated method stub
-		Iterator<Entity> itr = entities.iterator();            
-		while(itr.hasNext()){
-		    Entity e = itr.next();
-		    if(e.equals(e1)){
-		        itr.remove();
-		        e = null;
-		    }
-		}
+		this.entities.remove(e1);
 	}
 	
 	
@@ -169,7 +173,11 @@ public class Dungeon implements Observer{
 	private void checkObjectives() {
 		// TODO Auto-generated method stub
 		Boolean finish = objective.isComplete();
-		System.exit(1);
+		if (finish){
+			System.out.println("Checking objectives, objective complete");
+			System.exit(1);
+		}
+
 	}
 	
 	public void addBoulderObjective() {
