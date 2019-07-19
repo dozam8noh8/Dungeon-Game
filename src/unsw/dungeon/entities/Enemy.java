@@ -27,6 +27,7 @@ public class Enemy extends Entity implements Observer {
 				System.exit(1);
 			} else {
 				System.out.println("You are invincible!!!!");
+				this.killEnemy();
 			}
 		}
 	}

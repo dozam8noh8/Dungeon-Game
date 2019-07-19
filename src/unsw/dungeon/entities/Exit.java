@@ -13,10 +13,9 @@ public class Exit extends Entity {
 	@Override
 	public void squareBehav(Player p, String direction) {
 		System.out.println("Found an exit");
-		if (dungeon.checkDungeonObjectives() == true){ //if dungeon is complete
+ //if dungeon is complete
 			//end game?
-			dungeon.addExitObjective();
-		}
+			dungeon.completeExitObjective(dungeon.getObjective());
 	}
 
 }

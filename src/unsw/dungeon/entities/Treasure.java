@@ -15,6 +15,11 @@ public class Treasure extends Entity{
 		Dungeon dungeon = p.getDungeon();
 		p.addTreasure(this);
 		dungeon.removeEntity(this);
+		for (Entity e : dungeon.getEntities()) { //dungeon should contain no entities before we complete objective
+			if (e instanceof Treasure) {
+				return;
+			}
+		}
 		dungeon.completeTreasureObjective(dungeon.getObjective()); //should loop through all treasures! FIX
 	}
 

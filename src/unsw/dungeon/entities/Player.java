@@ -195,6 +195,12 @@ public class Player extends Entity implements Subject {
 		return this.key;
 	}
 	public int getKeyId() {
+		if (key == null) return -1;
 		return key.getId();
+	}
+
+	public Weapon getWeapon() {
+		// TODO Auto-generated method stub
+		return this.weapon;
 	}
 }

@@ -174,13 +174,21 @@ public class Dungeon implements Observer{
 	}
 	
 	
-	public void addExitObjective() {
-		for (Objective o : objective.getObjectives()) {
-			if (o instanceof ExitObjective) {
-				o.complete(o);
+	public void completeExitObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof ExitObjective) {
+				System.out.println("Instance of Exit objective");
+				obj.complete(obj);
 			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeExitObjective(o);
 		}
 		checkObjectives();
+	
 	}
 
 	private void checkObjectives() {

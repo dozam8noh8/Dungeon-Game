@@ -135,12 +135,14 @@
     {
       "x": 8,
       "y": 2,
-      "type": "wall"
+      "type": "door",
+      "id" : 0
     },
     {
       "x": 9,
       "y": 2,
-      "type": "wall"
+      "type": "key",
+      "id" : 0
     },
     {
       "x": 12,
@@ -155,12 +157,12 @@
     {
       "x": 14,
       "y": 2,
-      "type": "wall"
+      "type": "treasure"
     },
     {
       "x": 15,
       "y": 2,
-      "type": "wall"
+      "type": "boulder"
     },
     {
       "x": 17,
@@ -179,11 +181,6 @@
     },
     {
       "x": 4,
-      "y": 3,
-      "type": "wall"
-    },
-    {
-      "x": 15,
       "y": 3,
       "type": "wall"
     },
@@ -207,6 +204,12 @@
       "y": 4,
       "type": "bomb"
     },
+    {
+      "x": 13,
+      "y": 4,
+      "type": "treasure"
+    },
+    
     {
       "x": 17,
       "y": 4,
@@ -255,7 +258,7 @@
     {
       "x": 13,
       "y": 6,
-      "type": "wall"
+      "type": "switch"
     },
     {
       "x": 17,
@@ -535,7 +538,7 @@
     {
       "x": 4,
       "y": 15,
-      "type": "wall"
+      "type": "exit"
     },
     {
       "x": 5,
@@ -603,15 +606,13 @@
       "type": "wall"
     }
   ],
-  "goal-condition": {
-    "goal": "AND",
-    "subgoals": [
-      {
-        "goal": "enemies"
-      },
-      {
-        "goal": "treasure"
-      }
-    ]
-  }
+  "goal-condition": { "goal": "AND", "subgoals":
+  [ { "goal": "exit" },
+    { "goal": "OR", "subgoals":
+      [ {"goal": "enemies" },
+        {"goal": "treasure" }
+      ]
+    }
+  ]
+}
 }
