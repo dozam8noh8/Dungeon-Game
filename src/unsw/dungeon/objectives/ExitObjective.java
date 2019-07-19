@@ -1,8 +1,8 @@
-package unsw.dungeon;
+package unsw.dungeon.objectives;
 
 import java.util.ArrayList;
 
-public class EnemyObjective implements Objective {
+public class ExitObjective implements Objective {
 	public boolean complete = false;
 	
 	@Override
@@ -38,6 +38,6 @@ public class EnemyObjective implements Objective {
 	@Override
 	public ArrayList<Objective> getObjectives() {
 		// TODO Auto-generated method stub
-			return null;
-		}
+		return null;
+	}
 }

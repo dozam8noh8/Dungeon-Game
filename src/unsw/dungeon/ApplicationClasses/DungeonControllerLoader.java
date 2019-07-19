@@ -1,4 +1,4 @@
-package unsw.dungeon;
+package unsw.dungeon.ApplicationClasses;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,6 +10,18 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import unsw.dungeon.entities.Bomb;
+import unsw.dungeon.entities.Boulder;
+import unsw.dungeon.entities.Door;
+import unsw.dungeon.entities.Enemy;
+import unsw.dungeon.entities.Entity;
+import unsw.dungeon.entities.Exit;
+import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.PPlate;
+import unsw.dungeon.entities.Potion;
+import unsw.dungeon.entities.Sword;
+import unsw.dungeon.entities.Treasure;
+import unsw.dungeon.entities.Wall;
 
 /**
  * A DungeonLoader that also creates the necessary ImageViews for the UI,

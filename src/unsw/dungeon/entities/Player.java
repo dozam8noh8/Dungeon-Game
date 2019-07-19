@@ -1,8 +1,16 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.NoPotionState;
+import unsw.dungeon.Observer;
+import unsw.dungeon.PotionState;
+import unsw.dungeon.PotionStateThread;
+import unsw.dungeon.Subject;
+import unsw.dungeon.Weapon;
 
 /**
  * The player entity

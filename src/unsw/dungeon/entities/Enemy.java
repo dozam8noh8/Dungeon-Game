@@ -1,4 +1,9 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
+
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.NoPotionState;
+import unsw.dungeon.Observer;
+import unsw.dungeon.Subject;
 
 public class Enemy extends Entity implements Observer {
 	private Dungeon dungeon;

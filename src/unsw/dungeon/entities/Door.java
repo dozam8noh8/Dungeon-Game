@@ -1,4 +1,4 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
 
 public class Door extends Entity{
 	private boolean opened = false;

@@ -1,6 +1,9 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
 
 import java.util.ArrayList;
+
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.Weapon;
 
 public class Sword extends Entity implements Weapon{
 	int attacks = 5;

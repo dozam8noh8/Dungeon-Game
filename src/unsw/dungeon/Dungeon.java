@@ -7,6 +7,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import unsw.dungeon.entities.Boulder;
+import unsw.dungeon.entities.Entity;
+import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.PPlate;
+import unsw.dungeon.entities.Player;
+import unsw.dungeon.entities.Wall;
+import unsw.dungeon.objectives.BoulderObjective;
+import unsw.dungeon.objectives.EnemyObjective;
+import unsw.dungeon.objectives.ExitObjective;
+import unsw.dungeon.objectives.Objective;
+import unsw.dungeon.objectives.TreasureObjective;
+
 /**
  * A dungeon in the interactive dungeon player.
  *

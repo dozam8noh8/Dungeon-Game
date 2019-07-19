@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
+
+import unsw.dungeon.Dungeon;
 
 public class Potion extends Entity {
 

@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import unsw.dungeon.entities.Player;
+
 public class PotionStateThread extends Thread{
 	private Player player;
 	

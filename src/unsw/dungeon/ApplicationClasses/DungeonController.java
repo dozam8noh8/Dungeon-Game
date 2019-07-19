@@ -1,4 +1,4 @@
-package unsw.dungeon;
+package unsw.dungeon.ApplicationClasses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.entities.Player;
 
 /**
  * A JavaFX controller for the dungeon.

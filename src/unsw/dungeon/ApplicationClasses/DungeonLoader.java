@@ -1,4 +1,4 @@
-package unsw.dungeon;
+package unsw.dungeon.ApplicationClasses;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,6 +9,28 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.scene.image.Image;
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.entities.Bomb;
+import unsw.dungeon.entities.Boulder;
+import unsw.dungeon.entities.Door;
+import unsw.dungeon.entities.Enemy;
+import unsw.dungeon.entities.Entity;
+import unsw.dungeon.entities.Exit;
+import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.PPlate;
+import unsw.dungeon.entities.Player;
+import unsw.dungeon.entities.Potion;
+import unsw.dungeon.entities.Sword;
+import unsw.dungeon.entities.Treasure;
+import unsw.dungeon.entities.Wall;
+import unsw.dungeon.objectives.AndObjectives;
+import unsw.dungeon.objectives.BoulderObjective;
+import unsw.dungeon.objectives.EnemyObjective;
+import unsw.dungeon.objectives.ExitObjective;
+import unsw.dungeon.objectives.Objective;
+import unsw.dungeon.objectives.OrObjectives;
+import unsw.dungeon.objectives.StrategyObjective;
+import unsw.dungeon.objectives.TreasureObjective;
 
 /**
  * Loads a dungeon from a .json file.

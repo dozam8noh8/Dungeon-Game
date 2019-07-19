@@ -1,9 +1,12 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import unsw.dungeon.Dungeon;
+import unsw.dungeon.Observer;
+import unsw.dungeon.Subject;
 
 public class Boulder extends Entity implements Subject{
 	private boolean canMove;

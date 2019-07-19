@@ -1,6 +1,8 @@
-package unsw.dungeon;
+package unsw.dungeon.entities;
 
 import java.util.ArrayList;
+
+import unsw.dungeon.Dungeon;
 
 public class Bomb extends Entity implements Runnable{
 	private int fuseLength;
