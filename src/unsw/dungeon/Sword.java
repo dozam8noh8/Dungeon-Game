@@ -45,6 +45,7 @@ public class Sword extends Entity implements Weapon{
 					for (Entity e : entOnSq) {
 						if (e instanceof Enemy) {
 							dungeon.removeEntity(e);
+							((Enemy) e).killEnemy();
 							System.out.println("Killed enemy");
 						}
 					}
@@ -54,6 +55,7 @@ public class Sword extends Entity implements Weapon{
 					for (Entity e : entOnSq) {
 						if (e instanceof Enemy) {
 							dungeon.removeEntity(e);
+							((Enemy) e).killEnemy();
 							System.out.println("Killed enemy");
 						}
 					}
@@ -62,6 +64,7 @@ public class Sword extends Entity implements Weapon{
 					ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y+1);
 					for (Entity e : entOnSq) {
 						if (e instanceof Enemy) {
+							((Enemy) e).killEnemy();
 							dungeon.removeEntity(e);
 							System.out.println("Killed enemy");
 						}
