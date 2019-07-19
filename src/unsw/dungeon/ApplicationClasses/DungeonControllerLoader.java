@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.Bomb;
 import unsw.dungeon.entities.Boulder;
 import unsw.dungeon.entities.Door;
@@ -66,7 +67,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         switchImage = new Image("pressure_plate.png");
     }
 
-    @Override
+	@Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
         addEntity(player, view);

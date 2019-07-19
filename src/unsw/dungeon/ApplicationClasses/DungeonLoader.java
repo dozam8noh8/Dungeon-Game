@@ -69,6 +69,10 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        if (dungeon.getPlayer() == null) {
+        	System.out.println("No character found");
+        	return null;
+        }
         return dungeon;
     }
     private Objective createOrObjective (Dungeon dungeon, JSONArray jsonArr) {
@@ -154,6 +158,10 @@ public abstract class DungeonLoader {
         switch (type) {
         case "player":
             Player player = new Player(dungeon, x, y);
+            if (dungeon.getEntOnSq(x,y).size()!=0) {
+            	System.out.println("Cannot have players on other entities");
+            	return;
+            }
             dungeon.setPlayer(player);
             onLoad(player);
             entity = player;
