@@ -47,4 +47,8 @@ public class Entity {
     public void squareBehav(Player p, String direction) {
     	
     }
+    
+    public void squareBehav(Entity e, String direction) {
+    	
+    }
 }

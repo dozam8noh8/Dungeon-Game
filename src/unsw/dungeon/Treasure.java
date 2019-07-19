@@ -13,7 +13,7 @@ public class Treasure extends Entity{
 		Dungeon dungeon = p.getDungeon();
 		p.addTreasure(this);
 		dungeon.removeEntity(this);
-		dungeon.addTreasureObjective();
+		dungeon.completeTreasureObjective(dungeon.getObjective()); //should loop through all treasures! FIX
 	}
 
 }

@@ -22,7 +22,7 @@ public class Dungeon implements Observer{
     private List<Entity> entities;
     private Player player;
     private List<PPlate> plates = new ArrayList<PPlate>();
-    private Objective objective = new StrategyObjective(new ArrayList<Objective>());
+    private Objective objective;
     //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
@@ -31,9 +31,10 @@ public class Dungeon implements Observer{
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
-        addObjectives();
     }
-
+    public void setFinalObjective (Objective o) {
+    	this.objective = o;
+    }
     public int getWidth() {
         return width;
     }
@@ -59,9 +60,17 @@ public class Dungeon implements Observer{
     	for (Entity e: entOnSq) {
     		e.squareBehav(this.player, direction); //might need to take in something different later.
     	}
-    	
+    	//this should call squarebehaviour on the next 
     }
-    public boolean makeMoveBoulder (int x, int y, Boulder b) {
+    public void makeMove( int x, int y, String direction) {
+    	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
+    	for (Entity e: entOnSq) {
+    		e.squareBehav(this.player, direction); //might need to take in something different later.
+    	}
+    }
+    //Do we pass in the thing we are trying to move and then (i.e we call make move with *this* as the player or *this* as the boulder
+    //makeMove would still either need multiple functions or to check instance of here.
+    public boolean makeMoveBoulderOrEnemy (int x, int y) {
     	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
     	for (Entity e: entOnSq) {
     		if (e == null) continue;
@@ -72,6 +81,10 @@ public class Dungeon implements Observer{
     		if (e instanceof Boulder) {
     			return false;
     		}
+    		if ( e instanceof Player) { //we should try make another interface
+    			System.out.println("Enemy caught a player");
+    			System.exit(1);
+    		}
     	}
     	return true;
     }
@@ -80,6 +93,11 @@ public class Dungeon implements Observer{
     	for (Entity e: this.entities) {
     		if (e == null) {
     			continue;
+    		}
+    		//TEMPORARY REMOVE/move THIS
+    		if (e instanceof Key) {
+    			//System.out.println("reset");
+    			((Key) e).setJustDropped(false);
     		}
     		if ((e.getX() == x) && (e.getY() == y)) { //only if wall.
     			entOnSq.add(e);
@@ -133,22 +151,14 @@ public class Dungeon implements Observer{
 	    	}
 		}
 		if (count == getPlates().size()) {
-			addBoulderObjective();
+			completeBoulderObjective(this.getObjective());
 		} else {
 			removeBoulderObjective();
 		}
 	}
 
 	public void removeEntity(Entity e1) {
-		// TODO Auto-generated method stub
-		Iterator<Entity> itr = entities.iterator();            
-		while(itr.hasNext()){
-		    Entity e = itr.next();
-		    if(e.equals(e1)){
-		        itr.remove();
-		        e = null;
-		    }
-		}
+		this.entities.remove(e1);
 	}
 	
 	
@@ -163,26 +173,62 @@ public class Dungeon implements Observer{
 
 	private void checkObjectives() {
 		// TODO Auto-generated method stub
+
+		System.out.println("Checking objectives");
 		Boolean finish = objective.isComplete();
-		System.exit(1);
+		if (finish){
+			System.out.println(" objective complete");
+			System.exit(1);
+		}
+
 	}
 	
-	public void addBoulderObjective() {
-		for (Objective o : objective.getObjectives()) {
-			if (o instanceof BoulderObjective) {
-				o.complete(o);
+	public void completeBoulderObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof BoulderObjective) {
+				System.out.println("Instance of Boulder obj");
+				obj.complete(obj);
 			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeBoulderObjective(o);
 		}
 		checkObjectives();
 	}
 	
-	public void addTreasureObjective() {
-		for (Objective o : objective.getObjectives()) {
-			if (o instanceof TreasureObjective) {
-				o.complete(o);
+	public void completeTreasureObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof TreasureObjective) {
+				System.out.println("Instance of treasure");
+				obj.complete(obj);
 			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeTreasureObjective(o);
 		}
 		checkObjectives();
+	}
+	public void completeEnemyObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof EnemyObjective) {
+				System.out.println("Instance of enemy");
+				obj.complete(obj);
+			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeEnemyObjective(o);
+		}
+		checkObjectives();
+
 	}
 	
 	public void removeBoulderObjective() {
@@ -192,10 +238,15 @@ public class Dungeon implements Observer{
 			}
 		}
 	}
-	
+	public Objective getObjective() {
+		return objective;
+	}
 	public void addObjectives() {
 		objective.addChild(new ExitObjective());
 		objective.addChild(new BoulderObjective());
 		objective.addChild(new TreasureObjective());
+	}
+	public void addObjective(Objective o) {
+		objective.addChild(o);
 	}
 }

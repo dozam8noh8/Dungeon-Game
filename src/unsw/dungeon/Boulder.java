@@ -6,14 +6,16 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
 public class Boulder extends Entity implements Subject{
-	boolean canMove;
-	Dungeon dungeon;
+	private boolean canMove;
+	private Dungeon dungeon;
+	private boolean alive;
 	private ArrayList observers = new ArrayList();
 	
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y);
 		this.canMove = true;
 		this.dungeon = dungeon;
+		this.alive = true;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +23,7 @@ public class Boulder extends Entity implements Subject{
 	public void squareBehav(Player p, String direction) {
 		switch(direction){
 		case "right":
-			canMove = dungeon.makeMoveBoulder(getX()+ 1, getY(), this); //doesnt check if edge of map
+			canMove = dungeon.makeMoveBoulderOrEnemy(getX()+ 1, getY()); //doesnt check if edge of map
 			if (canMove) {
 	            x().set(getX() + 1);
 	            addObservers();
@@ -32,7 +34,7 @@ public class Boulder extends Entity implements Subject{
 			}
 			break;
 		case "left":
-			canMove = dungeon.makeMoveBoulder(getX()- 1, getY(), this);
+			canMove = dungeon.makeMoveBoulderOrEnemy(getX()- 1, getY());
 			if (canMove) {
 	            x().set(getX() - 1);
 	            addObservers();
@@ -43,7 +45,7 @@ public class Boulder extends Entity implements Subject{
 			}
 			break;
 		case "up":
-			canMove = dungeon.makeMoveBoulder(getX(), getY()-1, this);
+			canMove = dungeon.makeMoveBoulderOrEnemy(getX(), getY()-1);
 			if (canMove) {
 	            y().set(getY() - 1);
 	            addObservers();
@@ -54,7 +56,7 @@ public class Boulder extends Entity implements Subject{
 			}
 			break;
 		case "down":
-			canMove = dungeon.makeMoveBoulder(getX(), getY()+1, this);
+			canMove = dungeon.makeMoveBoulderOrEnemy(getX(), getY()+1);
 			if (canMove) {
 	            y().set(getY() + 1);
 	            addObservers();
@@ -94,6 +96,9 @@ public class Boulder extends Entity implements Subject{
 			Observer observer = (Observer)observers.get(i);
 			observer.update(this);
 		}
+	}
+	public void killBoulder() {
+		this.alive = false;
 	}
 
 }
