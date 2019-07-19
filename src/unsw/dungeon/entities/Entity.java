@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * An entity in the dungeon.
- * @author Robert Clifton-Everest
+ * @authors Robert Clifton-Everest, Owen Silver and Waqif Alam
  *
  */
 public class Entity {
@@ -16,8 +16,8 @@ public class Entity {
 
     /**
      * Create an entity positioned in square (x,y)
-     * @param x
-     * @param y
+     * @param x - the x coordinate of the entity
+     * @param y - the y coordinate of the entity
      */
     public Entity(int x, int y) {
         this.x = new SimpleIntegerProperty(x);
@@ -40,14 +40,22 @@ public class Entity {
         return x().get();
     }
     /**
-     * If an entity is on the stepped on square, call this func
-     * Should probably be an abstract method
-     * @param p
+     * If an entity is on the stepped on square, call this method
+     * Should be overridden in all classes that do something when walked on.
+     * @param p - the player moving on the square
+     * @param direction - the direction in which the player is moving.
      */
     public void squareBehav(Player p, String direction) {
     	
     }
     
+    /**
+     * A second squareBehaviour method for entities such as enemies and boulders.
+     * Other entities may have different behaviours when walked on by another 
+     * non player entity rather than a player
+     * @param e - the entity moving onto the square
+     * @param direction - the direction in which the entity is moving.
+     */
     public void squareBehav(Entity e, String direction) {
     	
     }
