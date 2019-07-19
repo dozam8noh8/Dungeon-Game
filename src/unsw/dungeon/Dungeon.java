@@ -22,7 +22,7 @@ public class Dungeon implements Observer{
     private List<Entity> entities;
     private Player player;
     private List<PPlate> plates = new ArrayList<PPlate>();
-    private Objective objective = new StrategyObjective(new ArrayList<Objective>());
+    private Objective objective;
     //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
@@ -31,9 +31,10 @@ public class Dungeon implements Observer{
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
-        addObjectives();
     }
-
+    public void setFinalObjective (Objective o) {
+    	this.objective = o;
+    }
     public int getWidth() {
         return width;
     }
@@ -150,7 +151,7 @@ public class Dungeon implements Observer{
 	    	}
 		}
 		if (count == getPlates().size()) {
-			addBoulderObjective();
+			completeBoulderObjective(this.getObjective());
 		} else {
 			removeBoulderObjective();
 		}
@@ -172,30 +173,62 @@ public class Dungeon implements Observer{
 
 	private void checkObjectives() {
 		// TODO Auto-generated method stub
+
+		System.out.println("Checking objectives");
 		Boolean finish = objective.isComplete();
 		if (finish){
-			System.out.println("Checking objectives, objective complete");
+			System.out.println(" objective complete");
 			System.exit(1);
 		}
 
 	}
 	
-	public void addBoulderObjective() {
-		for (Objective o : objective.getObjectives()) {
-			if (o instanceof BoulderObjective) {
-				o.complete(o);
+	public void completeBoulderObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof BoulderObjective) {
+				System.out.println("Instance of Boulder obj");
+				obj.complete(obj);
 			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeBoulderObjective(o);
 		}
 		checkObjectives();
 	}
 	
-	public void addTreasureObjective() {
-		for (Objective o : objective.getObjectives()) {
-			if (o instanceof TreasureObjective) {
-				o.complete(o);
+	public void completeTreasureObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof TreasureObjective) {
+				System.out.println("Instance of treasure");
+				obj.complete(obj);
 			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeTreasureObjective(o);
 		}
 		checkObjectives();
+	}
+	public void completeEnemyObjective(Objective obj) {
+		if (obj == null) return;
+		if (obj.getObjectives() == null) {
+			if (obj instanceof EnemyObjective) {
+				System.out.println("Instance of enemy");
+				obj.complete(obj);
+			}
+			return;
+		}
+		for (Objective o : obj.getObjectives()) {
+			System.out.println(o);
+			completeEnemyObjective(o);
+		}
+		checkObjectives();
+
 	}
 	
 	public void removeBoulderObjective() {
@@ -205,10 +238,15 @@ public class Dungeon implements Observer{
 			}
 		}
 	}
-	
+	public Objective getObjective() {
+		return objective;
+	}
 	public void addObjectives() {
 		objective.addChild(new ExitObjective());
 		objective.addChild(new BoulderObjective());
 		objective.addChild(new TreasureObjective());
+	}
+	public void addObjective(Objective o) {
+		objective.addChild(o);
 	}
 }

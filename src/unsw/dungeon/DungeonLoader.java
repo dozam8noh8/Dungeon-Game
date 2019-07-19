@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,14 +37,92 @@ public abstract class DungeonLoader {
 
         Dungeon dungeon = new Dungeon(width, height);
 
-        JSONArray jsonEntities = json.getJSONArray("entities");
+        JSONArray jsonEntities = json.getJSONArray("entities");	
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        
+        Objective test = new StrategyObjective(new ArrayList<Objective>() , new AndObjectives());
+        handleObjectiveCases(test, dungeon, jsonGoals);
+        dungeon.setFinalObjective(test);
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
         return dungeon;
     }
-
+    private Objective createOrObjective (Dungeon dungeon, JSONArray jsonArr) {
+    	Objective o = new StrategyObjective(new ArrayList<Objective>(), new OrObjectives() );
+    	for (int i = 0; i < jsonArr.length(); i++) {
+    		JSONObject jobj = jsonArr.getJSONObject(i);
+    		handleObjectiveCases(o, dungeon, jobj);
+    	}
+    	return o;
+    }
+    private Objective createAndObjective (Dungeon dungeon, JSONArray jsonArr) {
+    	Objective o = new StrategyObjective(new ArrayList<Objective>(), new AndObjectives());
+    	for (int i = 0; i < jsonArr.length(); i++) {
+    		JSONObject jobj = jsonArr.getJSONObject(i);
+    		handleObjectiveCases(o, dungeon, jobj);
+    	}
+    	return o;
+    }
+    private void handleObjectiveCases(Objective currObj, Dungeon dungeon, JSONObject json) { //adds to current objective.
+    	//System.out.println("In handle");
+    	String goal = json.getString("goal");
+    	switch(goal) { //we no longer default instantiate an objective in the dungeon so we need to add one before we can add children.
+    	case "AND":
+    		//Do some composite stuff
+    		currObj.addChild(createAndObjective(dungeon, json.getJSONArray("subgoals")));
+    		System.out.println("Added and");
+    		break;
+    	case "OR":
+    		currObj.addChild(createOrObjective(dungeon, json.getJSONArray("subgoals")));
+    		//Do some composite stuff
+    		System.out.println("Added or");
+    		break;
+    	case "enemies":
+    		currObj.addChild(new EnemyObjective());
+    		System.out.println("Added Enemy");
+    		break;
+    	case "treasure":
+    		currObj.addChild(new TreasureObjective());
+    		System.out.println("Added Treasure");
+    		break;
+    	case "exit":
+    		currObj.addChild(new ExitObjective());
+    		System.out.println("Added Exit");
+    		break;
+    	case "boulders":
+    		currObj.addChild(new BoulderObjective());
+    		System.out.println("Added Boulder");
+    		break;
+    	}
+    }
+    /*private void setObjectives(Dungeon dungeon, JSONObject json) {
+    	System.out.println(json);
+    	String goal = json.getString("goal");
+    	switch(goal) { //we no longer default instantiate an objective in the dungeon so we need to add one before we can add children.
+    	case "AND":
+    		//Do some composite stuff
+    		createAndObjective(dungeon, json.getJSONArray("subgoals"));
+    		break;
+    	case "OR":
+    		createOrObjective(dungeon, json.getJSONArray("subgoals"));
+    		//Do some composite stuff
+    		break;
+    	case "enemies":
+    		dungeon.getObjective().addChild(new EnemyObjective());
+    		break;
+    	case "treasure":
+    		dungeon.getObjective().addChild(new TreasureObjective());
+    		break;
+    	case "exit":
+    		dungeon.getObjective().addChild(new ExitObjective());
+    		break;
+    	case "boulders":
+    		dungeon.getObjective().addChild(new BoulderObjective());
+    		break;
+    	}
+    }*/
     private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");

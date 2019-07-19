@@ -85,6 +85,7 @@ public class Enemy extends Entity implements Observer {
 	public void killEnemy() {
 		this.alive = false;
 		System.out.println("Killed the enemy");
+		dungeon.completeEnemyObjective(dungeon.getObjective());
 	}
 	
 
