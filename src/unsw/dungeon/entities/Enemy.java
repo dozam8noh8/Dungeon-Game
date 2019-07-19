@@ -3,6 +3,7 @@ package unsw.dungeon.entities;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
+import unsw.dungeon.PotionStatePlayer;
 import unsw.dungeon.Subject;
 
 public class Enemy extends Entity implements Observer {
@@ -43,11 +44,17 @@ public class Enemy extends Entity implements Observer {
 		}
 	}
 
-	
+	public void decideMoveCoords() {
+		
+	}
 	public void moveTowardsPlayer() { //currently this wont change from x to y if one is blocked.
 		int calcdX = 0;
 		int calcdY = 0;
+		int xDir = 1; //first priority direction move
+		int yDir = 1; //second priority direction move
 		int xDiff = dungeon.getPlayer().getX() - this.getX();
+		String priority = "x";
+
 		//if diff is positive player is on right of enemy
 		int yDiff = dungeon.getPlayer().getY() - this.getY();
 		//if diff is positive player is below enemy
@@ -55,32 +62,77 @@ public class Enemy extends Entity implements Observer {
 		//if abs(xDiff) > abs(yDiff) decrease xDiff by moving toward playerX.
 		if (Math.abs(xDiff) > Math.abs(yDiff)) {
 			//move x
+			priority = "x";
 			if (xDiff > 0) {
-				calcdX = this.getX()+ 1;
-				calcdY = this.getY();
+				xDir = 1;
+				if (yDiff <  0) {
+					yDir = -1;
+				}
 			}
-			else {
-				calcdX = this.getX() - 1;
-				calcdY = this.getY();
+			else if (xDiff < 0){
+				xDir = -1;
+				if (yDiff <  0) {
+					yDir = -1;
+				}
 			}
 		}
 		else if (Math.abs(xDiff) < Math.abs(yDiff)){
 			//move y
+			priority = "y";
 			if (yDiff > 0) {
-				calcdX = this.getX();
-				calcdY = this.getY() + 1;
+				yDir = 1;
+				if (xDiff < 0) {
+					xDir = -1;
+				}
 			}
-			else {
-				calcdX = this.getX();
-				calcdY = this.getY() - 1;
+			else if (yDiff < 0){
+				yDir = -1;
+				if (xDiff < 0) {
+					xDir = -1;
+				}
 			}
 		}
 		else { //dont move?
-			
+			return;
 		}
-		if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
-			x().set(calcdX);
-			y().set(calcdY);
+		if (this.dungeon.getPlayer().getPotionState() instanceof PotionStatePlayer) {
+			System.out.println("Potion state reversion");
+			xDir = xDir * -1;
+			yDir = yDir * -1;
+			//could change direction here too.
+		}
+		if (priority == "x") {
+			System.out.println(priority + xDir + yDir);
+			calcdX = this.getX() + xDir;
+			calcdY = this.getY();
+			if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+				x().set(calcdX);
+				y().set(calcdY);
+			}
+			else {
+				calcdX = this.getX();
+				calcdY = this.getY() + yDir;
+				if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+					x().set(calcdX);
+					y().set(calcdY);
+				} 
+			}
+		}
+		else if (priority == "y"){
+			calcdX = this.getX();
+			calcdY = this.getY() + yDir;
+			if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+				x().set(calcdX);
+				y().set(calcdY);
+			}
+			else {
+				calcdX = this.getX() + xDir;
+				calcdY = this.getY();
+				if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+					x().set(calcdX);
+					y().set(calcdY);
+				} 
+			}
 		}
 		else { //try the other direction
 			
