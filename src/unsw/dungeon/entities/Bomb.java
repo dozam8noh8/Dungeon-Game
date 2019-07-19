@@ -3,6 +3,7 @@ package unsw.dungeon.entities;
 import java.util.ArrayList;
 
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.Observer;
 
 public class Bomb extends Entity implements Runnable{
 	private int fuseLength;
@@ -67,6 +68,8 @@ public class Bomb extends Entity implements Runnable{
 			if (e instanceof Enemy) {
 				((Enemy) e).killEnemy();
 				dungeon.removeEntity(e);
+				Player player = dungeon.getPlayer();
+				player.removeObserver((Observer) e);
 			} else if (e instanceof Boulder) {
 				((Boulder) e).killBoulder();
 				dungeon.removeEntity(e);

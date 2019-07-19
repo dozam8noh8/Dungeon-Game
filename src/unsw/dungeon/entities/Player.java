@@ -104,7 +104,11 @@ public class Player extends Entity implements Subject {
 	@Override
 	public void removeObserver(Observer o) {
 		// TODO Auto-generated method stub
-		
+		for (Observer o1 : enemies) {
+			if (o.equals(o1)) {
+				enemies.remove(o);
+			}
+		}
 	}
 
 	@Override
@@ -113,6 +117,10 @@ public class Player extends Entity implements Subject {
 		for (Observer o : enemies) {
 			o.update(this);
 		}
+	}
+	
+	public List<Observer> getEnemies(){
+		return this.enemies;
 	}
 
 	public Dungeon getDungeon() {

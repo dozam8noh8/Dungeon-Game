@@ -171,7 +171,7 @@ public abstract class DungeonLoader {
         	}
         }
         
-        if (!onPlate) {
+        if (onPlate) {
         	if (type=="wall"||type=="exit"||type=="door") {
         		return;
         	}
