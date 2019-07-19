@@ -61,15 +61,20 @@ public abstract class DungeonLoader {
 
         JSONArray jsonEntities = json.getJSONArray("entities");	
         JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        if (jsonGoals.isEmpty()) {
+        	System.out.println("No goals found");
+        	return null;
+        }
         
         Objective test = new StrategyObjective(new ArrayList<Objective>() , new AndObjectives());
         handleObjectiveCases(test, dungeon, jsonGoals);
         dungeon.setFinalObjective(test);
+        
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
-        if (dungeon.getPlayer() == null) {
+        if (dungeon.getPlayer() == null || dungeon.getObjective()==null) {
         	System.out.println("No character found");
         	return null;
         }
@@ -153,8 +158,25 @@ public abstract class DungeonLoader {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
+        boolean onPlate = false;
 
         Entity entity = null;
+        ArrayList<Entity> entities = dungeon.getEntOnSq(x,y);
+        for (Entity e : entities) {
+        	if (!(e instanceof PPlate)) {
+        		System.out.println("Cannot put entity on another entity");
+        		return;
+        	} else {
+        		onPlate=true;
+        	}
+        }
+        
+        if (!onPlate) {
+        	if (type=="wall"||type=="exit"||type=="door") {
+        		return;
+        	}
+        }
+        
         switch (type) {
         case "player":
             Player player = new Player(dungeon, x, y);

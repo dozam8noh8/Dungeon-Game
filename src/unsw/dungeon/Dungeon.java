@@ -35,6 +35,7 @@ public class Dungeon implements Observer{
     private Player player;
     private List<PPlate> plates = new ArrayList<PPlate>();
     private Objective objective;
+    private boolean complete = false;
     //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
@@ -198,9 +199,13 @@ public class Dungeon implements Observer{
 		Boolean finish = objective.isComplete();
 		if (finish){
 			System.out.println(" objective complete");
-			System.exit(1);
+			this.complete=true;
 		}
 
+	}
+	
+	public boolean getComplete() {
+		return this.complete;
 	}
 	
 	public void completeBoulderObjective(Objective obj) {
