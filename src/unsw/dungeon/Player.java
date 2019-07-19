@@ -9,7 +9,7 @@ import java.util.List;
  * @author Robert Clifton-Everest
  *
  */
-public class Player extends Entity implements Movable, Subject {
+public class Player extends Entity implements Subject {
 
     private Dungeon dungeon;
     private boolean canMove;
@@ -29,8 +29,6 @@ public class Player extends Entity implements Movable, Subject {
         super(x, y);
         this.dungeon = dungeon;
         this.canMove = true;
-        TestSwordThread testThread = new TestSwordThread(this);
-		testThread.start();
     }
 
     public void moveUp() {

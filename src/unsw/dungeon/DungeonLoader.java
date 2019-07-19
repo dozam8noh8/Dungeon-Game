@@ -223,7 +223,6 @@ public abstract class DungeonLoader {
     
     public abstract void onLoad(Sword sword);
 
-	public abstract void onLoad(Switch pressure_plate);
 
 	public void onLoad() {
 		// TODO Auto-generated method stub

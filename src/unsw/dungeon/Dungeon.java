@@ -241,11 +241,6 @@ public class Dungeon implements Observer{
 	public Objective getObjective() {
 		return objective;
 	}
-	public void addObjectives() {
-		objective.addChild(new ExitObjective());
-		objective.addChild(new BoulderObjective());
-		objective.addChild(new TreasureObjective());
-	}
 	public void addObjective(Objective o) {
 		objective.addChild(o);
 	}

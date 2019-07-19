@@ -121,11 +121,6 @@ public class DungeonControllerLoader extends DungeonLoader {
 		addEntity(sword, view);
 	}
 	
-	@Override
-	public void onLoad(Switch pressure_plate) {
-		ImageView view = new ImageView(switchImage);
-		addEntity(pressure_plate, view);
-	}
 
 
     private void addEntity(Entity entity, ImageView view) {
