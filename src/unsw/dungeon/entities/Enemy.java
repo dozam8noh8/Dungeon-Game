@@ -62,7 +62,7 @@ public class Enemy extends Entity implements Observer {
 		
 		//if abs(xDiff) > abs(yDiff) decrease xDiff by moving toward playerX.
 		if (Math.abs(xDiff) > Math.abs(yDiff)) {
-			//move x
+			//move 
 			priority = "x";
 			if (xDiff > 0) {
 				xDir = 1;
