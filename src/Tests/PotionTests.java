@@ -69,8 +69,8 @@ class PotionTests {
 		player.moveDown(); //Player is in potion state
 		player.moveUp(); 
 		player.moveDown();//return to original position, enemy should move on 3rd walk (this)
-		int xDiff2 = player.getX() - myEnemy.getX();
-		int yDiff2 = player.getY() - myEnemy.getY();
+		int xDiff2 = Math.abs(player.getX() - myEnemy.getX());
+		int yDiff2 = Math.abs(player.getY() - myEnemy.getY());
 		assertTrue(((xDiff1 < xDiff2) || (yDiff1 < yDiff2)), "enemy should have moved away");
 		
 	}
