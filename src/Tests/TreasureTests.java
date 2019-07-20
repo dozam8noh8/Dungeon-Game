@@ -11,7 +11,7 @@ import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.*;
 
 class TreasureTests {
-
+	//Add check to see if removed from dungeon, check to see if cant be stepped on twice
 	@Test
 	void treasure_collected_when_walked_on() throws FileNotFoundException {
 		MazeController maze = new MazeController("treasureTests.json");

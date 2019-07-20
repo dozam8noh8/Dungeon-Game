@@ -30,6 +30,13 @@ public class Enemy extends Entity implements Observer {
 		this.moveCounter = 0;
 		this.alive = true;
 	}
+	/**
+	 * Returns whether the enemy can be considered dead (false) or alive (true)
+	 * @return - boolean of whether enemy is alive.
+	 */
+	public boolean getAlive() {
+		return this.alive;
+	}
 
 	/**
 	 * If a player steps on an enemy, they are killed, unless they are

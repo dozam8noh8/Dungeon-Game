@@ -9,8 +9,13 @@
     },
     {
       "x": 1,
+      "y": 2,
+      "type": "invincibility",
+    },
+    {
+      "x": 1,
       "y": 3,
-      "type": "door",
+      "type": "enemy",
       "id": 0
     },
     {
@@ -1026,6 +1031,6 @@
     }
   ],
   "goal-condition": {
-    "goal": "exit"
+    "goal": "treasure"
   }
 }
