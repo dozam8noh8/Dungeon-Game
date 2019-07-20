@@ -46,11 +46,12 @@ class DoorTests {
 	
 	@Test
 	void unlock_with_wrong_key() throws FileNotFoundException {
-		MazeController maze = new MazeController("maze8.json");
+		MazeController maze = new MazeController("maze9.json");
 		Dungeon dungeon = maze.load();
 		Player player = dungeon.getPlayer();
 		player.moveDown();
 		player.moveDown();
+		System.out.println(player.getX()+"------"+player.getY());
 		assertTrue(player.getX()==1 && player.getY()==2);
 	}
 

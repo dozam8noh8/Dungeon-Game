@@ -5,15 +5,29 @@ import java.util.ArrayList;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Weapon;
 
+/**
+ * The Sword class is a type of weapon that can be picked up by players.
+ * It can be used 5 times before breaking and being unable to be used.
+ * @author Owen Silver and Waqif Alam
+ *
+ */
 public class Sword extends Entity implements Weapon{
-	int attacks = 5;
-	private Player p;
+	private int attacks = 5; //The number of attacks the weapon has
+	private Player p; //The player using the sword.
 	
+	/**
+	 * 
+	 * @param x - the x coordinate on which the sword lies
+	 * @param y - the y coordinate on which the sword lies
+	 */
 	public Sword(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Method override of Entity squareBehaviour, called when a player walks on this
+	 * object. The player picks up this weapon and it is removed from the floor of the dungeon.
+	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
 		System.out.println("STEPPED ON AN Sword");
@@ -22,13 +36,16 @@ public class Sword extends Entity implements Weapon{
 		p.setWeapon(this);
 	}
 
+	/**
+	 * Overrode method from Weapon interface. The specifics of swords attacks.
+	 * Breaks sword after 5 hits, setting players weapon to null.
+	 * Sword attacks in the squares immediately above, below, left and right
+	 * as if spinning in a 2d block circle.
+	 */
 	@Override
 	public void attack(Player p) {
 		// TODO Auto-generated method stub
-				if (attacks < 1) {
-					p.setWeapon(null);
-					return;
-				}
+
 				System.out.println("USING SWORD");
 				int x = p.getX();
 				int y = p.getY();
@@ -74,6 +91,10 @@ public class Sword extends Entity implements Weapon{
 					}
 				}
 				attacks --;
+				if (attacks < 1) {
+					p.setWeapon(null);
+					return;
+				}
 			
 
 	}
