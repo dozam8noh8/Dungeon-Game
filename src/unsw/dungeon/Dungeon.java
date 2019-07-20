@@ -220,6 +220,8 @@ public class Dungeon implements Observer{
 		}
 		if (count == getPlates().size()) {
 			completeBoulderObjective(this.getObjective());
+		}else {
+			removeBoulderObjective();
 		}
 	}
 	/**
@@ -354,5 +356,11 @@ public class Dungeon implements Observer{
 		return objective;
 	}
 	
-
+	/**
+	 * Removes a boulder objective in case a boulder is moved away from the switch again
+	 * 
+	 */
+	public void removeBoulderObjective() {
+		getObjective().removeBoulderObjective();
+	}
 }

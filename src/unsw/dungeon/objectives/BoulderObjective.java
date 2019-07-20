@@ -40,4 +40,10 @@ public class BoulderObjective implements Objective {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void removeBoulderObjective() {
+		// TODO Auto-generated method stub
+		incomplete(this);
+	}
 }
