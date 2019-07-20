@@ -31,7 +31,7 @@ public class BoulderObjective implements Objective {
 
 	@Override
 	public void incomplete(Objective o) {
-		// TODO Auto-generated method stub
+		System.out.println("incompleting " + this);
 		this.complete = false;
 	}
 
@@ -41,9 +41,4 @@ public class BoulderObjective implements Objective {
 		return null;
 	}
 
-	@Override
-	public void removeBoulderObjective() {
-		// TODO Auto-generated method stub
-		incomplete(this);
-	}
 }

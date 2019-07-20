@@ -47,13 +47,7 @@ public class StrategyObjective implements Objective {
 		return this.children;
 	}
 
-	@Override
-	public void removeBoulderObjective() {
-		// TODO Auto-generated method stub
-		for (Objective o : children) {
-			o.removeBoulderObjective();
-		}
-	}
+
 	
 	
 }

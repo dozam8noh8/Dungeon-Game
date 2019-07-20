@@ -32,7 +32,7 @@ class SwitchTests {
 		System.out.println("second movedown test--------------");
 		player.moveDown();
 		System.out.println("third movedown test--------------");
-		assertTrue(dungeon.getComplete()==false);
+		assertTrue(dungeon.getComplete()==false, "Dungeon should be incomplete");
 	}
 
 }

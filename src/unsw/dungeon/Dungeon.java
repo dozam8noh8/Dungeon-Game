@@ -221,7 +221,7 @@ public class Dungeon implements Observer{
 		if (count == getPlates().size()) {
 			completeBoulderObjective(this.getObjective());
 		}else {
-			removeBoulderObjective();
+			resetBoulderObjective(this.getObjective());
 		}
 	}
 	/**
@@ -264,10 +264,9 @@ public class Dungeon implements Observer{
 		// TODO Auto-generated method stub
 
 		System.out.println("Checking objectives");
-		Boolean finish = objective.isComplete();
-		if (finish){
-			System.out.println(" objective complete");
-			this.complete=true;
+		this.complete = objective.isComplete();
+		if (complete) {
+			System.out.println("Objectives Complete");
 		}
 
 	}
@@ -358,9 +357,21 @@ public class Dungeon implements Observer{
 	
 	/**
 	 * Removes a boulder objective in case a boulder is moved away from the switch again
-	 * 
+	 * @param currObj - the objective currently passed in to be broken down and recursed.
 	 */
-	public void removeBoulderObjective() {
-		getObjective().removeBoulderObjective();
+	public void resetBoulderObjective(Objective currObj) {
+		if (currObj == null ) return;
+		if (currObj.getObjectives() == null) {
+			if (currObj instanceof BoulderObjective) {
+				currObj.incomplete(currObj);
+				System.out.println("Reset boulder objectives");
+				checkObjectives();
+				return;
+			}
+		}
+		for (Objective o : currObj.getObjectives()) {
+			resetBoulderObjective(o);
+		}
+
 	}
 }

@@ -9,5 +9,4 @@ public interface Objective {
 	public void complete(Objective o);
 	public void incomplete(Objective o);
 	public ArrayList<Objective> getObjectives();
-	public void removeBoulderObjective();
 }

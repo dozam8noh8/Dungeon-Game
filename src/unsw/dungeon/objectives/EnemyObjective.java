@@ -41,9 +41,4 @@ public class EnemyObjective implements Objective {
 			return null;
 		}
 
-	@Override
-	public void removeBoulderObjective() {
-		// TODO Auto-generated method stub
-		
-	}
 }
