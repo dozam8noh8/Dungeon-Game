@@ -115,7 +115,7 @@ public class Bomb extends Entity implements Runnable{
 			}
 			else if (e instanceof Player) {
 				((Player) e).killPlayer();
-				dungeon.removeEntity(e);
+				dungeon.removeEntity(e	);
 			}
 
 		}

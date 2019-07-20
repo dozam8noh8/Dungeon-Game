@@ -1,5 +1,7 @@
 package unsw.dungeon.entities;
 
+import java.util.ArrayList;
+
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
@@ -162,12 +164,18 @@ public class Enemy extends Entity implements Observer {
 		}
 	}
 	/**
-	 * Kills the enemy, notifies players and completes the enemy objective for a dungeon.
-	 * Currently a dungeon only has one enemy.
+	 * Kills the enemy, notifies players and completes the enemy objective for a dungeon if
+	 * there are no more enemies.
 	 */
 	public void killEnemy() {
 		this.alive = false;
 		System.out.println("Killed the enemy");
+		for (Entity e : dungeon.getEntities()) {
+			if (e instanceof Enemy) {
+				return;
+			}
+		}
+		
 		dungeon.completeEnemyObjective(dungeon.getObjective());
 	}
 	

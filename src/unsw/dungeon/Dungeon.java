@@ -334,7 +334,7 @@ public class Dungeon implements Observer{
 		if (obj == null) return;
 		if (obj.getObjectives() == null) {
 			if (obj instanceof EnemyObjective) {
-				System.out.println("Instance of enemy");
+				System.out.println("Instance of enemyObj");
 				obj.complete(obj);
 			}
 			return;
