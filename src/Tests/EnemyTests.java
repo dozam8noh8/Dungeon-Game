@@ -59,18 +59,7 @@ class EnemyTests {
 		assertTrue(enemy.getY() == 2);
 		
 	}
-	/*@Test
-	void enemy_chases_player() throws FileNotFoundException{
-		MazeController maze = new MazeController("enemyTestsPlayer.json");
-		Dungeon dungeon = maze.load();
-		Player player = dungeon.getPlayer();
-		Enemy enemy = new Enemy(dungeon, 3, 1);
-		player.moveDown();
-		player.moveDown();
-		player.moveDown();
-		assert((enemy.getX() != enemy.getX()) ||( enemy.getY() != enemy.getY()));
-		
-	}*/
+
 
 		
 }
