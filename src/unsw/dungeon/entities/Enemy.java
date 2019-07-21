@@ -85,118 +85,79 @@ public class Enemy extends Entity implements Observer {
 	 * will not move.
 	 */
 	public void moveTowardsPlayer() {
-		int calcdX = 0;
-		int calcdY = 0;
-		int xDir = 1; //default change in x direction
-		int yDir = 1; //default change in y direction
-		boolean blockX = false;
-		boolean blockY = false;
-		String priority = "x"; //priority direction
-		//if xdiff is positive player is on right of enemy
 		int xDiff = dungeon.getPlayer().getX() - this.getX();
-		if (xDiff == 0) {
-			blockX = true;
-			System.out.println("Blocking x");
-		}
-
-
-		//if ydiff is positive player is below enemy
 		int yDiff = dungeon.getPlayer().getY() - this.getY();
-		if (yDiff == 0) {
-			blockY = true;
-			System.out.println("blockingY");
+		boolean potion = false;
+		int xChange = 1;
+		int yChange = 1;
+		if (dungeon.getPlayer().getPotionState() instanceof PotionStatePlayer) {
+			potion = true;
+		}
+		boolean moved = false;
+		if (xDiff < 0) { //change will be left
+			xChange = -1;
+		}
+		else if (xDiff > 0) { //change will be right
+			xChange = 1;
 		}
 		
-		//if abs(xDiff) > abs(yDiff) decrease xDiff by moving toward playerX.
+		if (yDiff < 0) { //change will be up
+			yChange = -1;
+		}
+		else if (yDiff > 0) { //change will be down
+			yChange = 1;
+		}
+		if (potion) {
+			xChange = xChange * -1;
+			yChange = yChange * -1;
+		}
 		if (Math.abs(xDiff) >= Math.abs(yDiff)) {
-			priority = "x";
-		}
-		else if (Math.abs(xDiff) < Math.abs(yDiff)){
-			priority = "y";
-		}
-
-		if (xDiff < 0){ //change direction if player is to left
-			xDir = -1;
-			//moveLeft
-		}
-		if (yDiff <  0) { //change direction if player is above
-			yDir = -1;
-			//moveUp
-		}
-		if (this.dungeon.getPlayer().getPotionState() instanceof PotionStatePlayer) {
-			System.out.println("Potion state reversion"); //reverse if under potion state.
-			xDir = xDir * -1;
-			yDir = yDir * -1;
-			//could change direction here too.
-		}
-		if (priority == "x") {
-			if (!blockX) {
-				System.out.println(priority + xDir + yDir);
-				calcdX = this.getX() + xDir;
-				calcdY = this.getY();
-				if (dungeon.makeMoveEntity(calcdX, calcdY)) { //try move in priority direction
-					x().set(calcdX);
-					y().set(calcdY);
-				}
-				else { //otherwise try second priority
-					calcdX = this.getX();
-					calcdY = this.getY() + yDir;
-					if (dungeon.makeMoveEntity(calcdX, calcdY)) {
-						x().set(calcdX);
-						y().set(calcdY);
-					} 
-				}
+			moved = move(xChange, 0);
+			if (!moved) {
+				move(0,yChange);
 			}
 		}
-		else if (priority == "y"){ //try move priority y
-			if (!blockY) {
-				calcdX = this.getX();
-				calcdY = this.getY() + yDir;
-				if (dungeon.makeMoveEntity(calcdX, calcdY)) {
-					x().set(calcdX);
-					y().set(calcdY);
-				}
-				else { //otherwise try second priority
-					calcdX = this.getX() + xDir;
-					calcdY = this.getY();
-					if (dungeon.makeMoveEntity(calcdX, calcdY)) {
-						x().set(calcdX);
-						y().set(calcdY);
-					} 
-				}
+		else {
+			moved = move(0, yChange);
+			if (!moved) {
+				move(xChange, 0);
 			}
 		}
-		//if xdir = 1 && priority = x, move right
-		//if xdir = -1 && priority = x, move left
-		//if ydir = 1 
-	}
-	public void move(int x, int y, int allowedMove) {
+		
 		
 	}
-	public void moveRight(int x, int y, int allowedMove) {
+	public boolean move(int xChange, int yChange) {
+		if (xChange == 0 && yChange == 0)return false;
+		int x = getX() + xChange;
+		int y = getY() + yChange;
 		if (dungeon.makeMoveEntity(x, y)) {
-			x().set(getX() + 1);
-			y().set(getY());
+			x().set(x);
+			y().set(y);
+			return true;
 		}
+		return false;
 	}
-	public void moveLeft(int x, int y, int allowedMove) {
+	public boolean moveX(int xChange) {
+		int x = getX() + xChange;
+		int y = getY();
 		if (dungeon.makeMoveEntity(x, y)) {
-			x().set(getX() - 1);
-			y().set(getY());
+			x().set(x);
+			y().set(y);
+			return true;
 		}
+		return false;
 	}
-	public void moveUp(int x, int y, int allowedMove) {
+	public boolean moveY(int yChange) {
+		int x = getX();
+		int y = getY() + yChange;
 		if (dungeon.makeMoveEntity(x, y)) {
-			x().set(getX());
-			y().set(getY() -1 );
+			x().set(x);
+			y().set(y);
+			return true;
 		}
+		return false;
 	}
-	public void moveDown(int x, int y, int allowedMove) {
-		if (dungeon.makeMoveEntity(x, y)) {
-			x().set(getX());
-			y().set(getY() + 1);
-		}
-	}
+	
 	/**
 	 * Kills the enemy, notifies players and completes the enemy objective for a dungeon if
 	 * there are no more enemies.

@@ -238,7 +238,10 @@ public class Dungeon implements Observer{
 		if (obj.getObjectives() == null) {
 			if (obj instanceof ExitObjective) {
 				System.out.println("Instance of Exit objective");
-				obj.complete(obj);
+				if (this.getObjective().allButExitsComplete(this.getObjective().getObjectives())) {
+					System.out.println("All but exits complete");
+					obj.complete(obj);
+				}
 			}
 			return;
 		}

@@ -44,4 +44,7 @@ public interface Objective {
 	 * @return ArrayList<Objective> of all child objectives.
 	 */
 	public ArrayList<Objective> getObjectives();
+
+
+	boolean allButExitsComplete(ArrayList<Objective> children);
 }
