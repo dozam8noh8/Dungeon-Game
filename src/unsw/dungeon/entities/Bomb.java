@@ -43,7 +43,7 @@ public class Bomb extends Entity implements Runnable{
 		this.player = p;
 		dungeon.removeEntity(this);
 	}
-	
+
 	/**
 	 * Lights the bomb which creates a thread with a timer on it.
 	 * Sets coordinates based on the square where player used it.

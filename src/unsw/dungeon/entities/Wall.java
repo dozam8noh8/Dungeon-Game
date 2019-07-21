@@ -11,4 +11,8 @@ public class Wall extends Entity {
 		p.setCanMove(false);
 	}
     
+	@Override
+	public boolean entityMoveThrough() {
+		return false;
+	}
 }

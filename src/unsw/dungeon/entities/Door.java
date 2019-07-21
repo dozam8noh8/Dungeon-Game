@@ -50,8 +50,16 @@ public class Door extends Entity{
 		if (!opened) {
 			openDoor(p);
 		}
-		if (!opened) {
+		if (!opened) { //if still not opened after calling openDoor
 			p.setCanMove(false);
 		}
+	}
+	
+	@Override
+	public boolean entityMoveThrough() {
+		if (!opened) {
+			return false;
+		}
+		return true;
 	}
 }

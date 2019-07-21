@@ -13,6 +13,7 @@ public class Entity {
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
+    private boolean canMove = false;
 
     /**
      * Create an entity positioned in square (x,y)
@@ -31,7 +32,12 @@ public class Entity {
     public IntegerProperty y() {
         return y;
     }
-
+    public boolean getCanMove() {
+    	return this.canMove;
+    }
+    public void setCanMove (boolean b) {
+    	this.canMove = b;
+    }
     public int getY() {
         return y().get();
     }
@@ -58,5 +64,8 @@ public class Entity {
      */
     public void squareBehav(Entity e, String direction) {
     	
+    }
+    public boolean entityMoveThrough() {
+    	return true;
     }
 }

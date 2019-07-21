@@ -21,7 +21,6 @@ import unsw.dungeon.Weapon;
 public class Player extends Entity implements Subject {
 
     private Dungeon dungeon; //Dungeon player is within
-    private boolean canMove; //Boolean representing if a player can move or not
     private List<Observer> enemies = new ArrayList<Observer>(); //List of enemies within dungeon.
   //State representing whether a a player is under the effects of a potion.
     private PotionState potionState = new NoPotionState(); 
@@ -40,7 +39,7 @@ public class Player extends Entity implements Subject {
     public Player(Dungeon dungeon, int x, int y) {
         super(x, y);
         this.dungeon = dungeon;
-        this.canMove = true;
+        this.setCanMove(true);
     }
 
     /**
@@ -49,12 +48,12 @@ public class Player extends Entity implements Subject {
      */
     public void moveUp() {
     	dungeon.makeMovePlayer(getX(), getY()-1, "up");
-        if ((getY() > 0) && (canMove)) {
+        if ((getY() > 0) && (getCanMove())) {
             y().set(getY() - 1);
             addObserver();
             notifyObservers();
         }
-        canMove = true; //BAD DESIGN?
+        setCanMove(true); //BAD DESIGN?
     }
     
     /**
@@ -63,12 +62,12 @@ public class Player extends Entity implements Subject {
      */
     public void moveDown() {
     	dungeon.makeMovePlayer(getX(), getY()+1, "down");
-        if ((getY() < dungeon.getHeight() - 1)&& (canMove)) {
+        if ((getY() < dungeon.getHeight() - 1)&& (getCanMove())) {
             y().set(getY() + 1);
             addObserver();
             notifyObservers();
         }
-        canMove = true; //BAD DESIGN?
+        setCanMove(true); //BAD DESIGN?
     }
 
     /**
@@ -77,12 +76,12 @@ public class Player extends Entity implements Subject {
      */
     public void moveLeft() {
     	dungeon.makeMovePlayer(getX()-1, getY(), "left");
-        if ((getX() > 0)&& (canMove)) {
+        if ((getX() > 0)&& (getCanMove())) {
             x().set(getX() - 1);
             addObserver();
         	notifyObservers();
         }
-        canMove = true; //BAD DESIGN?
+        setCanMove(true); //BAD DESIGN?
     }
 
     /**
@@ -91,12 +90,12 @@ public class Player extends Entity implements Subject {
      */
     public void moveRight() {
     	dungeon.makeMovePlayer(getX()+1, getY(), "right");
-        if ((getX() < dungeon.getWidth() - 1)&& (canMove)){ //should separate first if for before makeMovePlayer call
+        if ((getX() < dungeon.getWidth() - 1)&& (getCanMove())){ //should separate first if for before makeMovePlayer call
             x().set(getX() + 1);
             addObserver();
             notifyObservers();
         }
-        canMove = true; //BAD DESIGN?
+        setCanMove(true); //BAD DESIGN?
     }
 
     /**
@@ -104,15 +103,13 @@ public class Player extends Entity implements Subject {
      * @return boolean - canMove, whether the player is able to move on a particular turn.
      */
 	public boolean isCanMove() {
-		return canMove;
+		return getCanMove();
 	}
 	/**
 	 * Sets the canMove attribute that represents whether a player can move or not.
 	 * @param canMove - boolean representing whether a player can move.
 	 */
-	public void setCanMove(boolean canMove) {
-		this.canMove = canMove;
-	}
+
 
 	/**
 	 * Registers all enemies as observers.
@@ -312,6 +309,13 @@ public class Player extends Entity implements Subject {
 	 */
 	public boolean isAlive() {
 		return this.alive;
+	}
+	
+	@Override
+	public boolean entityMoveThrough() {
+		System.out.println("Enemy caught a player");
+		System.exit(1);
+		return false;
 	}
 	
 }

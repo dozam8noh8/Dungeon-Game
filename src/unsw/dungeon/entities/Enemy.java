@@ -19,6 +19,7 @@ public class Enemy extends Entity implements Observer {
 	private Dungeon dungeon; //Dungeon the Enemy is contained in
 	private int moveCounter; //Counts every 3 moves of the player
 	private boolean alive; //Whether the enemy should be displayed and methods work.
+	private boolean canMove;
 	
 	/**
 	 * Instantiates an enemy.
@@ -31,6 +32,7 @@ public class Enemy extends Entity implements Observer {
 		this.dungeon = dungeon;
 		this.moveCounter = 0;
 		this.alive = true;
+		this.canMove = true;
 	}
 	/**
 	 * Returns whether the enemy can be considered dead (false) or alive (true)
@@ -115,9 +117,11 @@ public class Enemy extends Entity implements Observer {
 
 		if (xDiff < 0){ //change direction if player is to left
 			xDir = -1;
+			//moveLeft
 		}
 		if (yDiff <  0) { //change direction if player is above
 			yDir = -1;
+			//moveUp
 		}
 		if (this.dungeon.getPlayer().getPotionState() instanceof PotionStatePlayer) {
 			System.out.println("Potion state reversion"); //reverse if under potion state.
@@ -130,14 +134,14 @@ public class Enemy extends Entity implements Observer {
 				System.out.println(priority + xDir + yDir);
 				calcdX = this.getX() + xDir;
 				calcdY = this.getY();
-				if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) { //try move in priority direction
+				if (dungeon.makeMoveEntity(calcdX, calcdY)) { //try move in priority direction
 					x().set(calcdX);
 					y().set(calcdY);
 				}
 				else { //otherwise try second priority
 					calcdX = this.getX();
 					calcdY = this.getY() + yDir;
-					if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+					if (dungeon.makeMoveEntity(calcdX, calcdY)) {
 						x().set(calcdX);
 						y().set(calcdY);
 					} 
@@ -148,19 +152,49 @@ public class Enemy extends Entity implements Observer {
 			if (!blockY) {
 				calcdX = this.getX();
 				calcdY = this.getY() + yDir;
-				if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+				if (dungeon.makeMoveEntity(calcdX, calcdY)) {
 					x().set(calcdX);
 					y().set(calcdY);
 				}
 				else { //otherwise try second priority
 					calcdX = this.getX() + xDir;
 					calcdY = this.getY();
-					if (dungeon.makeMoveBoulderOrEnemy(calcdX, calcdY)) {
+					if (dungeon.makeMoveEntity(calcdX, calcdY)) {
 						x().set(calcdX);
 						y().set(calcdY);
 					} 
 				}
 			}
+		}
+		//if xdir = 1 && priority = x, move right
+		//if xdir = -1 && priority = x, move left
+		//if ydir = 1 
+	}
+	public void move(int x, int y, int allowedMove) {
+		
+	}
+	public void moveRight(int x, int y, int allowedMove) {
+		if (dungeon.makeMoveEntity(x, y)) {
+			x().set(getX() + 1);
+			y().set(getY());
+		}
+	}
+	public void moveLeft(int x, int y, int allowedMove) {
+		if (dungeon.makeMoveEntity(x, y)) {
+			x().set(getX() - 1);
+			y().set(getY());
+		}
+	}
+	public void moveUp(int x, int y, int allowedMove) {
+		if (dungeon.makeMoveEntity(x, y)) {
+			x().set(getX());
+			y().set(getY() -1 );
+		}
+	}
+	public void moveDown(int x, int y, int allowedMove) {
+		if (dungeon.makeMoveEntity(x, y)) {
+			x().set(getX());
+			y().set(getY() + 1);
 		}
 	}
 	/**
@@ -178,6 +212,9 @@ public class Enemy extends Entity implements Observer {
 		
 		dungeon.completeEnemyObjective(dungeon.getObjective());
 	}
-	
+	@Override
+	public boolean entityMoveThrough() {
+		return false;
+	}
 
 }

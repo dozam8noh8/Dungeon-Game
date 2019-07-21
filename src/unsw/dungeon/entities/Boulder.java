@@ -12,7 +12,7 @@ public class Boulder extends Entity implements Subject{
 	private boolean canMove;
 	private Dungeon dungeon;
 	private boolean alive;
-	private ArrayList observers = new ArrayList();
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y);
@@ -26,53 +26,50 @@ public class Boulder extends Entity implements Subject{
 	public void squareBehav(Player p, String direction) {
 		switch(direction){
 		case "right":
-			canMove = dungeon.makeMoveBoulderOrEnemy(getX()+ 1, getY()); //doesnt check if edge of map
-			if (canMove) {
-	            x().set(getX() + 1);
-	            addObservers();
-	            notifyObservers();
-			}
-			else {
-				p.setCanMove(false);
-			}
+			canMove = dungeon.makeMoveEntity(getX()+ 1, getY()); //doesnt check if edge of map
+			moveTo(getX()+1, getY(), canMove, p);
 			break;
 		case "left":
-			canMove = dungeon.makeMoveBoulderOrEnemy(getX()- 1, getY());
-			if (canMove) {
-	            x().set(getX() - 1);
-	            addObservers();
-	            notifyObservers();
-			}
-			else {
-				p.setCanMove(false);
-			}
+			canMove = dungeon.makeMoveEntity(getX()- 1, getY());
+			moveTo(getX()-1, getY(), canMove, p);
 			break;
 		case "up":
-			canMove = dungeon.makeMoveBoulderOrEnemy(getX(), getY()-1);
-			if (canMove) {
-	            y().set(getY() - 1);
-	            addObservers();
-	            notifyObservers();
-			}
-			else {
-				p.setCanMove(false);
-			}
+			canMove = dungeon.makeMoveEntity(getX(), getY()-1);
+			moveTo(getX(), getY()-1, canMove, p);
 			break;
 		case "down":
-			canMove = dungeon.makeMoveBoulderOrEnemy(getX(), getY()+1);
-			if (canMove) {
-	            y().set(getY() + 1);
-	            addObservers();
-	            notifyObservers();
-			}
-			else {
-				p.setCanMove(false);
-			}
+			canMove = dungeon.makeMoveEntity(getX(), getY()+1);
+			moveTo(getX(), getY()+1, canMove, p);
 			break;
 		
 		}
 	}
-
+	/**
+	 * This method will check if canMove is true, moving the entity and notifying observers.
+	 * If canMove is false, it will not move and set player's canMove to false as well.
+	 * @param x - the x coordinate being moved to
+	 * @param y - the y coordinate being moved to
+	 * @param canMove - whether the player canMove or not
+	 * @param p - the player that triggered the potential move of the boulder
+	 */
+	public void moveTo(int x, int y, boolean canMove, Player p){
+		if (canMove) {
+			x().set(x);
+            y().set(y);
+            addObservers();
+            notifyObservers();
+		}
+		else {
+			p.setCanMove(false);
+		}
+	}
+	@Override
+	public boolean entityMoveThrough() {
+		return false;
+	}
+	public void squareBehav(Entity e, String direction) {
+		e.entityMoveThrough();
+	}
 	public void addObservers() {
 		observers.add(dungeon);
 	}

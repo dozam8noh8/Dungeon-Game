@@ -26,7 +26,7 @@ class UnpassableWalls {
 	void enemy_cannot_move_to_wall() throws FileNotFoundException {
 		MazeController maze = new MazeController("maze.json");
 		Dungeon dungeon = maze.load();
-		assertTrue(dungeon.makeMoveBoulderOrEnemy(0, 0)==false);
+		assertTrue(dungeon.makeMoveEntity(0, 0)==false);
 	}
 
 }

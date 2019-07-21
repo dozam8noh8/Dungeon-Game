@@ -123,24 +123,17 @@ public class Dungeon implements Observer{
      * @param y - the y coord wishing to be moved to.
      * @return - a boolean representing whether a move can be made.
      */
-    public boolean makeMoveBoulderOrEnemy (int x, int y) {
+    public boolean makeMoveEntity (int x, int y) {
     	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
     	for (Entity e: entOnSq) {
-    		if (e == null) continue;
-    		if (e instanceof Wall) {
+    		boolean toReturn = e.entityMoveThrough();
+    		if (!toReturn) {
     			return false;
-    			
-    		}
-    		if (e instanceof Boulder) {
-    			return false;
-    		}
-    		if ( e instanceof Player) { //we should try make another interface
-    			System.out.println("Enemy caught a player");
-    			System.exit(1);
     		}
     	}
     	return true;
     }
+
     /**
      * Generates an arraylist of entities on a given square by going through all entities
      * in a dungeon and checking if the x and y coordinates of that entity match
@@ -366,8 +359,8 @@ public class Dungeon implements Observer{
 				currObj.incomplete(currObj);
 				System.out.println("Reset boulder objectives");
 				checkObjectives();
-				return;
 			}
+			return;
 		}
 		for (Objective o : currObj.getObjectives()) {
 			resetBoulderObjective(o);
