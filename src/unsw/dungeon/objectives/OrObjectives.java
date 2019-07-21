@@ -16,4 +16,15 @@ public class OrObjectives implements ObjectiveCheck {
 		return false;
 	}
 
+	@Override
+	public boolean checkNonExitObjectives(ArrayList<Objective> children) {
+		for (Objective o : children) {
+			if (o.isComplete() && (!(o instanceof ExitObjective))) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }

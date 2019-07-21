@@ -41,6 +41,12 @@ public class TreasureObjective implements Objective {
 		return null;
 	}
 
+	@Override
+	public boolean allButExitsComplete(ArrayList<Objective> children) {
+		// TODO Auto-generated method stub
+		return complete;
+	}
+
 
 
 }

@@ -18,6 +18,10 @@ public class StrategyObjective implements Objective {
 	}
 
 	@Override
+	public boolean allButExitsComplete(ArrayList<Objective> children) {
+		return strategy.checkNonExitObjectives(children);
+	}
+	@Override
 	public void addChild(Objective o) {
 		// TODO Auto-generated method stub
 		children.add(o);
