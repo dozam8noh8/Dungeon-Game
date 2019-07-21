@@ -80,6 +80,13 @@ public abstract class DungeonLoader {
         }
         return dungeon;
     }
+    
+    /**
+     * Creates an OrObjective if the JSON has an OR objective to complete
+     * @param dungeon
+     * @param jsonArr
+     * @return
+     */
     private Objective createOrObjective (Dungeon dungeon, JSONArray jsonArr) {
     	Objective o = new StrategyObjective(new ArrayList<Objective>(), new OrObjectives() );
     	for (int i = 0; i < jsonArr.length(); i++) {
@@ -88,6 +95,13 @@ public abstract class DungeonLoader {
     	}
     	return o;
     }
+    
+    /**
+     * Creates an AndObjective if the JSON has an AND objective to complete
+     * @param dungeon
+     * @param jsonArr
+     * @return
+     */
     private Objective createAndObjective (Dungeon dungeon, JSONArray jsonArr) {
     	Objective o = new StrategyObjective(new ArrayList<Objective>(), new AndObjectives());
     	for (int i = 0; i < jsonArr.length(); i++) {
@@ -96,6 +110,13 @@ public abstract class DungeonLoader {
     	}
     	return o;
     }
+    
+    /**
+     * Method to handle cases for Objectives
+     * @param currObj
+     * @param dungeon
+     * @param json
+     */
     private void handleObjectiveCases(Objective currObj, Dungeon dungeon, JSONObject json) { //adds to current objective.
     	//System.out.println("In handle");
     	String goal = json.getString("goal");
@@ -128,32 +149,12 @@ public abstract class DungeonLoader {
     		break;
     	}
     }
-    /*private void setObjectives(Dungeon dungeon, JSONObject json) {
-    	System.out.println(json);
-    	String goal = json.getString("goal");
-    	switch(goal) { //we no longer default instantiate an objective in the dungeon so we need to add one before we can add children.
-    	case "AND":
-    		//Do some composite stuff
-    		createAndObjective(dungeon, json.getJSONArray("subgoals"));
-    		break;
-    	case "OR":
-    		createOrObjective(dungeon, json.getJSONArray("subgoals"));
-    		//Do some composite stuff
-    		break;
-    	case "enemies":
-    		dungeon.getObjective().addChild(new EnemyObjective());
-    		break;
-    	case "treasure":
-    		dungeon.getObjective().addChild(new TreasureObjective());
-    		break;
-    	case "exit":
-    		dungeon.getObjective().addChild(new ExitObjective());
-    		break;
-    	case "boulders":
-    		dungeon.getObjective().addChild(new BoulderObjective());
-    		break;
-    	}
-    }*/
+    
+    /**
+     * Load entities from JSON to dungeon object
+     * @param dungeon - Game dungeon
+     * @param json - JSON object with entities
+     */
     private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");

@@ -267,6 +267,12 @@ public class Dungeon implements Observer{
 
 	}
 	
+	/**
+	 * Method to check whether dungeon is complete or not
+	 * Returns true if complete
+	 * returns false if not complete
+	 * @return complete - boolean whether the dungeon is complete or not
+	 */
 	public boolean getComplete() {
 		return this.complete;
 	}

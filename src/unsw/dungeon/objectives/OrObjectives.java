@@ -6,9 +6,11 @@ public class OrObjectives implements ObjectiveCheck {
 
 	@Override
 	public boolean checkComplete(ArrayList<Objective> children) {
-		// TODO Auto-generated method stub
+		if (children.size() == 1 && children.get(0) instanceof ExitObjective) {
+			return true;
+		}
 		for (Objective o : children) {
-			if (o.isComplete()) {
+			if (o.isComplete() && (!(o instanceof ExitObjective))) {
 				return true;
 			}
 		}
@@ -18,6 +20,9 @@ public class OrObjectives implements ObjectiveCheck {
 
 	@Override
 	public boolean checkNonExitObjectives(ArrayList<Objective> children) {
+		if (children.size() == 1 && children.get(0) instanceof ExitObjective) {
+			return true;
+		}
 		for (Objective o : children) {
 			if (o.isComplete() && (!(o instanceof ExitObjective))) {
 				return true;
