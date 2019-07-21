@@ -140,6 +140,9 @@ public class Player extends Entity implements Subject {
 		enemies.remove(o);
 	}
 
+	/**
+	 * notifies all observer of the player change
+	 */
 	@Override
 	public void notifyObservers() {
 		// TODO Auto-generated method stub
@@ -148,6 +151,10 @@ public class Player extends Entity implements Subject {
 		}
 	}
 	
+	/**
+	 * Returns all the enemies that are observing the player
+	 * @return List<Observer> enemies that are observing player
+	 */
 	public List<Observer> getEnemies(){
 		return this.enemies;
 	}
@@ -311,6 +318,9 @@ public class Player extends Entity implements Subject {
 		return this.alive;
 	}
 	
+	/**
+	 * If an enemy is moving to a player, the game will end
+	 */
 	@Override
 	public boolean entityMoveThrough() {
 		System.out.println("Enemy caught a player");

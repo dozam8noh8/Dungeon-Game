@@ -2,51 +2,60 @@ package unsw.dungeon.objectives;
 
 import java.util.ArrayList;
 
+/**
+ * TreasureObjective class to represent a treasure Objective in game
+ * @author Waqif Alam, Owen Silver
+ *
+ */
 public class TreasureObjective implements Objective {
 	public boolean complete = false;
 	
+	/**
+	 * Changes treasure objective to true
+	 */
 	@Override
 	public void complete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = true;
 	}
 
+	/**
+	 * Changes completed objective to false if conditions change
+	 */
 	@Override
 	public void incomplete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = false;
 	}
 	
+	/**
+	 * Check if objective is complete or not
+	 * return true if complete, false if not
+	 */
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 
 	@Override
 	public void addChild(Objective o) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void removeChild(Objective o) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public ArrayList<Objective> getObjectives() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Check if all objectives other than exit objective is complete or not
+	 */
 	@Override
 	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		// TODO Auto-generated method stub
 		return complete;
 	}
-
-
-
+	
 }

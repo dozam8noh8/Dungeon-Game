@@ -2,6 +2,11 @@ package unsw.dungeon.objectives;
 
 import java.util.ArrayList;
 
+/**
+ * Strategy Objective to create objectives with AND or OR strategies
+ * @author Waqif Alam, Owen Silver
+ *
+ */
 public class StrategyObjective implements Objective {
 	private ArrayList<Objective> children = new ArrayList<Objective>();
 	private ObjectiveCheck strategy = new AndObjectives(); //change this accordingly
@@ -11,47 +16,50 @@ public class StrategyObjective implements Objective {
 		this.strategy = ANDorOR;
 	}
 
+	/**
+	 * Check if objective is complete or not
+	 * return true if complete, false if not complete
+	 */
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
 		return strategy.checkComplete(children);
 	}
 
+	/**
+	 * Check if all objectives other than exit objectives are complete
+	 * return true if complete, false if not complete
+	 */
 	@Override
 	public boolean allButExitsComplete(ArrayList<Objective> children) {
 		return strategy.checkNonExitObjectives(children);
 	}
+	
 	@Override
 	public void addChild(Objective o) {
-		// TODO Auto-generated method stub
 		children.add(o);
 	}
 
 	@Override
 	public void removeChild(Objective o) {
-		// TODO Auto-generated method stub
 		children.remove(o);
 	}
 
 	@Override
 	public void complete(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void incomplete(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Get all the objectives in StrategyObjective class
+	 */
 	@Override
 	public ArrayList<Objective> getObjectives() {
-		// TODO Auto-generated method stub
 		return this.children;
 	}
 
-
-	
-	
 }

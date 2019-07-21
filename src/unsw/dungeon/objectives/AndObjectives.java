@@ -29,6 +29,10 @@ public class AndObjectives implements ObjectiveCheck {
 		System.out.println("All objectives complete!!");
 		return true;
 	}
+	
+	/**
+	 * Checks if all objectives other than exit objective is done
+	 */
 	@Override
 	public boolean checkNonExitObjectives(ArrayList<Objective> children) {
 		System.out.println("Checking non exit objectives");

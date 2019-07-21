@@ -65,6 +65,12 @@ public class Entity {
     public void squareBehav(Entity e, String direction) {
     	
     }
+    
+    /**
+     * Allow boulders or enemies to move into entities by default and
+     * change if boulders and enemies cannot move into some entities
+     * @return true if entity can move through, false if entity cannot move through
+     */
     public boolean entityMoveThrough() {
     	return true;
     }

@@ -126,6 +126,13 @@ public class Enemy extends Entity implements Observer {
 		
 		
 	}
+	
+	/**
+	 * Trying to move the enemy to another square in game
+	 * @param xChange - the change of x-coordinate for the move
+	 * @param yChange - the change of y-coordinate for the move
+	 * @return true if enemy can move, or false if enemy cannot move
+	 */
 	public boolean move(int xChange, int yChange) {
 		if (xChange == 0 && yChange == 0)return false;
 		int x = getX() + xChange;
@@ -137,6 +144,12 @@ public class Enemy extends Entity implements Observer {
 		}
 		return false;
 	}
+	
+	/**
+	 * Move enemy by xChange in the x-coordinate
+	 * @param xChange - the change in x-coordinate for the enemy
+	 * @return true if enemy can be moved, false if enemy cannot be moved
+	 */
 	public boolean moveX(int xChange) {
 		int x = getX() + xChange;
 		int y = getY();
@@ -147,6 +160,12 @@ public class Enemy extends Entity implements Observer {
 		}
 		return false;
 	}
+	
+	/**
+	 * Checking if enemy can be moved by yChange in the y-coordinate
+	 * @param yChange - the change for y-coordinate
+	 * @return true if enemy can be moved, false if cannot be moved
+	 */
 	public boolean moveY(int yChange) {
 		int x = getX();
 		int y = getY() + yChange;
@@ -173,6 +192,10 @@ public class Enemy extends Entity implements Observer {
 		
 		dungeon.completeEnemyObjective(dungeon.getObjective());
 	}
+	
+	/**
+	 * Trying to stop another enemy or boulder to move into the enemy
+	 */
 	@Override
 	public boolean entityMoveThrough() {
 		return false;

@@ -2,33 +2,44 @@ package unsw.dungeon.objectives;
 
 import java.util.ArrayList;
 
+/**
+ * BoulderObjective to represent BoulderObjective in objectives
+ * @author Waqif Alam, Owen Silver
+ *
+ */
 public class BoulderObjective implements Objective {
 	public boolean complete = false;
 	
+	/**
+	 * returns if boulder objective is complete or not
+	 * return complete - true if boulderobjective is complete and false if it's not
+	 */
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 
 	@Override
 	public void addChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removeChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Method to complete boulder Objective
+	 */
 	@Override
 	public void complete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = true;
 	}
 
+	/**
+	 * Method to turn completed object incomplete if conditions change
+	 */
 	@Override
 	public void incomplete(Objective o) {
 		System.out.println("incompleting " + this);
@@ -37,13 +48,11 @@ public class BoulderObjective implements Objective {
 
 	@Override
 	public ArrayList<Objective> getObjectives() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 

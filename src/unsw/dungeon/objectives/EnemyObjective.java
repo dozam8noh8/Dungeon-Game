@@ -1,49 +1,57 @@
 package unsw.dungeon.objectives;
 
+/**
+ * EnemyObjective class to represent enemy objective in objectives
+ */
 import java.util.ArrayList;
 
 public class EnemyObjective implements Objective {
 	public boolean complete = false;
 	
+	/**
+	 * Returns whether enemy objective is complete or not
+	 */
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 
 	@Override
 	public void addChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removeChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/** 
+	 * Completes the enemyObjective
+	 */
 	@Override
 	public void complete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = true;
 	}
 
+	/**
+	 * Changes enemyobjective from complete to incomplete if conditions change
+	 */
 	@Override
 	public void incomplete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = false;
 	}
 
+	/**
+	 * Returns list of objectives
+	 */
 	@Override
 	public ArrayList<Objective> getObjectives() {
-		// TODO Auto-generated method stub
 			return null;
 		}
 
 	@Override
 	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 

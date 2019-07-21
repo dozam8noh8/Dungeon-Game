@@ -55,6 +55,10 @@ public class Door extends Entity{
 		}
 	}
 	
+	/**
+	 * Method to check whether an enemy or boulder is moving into
+	 * a Door
+	 */
 	@Override
 	public boolean entityMoveThrough() {
 		if (!opened) {

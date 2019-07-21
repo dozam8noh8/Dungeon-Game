@@ -2,48 +2,56 @@ package unsw.dungeon.objectives;
 
 import java.util.ArrayList;
 
+/**
+ * ExitObjective class to represent an exitObjective
+ * @author z5188982
+ *
+ */
 public class ExitObjective implements Objective {
 	public boolean complete = false;
 	
+	/**
+	 * returns whether the objective is complete or not
+	 * return true if complete and false if not complete
+	 */
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 
 	@Override
 	public void addChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removeChild(Objective o) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Complete the exitObjective
+	 */
 	@Override
 	public void complete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = true;
 	}
 
+	/**
+	 * Change completed to exitobjective to incomplete if conditions change
+	 */
 	@Override
 	public void incomplete(Objective o) {
-		// TODO Auto-generated method stub
 		this.complete = false;
 	}
 
 	@Override
 	public ArrayList<Objective> getObjectives() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		// TODO Auto-generated method stub
 		return complete;
 	}
 
