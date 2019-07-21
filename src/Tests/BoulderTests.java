@@ -76,5 +76,36 @@ class BoulderTests {
 		}
 		assertTrue(player.getY()==2 && moved);
 	}
+	
+	@Test
+	void moving_boulder_into_enemy() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze20.json");
+		Dungeon dungeon = maze.load();
+		Player player = dungeon.getPlayer();
+		player.moveDown();
+		List<Entity> entities = dungeon.getEntOnSq(1,3);
+		boolean moved = false;
+		for (Entity e: entities) {
+			if (e instanceof Enemy) {
+				moved = true;
+			}
+		}
+		assertTrue(player.getY()==1 && moved);
+	}
+	@Test
+	void moving_boulder_into_door() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze21.json");
+		Dungeon dungeon = maze.load();
+		Player player = dungeon.getPlayer();
+		player.moveDown();
+		List<Entity> entities = dungeon.getEntOnSq(1,3);
+		boolean moved = false;
+		for (Entity e: entities) {
+			if (e instanceof Door) {
+				moved = true;
+			}
+		}
+		assertTrue(player.getY()==1 && moved);
+	}
 
 }

@@ -35,5 +35,41 @@ class CompleteableLevels {
 		ArrayList<Entity> entitesOnFirstSquare = dungeon.getEntOnSq(0,0);
 		assertTrue(entitesOnFirstSquare.size()==1);
 	}
+	
+	@Test
+	void check_and_objectives() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze22.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		dungeon.completeEnemyObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
+	
+	@Test
+	void check_or_objectives() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze23.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
+	
+	@Test
+	void check_and_subobjectives() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze24.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		dungeon.completeEnemyObjective(dungeon.getObjective());
+		dungeon.completeTreasureObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
+	
+	@Test
+	void check_or_subobjectives() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze25.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		dungeon.completeTreasureObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
 
 }
