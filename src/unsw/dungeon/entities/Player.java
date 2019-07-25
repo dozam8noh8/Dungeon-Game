@@ -324,7 +324,8 @@ public class Player extends Entity implements Subject {
 	@Override
 	public boolean entityMoveThrough() {
 		System.out.println("Enemy caught a player");
-		System.exit(1);
+		this.killPlayer();
+		//System.exit(1);
 		return false;
 	}
 	

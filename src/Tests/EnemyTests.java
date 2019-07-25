@@ -50,6 +50,7 @@ class EnemyTests {
 		MazeController maze = new MazeController("enemyTestsBoulder.json");
 		Dungeon dungeon = maze.load();
 		Enemy enemy = new Enemy(dungeon, 3, 2);
+		dungeon.addEntity(enemy);
 		assertTrue(enemy.getX() == 3);
 		assertTrue(enemy.getY() == 2);
 		enemy.move(0,1); //blocked by boulder
@@ -58,6 +59,35 @@ class EnemyTests {
 		assertTrue(enemy.getX() == 3);
 		assertTrue(enemy.getY() == 2);
 		
+	}
+	@Test
+	void enemy_move_towards_player() throws FileNotFoundException{
+		MazeController maze = new MazeController("enemyTestsPlayer.json");
+		Dungeon dungeon = maze.load();
+		Enemy enemy = new Enemy(dungeon, 5, 5);
+		dungeon.addEntity(enemy);
+		Player player = dungeon.getPlayer();
+		assertTrue(enemy.getX() == 5);
+		assertTrue(enemy.getY() == 5);
+		int oldX = enemy.getX();
+		int oldY = enemy.getY();
+		player.moveDown();
+		player.moveUp();
+		player.moveDown();
+		assert((enemy.getX() < oldX) || (enemy.getY() < oldY)); //enemy should have moved toward player
+																//either direction is valid.
+	}
+	@Test
+	void enemy_kill_player() throws FileNotFoundException {
+		MazeController maze = new MazeController("enemyTestsPlayer.json");
+		Dungeon dungeon = maze.load();
+		Enemy enemy = new Enemy(dungeon, 5, 1);
+		dungeon.addEntity(enemy);
+		Player player = dungeon.getPlayer();
+		player.moveRight();
+		player.moveRight();
+		player.moveRight();
+		assert(player.isAlive() == false);
 	}
 
 
