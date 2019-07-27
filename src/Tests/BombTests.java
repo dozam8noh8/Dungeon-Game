@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import unsw.dungeon.Dungeon;
@@ -18,7 +19,14 @@ import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Player;
 
 class BombTests {
-
+	Dungeon dungeon;
+	
+	@Before
+	public void setUp() throws FileNotFoundException {
+		MazeController maze = new MazeController("maze8.json");
+		dungeon = maze.load();
+	}
+ 
 	@Test
 	void player_picks_bomb() throws FileNotFoundException {
 		MazeController maze = new MazeController("maze8.json");

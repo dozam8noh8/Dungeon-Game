@@ -45,6 +45,4 @@ public interface Objective {
 	 */
 	public ArrayList<Objective> getObjectives();
 
-
-	boolean allButExitsComplete(ArrayList<Objective> children);
 }

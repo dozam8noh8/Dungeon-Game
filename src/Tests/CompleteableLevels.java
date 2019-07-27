@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.Entity;
+import unsw.dungeon.entities.Player;
 import unsw.dungeon.objectives.*;
 
 class CompleteableLevels {
@@ -44,7 +45,7 @@ class CompleteableLevels {
 		dungeon.completeEnemyObjective(dungeon.getObjective());
 		assertTrue(dungeon.getComplete());
 	}
-	
+
 	@Test
 	void check_and_subobjectives() throws FileNotFoundException {
 		MazeController maze = new MazeController("maze24.json");
@@ -63,5 +64,35 @@ class CompleteableLevels {
 		dungeon.completeTreasureObjective(dungeon.getObjective());
 		assertTrue(dungeon.getComplete());
 	}
+	@Test
+	void check_and_objectives2() throws FileNotFoundException{
+		MazeController maze = new MazeController("enemiesAndExit.json");
+		Dungeon dungeon = maze.load();
+		Player player = dungeon.getPlayer();
+		assertFalse(dungeon.getComplete()); //no objectives done yet
+		dungeon.completeExitObjective(dungeon.getObjective()); //shouldnt do anything because other obj not done
+		assertFalse(dungeon.getComplete());
+		dungeon.completeEnemyObjective(dungeon.getObjective());
+		player.moveDown(); //reset exit objective upon move.
+		assertFalse(dungeon.getComplete()); //shouldnt be complete because non exit
+		dungeon.completeExitObjective(dungeon.getObjective()); //now we have copmleted other, should finish
+		assertTrue(dungeon.getComplete());
+	}
+	@Test
+	void check_single_exit_objective() throws FileNotFoundException{
+		MazeController maze = new MazeController("singleExitObj21.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
+	
+	@Test
+	void check_or_objectives() throws FileNotFoundException{
+		MazeController maze = new MazeController("enemyOrExit23.json");
+		Dungeon dungeon = maze.load();
+		dungeon.completeExitObjective(dungeon.getObjective());
+		assertTrue(dungeon.getComplete());
+	}
+	
 
 }

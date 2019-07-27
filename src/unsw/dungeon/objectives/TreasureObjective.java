@@ -50,12 +50,5 @@ public class TreasureObjective implements Objective {
 		return null;
 	}
 
-	/**
-	 * Check if all objectives other than exit objective is complete or not
-	 */
-	@Override
-	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		return complete;
-	}
 	
 }

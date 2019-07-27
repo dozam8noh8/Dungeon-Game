@@ -21,7 +21,7 @@ import unsw.dungeon.Weapon;
 public class Player extends Entity implements Subject {
 
     private Dungeon dungeon; //Dungeon player is within
-    private List<Observer> enemies = new ArrayList<Observer>(); //List of enemies within dungeon.
+    private List<Observer> observers = new ArrayList<Observer>(); //List of observers within dungeon.
   //State representing whether a a player is under the effects of a potion.
     private PotionState potionState = new NoPotionState(); 
     private Weapon weapon = null; //the weapon the player is currently holding
@@ -112,24 +112,25 @@ public class Player extends Entity implements Subject {
 
 
 	/**
-	 * Registers all enemies as observers.
+	 * Registers all observers as observers.
 	 */
 	@Override
 	public void registerObserver(Observer o) {
-		if (!enemies.contains(o)) {
-			enemies.add(o);
+		if (!observers.contains(o)) {
+			observers.add(o);
 		}	
 	}
 
 	/**
-	 * Calls registerObserver method on all enemies to add them as observers
+	 * Calls registerObserver method on all observers to add them as observers
 	 * to be notified when a player moves.
 	 */
 	public void addObserver() {
 		for (Entity e : dungeon.getEntities()) {
-			if (e instanceof Enemy) {
+			if ((e instanceof Enemy) || (e instanceof Exit)) {
 				registerObserver((Observer)e);
 			}
+
 		}
 	}
 	/**
@@ -137,7 +138,7 @@ public class Player extends Entity implements Subject {
 	 */
 	@Override
 	public void removeObserver(Observer o) {
-		enemies.remove(o);
+		observers.remove(o);
 	}
 
 	/**
@@ -146,17 +147,17 @@ public class Player extends Entity implements Subject {
 	@Override
 	public void notifyObservers() {
 		// TODO Auto-generated method stub
-		for (Observer o : enemies) {
+		for (Observer o : observers) {
 			o.update(this);
 		}
 	}
 	
 	/**
-	 * Returns all the enemies that are observing the player
-	 * @return List<Observer> enemies that are observing player
+	 * Returns all the observers that are observing the player
+	 * @return List<Observer> observers that are observing player
 	 */
-	public List<Observer> getEnemies(){
-		return this.enemies;
+	public List<Observer> getobservers(){
+		return this.observers;
 	}
 
 	/**

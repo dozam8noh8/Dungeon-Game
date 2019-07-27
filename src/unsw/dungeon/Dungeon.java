@@ -18,6 +18,7 @@ import unsw.dungeon.objectives.EnemyObjective;
 import unsw.dungeon.objectives.ExitObjective;
 import unsw.dungeon.objectives.Objective;
 import unsw.dungeon.objectives.TreasureObjective;
+import unsw.dungeon.objectives.StrategyObjective;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -199,9 +200,13 @@ public class Dungeon implements Observer{
 	 */
 	@Override
 	public void update(Subject o) {
+		updateBoulderObjective();
+	}
+
+
+	private void updateBoulderObjective() {
 		int count = 0;
 		setPlates();
-		// TODO Auto-generated method stub
 		for (PPlate p : getPlates()) {
 			ArrayList<Entity> entOnSq = getEntOnSq( p.getX(), p.getY());
 	    	for (Entity e: entOnSq) {
@@ -232,25 +237,38 @@ public class Dungeon implements Observer{
 	 * is completed, we then check if all dungeon objectives are complete which will end the
 	 * level if true.
 	 * @param obj - the instance implementing Objective interface we are looking within.
+	 * @param depth - how many recursive calls have been made, starting from 1.
 	 */
 	public void completeExitObjective(Objective obj) {
 		if (obj == null) return;
+		
+		else if (obj.getObjectives() == null) {
+			if (obj instanceof ExitObjective) {
+				obj.complete(obj);
+				checkObjectives();
+			}
+		}
+			
+		else {
+			for (Objective o : obj.getObjectives()) {
+				completeExitObjective(o);
+			}
+		}
+
+	}
+	public void resetExitObjective(Objective obj) {
+		if (obj == null) return;
 		if (obj.getObjectives() == null) {
 			if (obj instanceof ExitObjective) {
-				System.out.println("Instance of Exit objective");
-				if (this.getObjective().allButExitsComplete(this.getObjective().getObjectives())) {
-					System.out.println("All but exits complete");
-					obj.complete(obj);
-				}
+				obj.incomplete(obj);
+				System.out.println("Stepped off exit, resetting " + obj);
 			}
 			return;
 		}
 		for (Objective o : obj.getObjectives()) {
-			System.out.println(o);
-			completeExitObjective(o);
+			resetExitObjective(o);
 		}
 		checkObjectives();
-	
 	}
 	/**
 	 * Calls a method in the checkObjectives class to see if all objectives are complete

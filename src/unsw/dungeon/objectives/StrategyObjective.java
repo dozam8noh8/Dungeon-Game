@@ -25,14 +25,6 @@ public class StrategyObjective implements Objective {
 		return strategy.checkComplete(children);
 	}
 
-	/**
-	 * Check if all objectives other than exit objectives are complete
-	 * return true if complete, false if not complete
-	 */
-	@Override
-	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		return strategy.checkNonExitObjectives(children);
-	}
 	
 	@Override
 	public void addChild(Objective o) {

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
+import unsw.dungeon.Observer;
 import unsw.dungeon.PotionStatePlayer;
 import unsw.dungeon.entities.*;
 
@@ -51,7 +52,14 @@ class PotionTests {
 		Dungeon dungeon = maze.load();
 		Player player = dungeon.getPlayer();
 		player.addObserver();
-		Enemy myEnemy = (Enemy) player.getEnemies().get(0);
+		Enemy myEnemy = null;
+		for (Observer o : player.getobservers()) {
+			if (o instanceof Enemy) {
+				myEnemy = (Enemy) o;
+				break;
+			}
+		}
+		assert(myEnemy != null);
 		assertEquals(myEnemy.getAlive(), true, "true, enemy is alive");
 		player.moveDown();
 		player.moveDown();
@@ -63,7 +71,14 @@ class PotionTests {
 		Dungeon dungeon = maze.load();
 		Player player = dungeon.getPlayer();
 		player.addObserver();
-		Enemy myEnemy = (Enemy) player.getEnemies().get(0);
+		Enemy myEnemy = null;
+		for (Observer o : player.getobservers()) {
+			if (o instanceof Enemy) {
+				myEnemy = (Enemy) o;
+				break;
+			}
+		}
+		assert(myEnemy != null);
 		int xDiff1 = player.getX() - myEnemy.getX();
 		int yDiff1 = player.getY() - myEnemy.getY();
 		player.moveDown(); //Player is in potion state

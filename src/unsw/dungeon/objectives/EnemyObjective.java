@@ -50,9 +50,5 @@ public class EnemyObjective implements Objective {
 			return null;
 		}
 
-	@Override
-	public boolean allButExitsComplete(ArrayList<Objective> children) {
-		return complete;
-	}
 
 }

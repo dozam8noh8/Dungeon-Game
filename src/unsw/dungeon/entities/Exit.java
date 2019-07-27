@@ -1,13 +1,16 @@
 package unsw.dungeon.entities;
 
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.Observer;
+import unsw.dungeon.Subject;
+import unsw.dungeon.entities.Player;
 
 /**
  * An exit class to end the game if objectives are complete. 
  * @author Owen Silver and Waqif Alam
  *
  */
-public class Exit extends Entity {
+public class Exit extends Entity implements Observer {
 	private Dungeon dungeon;
 	public Exit(Dungeon dungeon, int x, int y) {
 		super(x, y);
@@ -23,5 +26,19 @@ public class Exit extends Entity {
 		System.out.println("Found an exit");
 		dungeon.completeExitObjective(dungeon.getObjective());
 	}
+
+	@Override
+	public void update(Subject o) {
+		int playerX = ((Player)o).getX();
+		int playerY = ((Player)o).getY();
+		if (playerX == this.getX() && playerY == this.getY()) {
+			dungeon.completeExitObjective(dungeon.getObjective());
+		}
+		else {
+			dungeon.resetExitObjective(dungeon.getObjective());
+		}
+		
+	}
+
 
 }

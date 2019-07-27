@@ -17,12 +17,10 @@ public class AndObjectives implements ObjectiveCheck {
 
 	@Override
 	public boolean checkComplete(ArrayList<Objective> children) {
-		System.out.println("Checking non exit objectives");
-		// TODO Auto-generated method stub
 		for (Objective o : children) {
 			System.out.println("--------"+o.isComplete());
-			if (!o.isComplete() && (!(o instanceof ExitObjective))) {
-				System.out.println(o);
+			if (!o.isComplete()) {
+				System.out.println(o + " is not complete!, AND not complete");
 				return false;
 			}
 		}
@@ -30,22 +28,5 @@ public class AndObjectives implements ObjectiveCheck {
 		return true;
 	}
 	
-	/**
-	 * Checks if all objectives other than exit objective is done
-	 */
-	@Override
-	public boolean checkNonExitObjectives(ArrayList<Objective> children) {
-		System.out.println("Checking non exit objectives");
-		// TODO Auto-generated method stub
-		for (Objective o : children) {
-			System.out.println("--------"+o.isComplete());
-			if (!o.isComplete() && (!(o instanceof ExitObjective))) {
-				System.out.println(o);
-				return false;
-			}
-		}
-		System.out.println("All objectives complete!!");
-		return true;
-	}
 
 }
