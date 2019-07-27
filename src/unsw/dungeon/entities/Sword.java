@@ -30,7 +30,7 @@ public class Sword extends Entity implements Weapon{
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		System.out.println("STEPPED ON AN Sword");
+		System.out.println("STEPPED ON A Sword");
 		Dungeon dungeon = p.getDungeon();
 		dungeon.removeEntity(this);
 		p.setWeapon(this);
@@ -44,58 +44,41 @@ public class Sword extends Entity implements Weapon{
 	 */
 	@Override
 	public void attack(Player p) {
-		// TODO Auto-generated method stub
 
 				System.out.println("USING SWORD");
 				int x = p.getX();
 				int y = p.getY();
 				Dungeon dungeon = p.getDungeon();
-				if (x> 0) {
-					ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x-1, y);
-					for (Entity e : entOnSq) {
-						if (e instanceof Enemy) {
-							dungeon.removeEntity(e);
-							((Enemy) e).killEnemy();
-							System.out.println("Killed enemy");
-						}
-					}
-				}
-				if (y > 0) {
-					ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y-1);
-					for (Entity e : entOnSq) {
-						if (e instanceof Enemy) {
-							dungeon.removeEntity(e);
-							((Enemy) e).killEnemy();
-							System.out.println("Killed enemy");
-						}
-					}
-				}
-				if (x < dungeon.getWidth() - 1) {
-					ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x+1, y);
-					for (Entity e : entOnSq) {
-						if (e instanceof Enemy) {
-							dungeon.removeEntity(e);
-							((Enemy) e).killEnemy();
-							System.out.println("Killed enemy");
-						}
-					}
-				}
-				if (y < dungeon.getHeight() - 1) {
-					ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y+1);
-					for (Entity e : entOnSq) {
-						if (e instanceof Enemy) {
-							((Enemy) e).killEnemy();
-							dungeon.removeEntity(e);
-							System.out.println("Killed enemy");
-						}
-					}
-				}
+				attackOnSquare(x+1,y, p, dungeon); //attack right
+				attackOnSquare(x-1,y, p, dungeon); //attack left
+				attackOnSquare(x,y+1, p, dungeon); //attack down
+				attackOnSquare(x,y-1, p, dungeon); //attack up
 				attacks --;
 				if (attacks < 1) {
 					p.setWeapon(null);
-					return;
 				}
-			
 
 	}
+	/**
+	 * Helper function for attack method, will remove and kill all killable entities 
+	 * on a particular square. Checks if square is a valid dungeon square.
+	 * @param x - the x coordinate of the square that will be checked.
+	 * @param y - the y coordinate of the square that will be checked.
+	 */
+	private void attackOnSquare(int x, int y, Player p, Dungeon dungeon) {
+		if ((y >= 0) && (y < dungeon.getHeight()-1) //check if valid attack location
+		&& (x >= 0) && (x < dungeon.getWidth()-1)){
+			ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y);
+			for (Entity e : entOnSq) {
+				if (e instanceof Enemy) {
+					dungeon.removeEntity(e);
+					((Enemy) e).killEnemy();
+					System.out.println("Killed enemy");
+				}
+			
+			
+			}
+		}
+	}
+		
 }
