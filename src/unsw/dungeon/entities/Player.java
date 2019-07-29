@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
@@ -28,7 +30,6 @@ public class Player extends Entity implements Subject {
     private List<Bomb> bombs = new ArrayList<Bomb>(); //list of bombs the player is holding
     private List<Treasure> treasures = new ArrayList<Treasure>();  //list of treasures colected
     private Key key; //current key being held.
-    boolean alive = true;
 
 	/**
      * Create a player positioned in square (x,y)
@@ -308,14 +309,14 @@ public class Player extends Entity implements Subject {
 	 */
 	public void killPlayer() {
 		System.out.println("killing player");
-		this.alive = false;
+		this.alive.setValue(false);
 		
 	}
 	/**
 	 * indicates whether the player is alive
 	 * @return - boolean, true for alive, false for dead.
 	 */
-	public boolean isAlive() {
+	public BooleanProperty isAlive() {
 		return this.alive;
 	}
 	

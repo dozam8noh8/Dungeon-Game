@@ -1,6 +1,8 @@
 package unsw.dungeon.entities;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -14,6 +16,7 @@ public class Entity {
     // externally observed.
     private IntegerProperty x, y;
     private boolean canMove = false;
+    protected BooleanProperty alive = new SimpleBooleanProperty(true);
 
     /**
      * Create an entity positioned in square (x,y)
@@ -73,5 +76,9 @@ public class Entity {
      */
     public boolean entityMoveThrough() {
     	return true;
+    }
+    
+    public BooleanProperty isAlive() {
+    	return this.alive;
     }
 }

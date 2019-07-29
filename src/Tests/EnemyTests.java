@@ -87,7 +87,7 @@ class EnemyTests {
 		player.moveRight();
 		player.moveRight();
 		player.moveRight();
-		assert(player.isAlive() == false);
+		assert(player.isAlive().getValue() == false);
 	}
 
 

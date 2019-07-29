@@ -64,8 +64,7 @@ public class Key extends Entity {
 		if (justDropped) return;
 		p.setKey(this);
 		this.setPickedUp(true);
-
-		
+		this.alive.setValue(false);
 	}
 
 	/**

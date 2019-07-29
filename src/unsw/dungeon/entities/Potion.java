@@ -19,9 +19,10 @@ public class Potion extends Entity {
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		System.out.println("STEPPED ON AN Potion");
+		System.out.println("STEPPED ON A Potion");
 		Dungeon dungeon = p.getDungeon();
 		p.changeToPotionState();
 		dungeon.removeEntity(this);
+		this.alive.setValue(false);
 	}
 }

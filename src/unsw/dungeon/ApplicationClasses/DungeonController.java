@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Player;
 
 /**
@@ -48,7 +49,15 @@ public class DungeonController {
 
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
-
+    }
+    
+    // To implement
+    public void removeEntities() {
+    	for (Entity e : dungeon.getEntities()) {
+    		if (!e.isAlive().getValue()) {
+    			System.out.println(e+"------ is not alive");
+    		}
+    	}
     }
 
     @FXML
@@ -81,9 +90,11 @@ public class DungeonController {
         	menuScreen.start();
         }
         
-        if (!dungeon.getPlayer().isAlive()) {
+        if (!dungeon.getPlayer().isAlive().getValue()) {
         	menuScreen.start();
         }
+        
+        removeEntities();
     }
     
     public void setMenuScreen(DungeonMenuScreen menuScreen) {

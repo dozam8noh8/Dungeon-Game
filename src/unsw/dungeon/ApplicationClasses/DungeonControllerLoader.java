@@ -2,10 +2,13 @@ package unsw.dungeon.ApplicationClasses;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -167,6 +170,12 @@ public class DungeonControllerLoader extends DungeonLoader {
                     Number oldValue, Number newValue) {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
+        });
+        entity.isAlive().addListener((Observable, oldValue, newValue) -> {
+        	if (newValue == false) {
+        		GridPane.setColumnIndex(node, 500);
+        		GridPane.setRowIndex(node, 500);
+        	}
         });
     }
 

@@ -183,11 +183,11 @@ class BombTests {
 		Bomb b = new Bomb(1,2, dungeon);
 		b.squareBehav(player, "down");
 		player.moveDown();
-		assertTrue(player.isAlive(), "player should be alive, no bomb used yet");
+		assertTrue(player.isAlive().getValue(), "player should be alive, no bomb used yet");
 		player.useBomb();
 		player.moveUp();
 		TimeUnit.SECONDS.sleep(4);
-		assertFalse(player.isAlive(), "player should be dead, in bomb radius");
+		assertFalse(player.isAlive().getValue(), "player should be dead, in bomb radius");
 		
 		
 		

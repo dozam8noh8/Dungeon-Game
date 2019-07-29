@@ -277,12 +277,6 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Sword sword);
 
 
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		
-	} 
-
-
-    // TODO Create additional abstract methods for the other entities
+	public void onLoad() {} 
 
 }

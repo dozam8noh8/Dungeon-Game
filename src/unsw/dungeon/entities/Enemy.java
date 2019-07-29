@@ -2,6 +2,8 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
@@ -18,7 +20,7 @@ import unsw.dungeon.Subject;
 public class Enemy extends Entity implements Observer {
 	private Dungeon dungeon; //Dungeon the Enemy is contained in
 	private int moveCounter; //Counts every 3 moves of the player
-	private boolean alive; //Whether the enemy should be displayed and methods work.
+	private BooleanProperty alive; //Whether the enemy should be displayed and methods work.
 	private boolean canMove;
 	
 	/**
@@ -31,7 +33,7 @@ public class Enemy extends Entity implements Observer {
 		super(x, y);
 		this.dungeon = dungeon;
 		this.moveCounter = 0;
-		this.alive = true;
+		this.alive = new SimpleBooleanProperty(true);
 		this.canMove = true;
 	}
 	/**
@@ -39,6 +41,11 @@ public class Enemy extends Entity implements Observer {
 	 * @return - boolean of whether enemy is alive.
 	 */
 	public boolean getAlive() {
+		return this.alive.getValue();
+	}
+	
+	@Override
+	public BooleanProperty isAlive() {
 		return this.alive;
 	}
 
@@ -48,7 +55,7 @@ public class Enemy extends Entity implements Observer {
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		if (alive) {
+		if (alive.getValue()) {
 			if (p.getPotionState() instanceof NoPotionState) {
 				System.out.println("STEPPED ON AN ENEMY");
 				p.killPlayer();
@@ -65,7 +72,7 @@ public class Enemy extends Entity implements Observer {
 	 */
 	@Override
 	public void update(Subject o) {
-		if (this.alive) {
+		if (this.alive.getValue()) {
 			System.out.println("Enemy updating");
 			this.moveCounter ++;
 			if (this.moveCounter == 3) {
@@ -182,7 +189,7 @@ public class Enemy extends Entity implements Observer {
 	 * there are no more enemies.
 	 */
 	public void killEnemy() {
-		this.alive = false;
+		this.alive.setValue(false);
 		System.out.println("Killed the enemy");
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {

@@ -34,6 +34,7 @@ public class Sword extends Entity implements Weapon{
 		Dungeon dungeon = p.getDungeon();
 		dungeon.removeEntity(this);
 		p.setWeapon(this);
+		this.alive.setValue(false);
 	}
 
 	/**

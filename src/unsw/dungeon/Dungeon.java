@@ -261,7 +261,7 @@ public class Dungeon implements Observer{
 		if (obj.getObjectives() == null) {
 			if (obj instanceof ExitObjective) {
 				obj.incomplete(obj);
-				System.out.println("Stepped off exit, resetting " + obj);
+				//System.out.println("Stepped off exit, resetting " + obj);
 			}
 			return;
 		}
@@ -277,10 +277,10 @@ public class Dungeon implements Observer{
 	private void checkObjectives() {
 		// TODO Auto-generated method stub
 
-		System.out.println("Checking objectives");
+		//System.out.println("Checking objectives");
 		this.complete = objective.isComplete();
 		if (complete) {
-			System.out.println("Objectives Complete");
+			//System.out.println("Objectives Complete");
 		}
 
 	}
@@ -311,13 +311,13 @@ public class Dungeon implements Observer{
 		if (obj == null) return;
 		if (obj.getObjectives() == null) {
 			if (obj instanceof BoulderObjective) {
-				System.out.println("Instance of Boulder obj");
+				//System.out.println("Instance of Boulder obj");
 				obj.complete(obj);
 			}
 			return;
 		}
 		for (Objective o : obj.getObjectives()) {
-			System.out.println(o);
+			//System.out.println(o);
 			completeBoulderObjective(o);
 		}
 		checkObjectives();
@@ -335,13 +335,13 @@ public class Dungeon implements Observer{
 		if (obj == null) return;
 		if (obj.getObjectives() == null) {
 			if (obj instanceof TreasureObjective) {
-				System.out.println("Instance of treasure");
+				//System.out.println("Instance of treasure");
 				obj.complete(obj);
 			}
 			return;
 		}
 		for (Objective o : obj.getObjectives()) {
-			System.out.println(o);
+			//System.out.println(o);
 			completeTreasureObjective(o);
 		}
 		checkObjectives();
@@ -358,13 +358,13 @@ public class Dungeon implements Observer{
 		if (obj == null) return;
 		if (obj.getObjectives() == null) {
 			if (obj instanceof EnemyObjective) {
-				System.out.println("Instance of enemyObj");
+				//System.out.println("Instance of enemyObj");
 				obj.complete(obj);
 			}
 			return;
 		}
 		for (Objective o : obj.getObjectives()) {
-			System.out.println(o);
+			//System.out.println(o);
 			completeEnemyObjective(o);
 		}
 		checkObjectives();
@@ -388,7 +388,7 @@ public class Dungeon implements Observer{
 		if (currObj.getObjectives() == null) {
 			if (currObj instanceof BoulderObjective) {
 				currObj.incomplete(currObj);
-				System.out.println("Reset boulder objectives");
+				//System.out.println("Reset boulder objectives");
 				checkObjectives();
 			}
 			return;

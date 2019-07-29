@@ -42,6 +42,7 @@ public class Bomb extends Entity implements Runnable{
 		p.addBomb(this);
 		this.player = p;
 		dungeon.removeEntity(this);
+		this.alive.setValue(false);
 	}
 
 	/**
