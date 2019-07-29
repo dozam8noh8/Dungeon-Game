@@ -11,10 +11,11 @@ public class StartController {
     @FXML
     private Button instructionsButton;
 	private InstructionScreen instructionScreen;
+	private DungeonMenuScreen menuScreen;
 
     @FXML
     void handleStartButton(ActionEvent event) {
-    	System.out.println("Do something");
+    	menuScreen.start();
     }
 
     @FXML
@@ -23,6 +24,10 @@ public class StartController {
     }
     public void setInstructionScreen(InstructionScreen c) {
 		this.instructionScreen = c;
+	}
+
+	public void setMenuScreen(DungeonMenuScreen menuScreen) {
+		this.menuScreen = menuScreen;
 	}
 
 }
