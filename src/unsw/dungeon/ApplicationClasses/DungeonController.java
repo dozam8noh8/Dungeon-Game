@@ -27,6 +27,8 @@ public class DungeonController {
 
     private Dungeon dungeon;
 
+	private DungeonMenuScreen menuScreen;
+
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
@@ -70,10 +72,23 @@ public class DungeonController {
         case SPACE:
         	player.attack();
         	break;
+        case ESCAPE:
+        	menuScreen.start();
         default:
             break;
         }
+        if (dungeon.isComplete()) {
+        	menuScreen.start();
+        }
+        
+        if (!dungeon.getPlayer().isAlive()) {
+        	menuScreen.start();
+        }
     }
+    
+    public void setMenuScreen(DungeonMenuScreen menuScreen) {
+		this.menuScreen = menuScreen;
+	}
 
 }
 

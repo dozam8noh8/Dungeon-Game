@@ -16,6 +16,11 @@ public class DungeonMenuController {
 
     @FXML
     void handleFirstLevel(ActionEvent event) {
+    	try {
+			firstScreen.setFirstGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	firstScreen.start();
     }
 	public void setFirstScreen(DungeonGameScreen firstGameScreen) {

@@ -13,13 +13,12 @@ public class StartDungeonApplication extends Application{
 		DungeonMenuScreen menuScreen = new DungeonMenuScreen(primaryStage);
 		DungeonGameScreen firstGameScreen = new DungeonGameScreen(primaryStage);
 		menuScreen.getController().setFirstScreen(firstGameScreen);
+		firstGameScreen.setMenuScreen(menuScreen);
 		InstructionScreen instructionScreen = new InstructionScreen(primaryStage);
 		startScreen.getController().setInstructionScreen(instructionScreen);
 		startScreen.getController().setMenuScreen(menuScreen);
 		instructionScreen.getController().setStartScreen(startScreen);
 		startScreen.start();
-		
-
 	}
     public static void main(String[] args) {
         launch(args);

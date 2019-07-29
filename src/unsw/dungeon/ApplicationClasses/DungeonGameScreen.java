@@ -15,13 +15,17 @@ public class DungeonGameScreen {
 	private DungeonController controller;
 	DungeonControllerLoader dungeonLoader;
 	FXMLLoader loader;
+	private DungeonMenuScreen menuScreen;
 	
 	public DungeonGameScreen(Stage primaryStage) throws IOException {
 		this.stage = primaryStage;
 		this.title = "Dungeon Game Screen";
 		primaryStage.setTitle(title);
+        setFirstGame();
+	}
 
-        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze26.json");
+	public void setFirstGame() throws IOException {
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze26.json");
         DungeonController controller = dungeonLoader.loadController();
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
@@ -29,8 +33,10 @@ public class DungeonGameScreen {
         Scene scene = new Scene(root);
         this.scene = scene;
         root.requestFocus();
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
+        this.controller = controller;
+        setMenuScreen(menuScreen);
 	}
 	
 	public void start() {
@@ -53,5 +59,13 @@ public class DungeonGameScreen {
         root.requestFocus();
         stage.setScene(scene);
         stage.show();
+        this.controller = controller;
+        setMenuScreen(menuScreen);
 	}
+
+	public void setMenuScreen(DungeonMenuScreen menuScreen) {
+		controller.setMenuScreen(menuScreen);
+		this.menuScreen = menuScreen;
+	}
+
 }

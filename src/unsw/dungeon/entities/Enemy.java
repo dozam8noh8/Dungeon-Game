@@ -51,7 +51,7 @@ public class Enemy extends Entity implements Observer {
 		if (alive) {
 			if (p.getPotionState() instanceof NoPotionState) {
 				System.out.println("STEPPED ON AN ENEMY");
-				System.exit(1);
+				p.killPlayer();
 			} else {
 				System.out.println("You are invincible!!!!");
 				this.killEnemy();
