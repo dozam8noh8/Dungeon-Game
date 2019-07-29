@@ -76,7 +76,6 @@ public class Sword extends Entity implements Weapon{
 					System.out.println("Killed enemy");
 				}
 			
-			
 			}
 		}
 	}
