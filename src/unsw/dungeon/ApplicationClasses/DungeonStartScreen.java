@@ -21,7 +21,7 @@ public class DungeonStartScreen {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("startScreen.fxml"));
 		loader.setController(controller);
 		Parent root = loader.load();
-		scene = new Scene(root, 500, 300);
+		scene = new Scene(root);
 		
 		
 	}
