@@ -44,6 +44,7 @@ import unsw.dungeon.objectives.TreasureObjective;
 public abstract class DungeonLoader {
 
     private JSONObject json;
+    
 
     public DungeonLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
@@ -78,6 +79,7 @@ public abstract class DungeonLoader {
         	System.out.println("No character found");
         	return null;
         }
+       
         return dungeon;
     }
     
@@ -251,6 +253,7 @@ public abstract class DungeonLoader {
        
         dungeon.addEntity(entity);
     }
+    
 
     public abstract void onLoad(Entity player);
 

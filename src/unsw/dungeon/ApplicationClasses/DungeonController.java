@@ -26,7 +26,7 @@ public class DungeonController {
 
     private Player player;
 
-    private Dungeon dungeon;
+    protected Dungeon dungeon;
 
 	private DungeonMenuScreen menuScreen;
 
