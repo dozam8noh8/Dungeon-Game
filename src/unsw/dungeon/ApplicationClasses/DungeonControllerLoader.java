@@ -50,6 +50,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image doorImage;
     private Image potionImage;
     private Image swordImage;
+    private Image openDoorImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {

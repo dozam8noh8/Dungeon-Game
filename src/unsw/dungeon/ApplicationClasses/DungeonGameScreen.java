@@ -16,6 +16,8 @@ public class DungeonGameScreen {
 	DungeonControllerLoader dungeonLoader;
 	FXMLLoader loader;
 	private DungeonMenuScreen menuScreen;
+	private FailedLevelScreen failedLevelScreen;
+	private FinishedLevelScreen finishedLevelScreen;
 	
 	public DungeonGameScreen(Stage primaryStage) throws IOException {
 		this.stage = primaryStage;
@@ -37,6 +39,8 @@ public class DungeonGameScreen {
         stage.show();
         this.controller = controller;
         setMenuScreen(menuScreen);
+        setFailedLevelScreen(failedLevelScreen);
+        setFinishedLevelScreen(finishedLevelScreen);
 	}
 	
 	public void start() {
@@ -61,11 +65,31 @@ public class DungeonGameScreen {
         stage.show();
         this.controller = controller;
         setMenuScreen(menuScreen);
+        setFailedLevelScreen(failedLevelScreen);
+        setFinishedLevelScreen(finishedLevelScreen);
 	}
 
 	public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		controller.setMenuScreen(menuScreen);
 		this.menuScreen = menuScreen;
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
 	}
+	
+	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
+		controller.setFailedLevelScreen(failedLevelScreen);
+		this.menuScreen = menuScreen;
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
+	}
+	
+	public void setFinishedLevelScreen(FinishedLevelScreen finishedLevelScreen) {
+		controller.setFinishedLevelScreen(finishedLevelScreen);
+		this.menuScreen = menuScreen;
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
+	}
+	
+	
 
 }

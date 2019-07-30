@@ -29,6 +29,8 @@ public class DungeonController {
     protected Dungeon dungeon;
 
 	private DungeonMenuScreen menuScreen;
+	private FinishedLevelScreen finishedLevelScreen;
+	private FailedLevelScreen failedLevelScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -87,11 +89,11 @@ public class DungeonController {
             break;
         }
         if (dungeon.isComplete()) {
-        	menuScreen.start();
+        	finishedLevelScreen.start();
         }
         
         if (!dungeon.getPlayer().isAlive().getValue()) {
-        	menuScreen.start();
+        	failedLevelScreen.start();
         }
         
         removeEntities();
@@ -99,6 +101,14 @@ public class DungeonController {
     
     public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		this.menuScreen = menuScreen;
+	}
+
+	public void setFinishedLevelScreen(FinishedLevelScreen finishedLevelScreen) {
+		this.finishedLevelScreen = finishedLevelScreen;
+	}
+	
+	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
+		this.failedLevelScreen = failedLevelScreen;
 	}
 
 }
