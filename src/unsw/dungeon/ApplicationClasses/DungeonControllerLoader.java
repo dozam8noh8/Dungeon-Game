@@ -188,7 +188,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         	}
         });
         entity.isOpen().addListener((Observable, oldValue, newValue) -> {
-        	if (newValue == false) {
+        	if (newValue == true) {
         		((ImageView) node).setImage(openDoorImage);
         	}
         });

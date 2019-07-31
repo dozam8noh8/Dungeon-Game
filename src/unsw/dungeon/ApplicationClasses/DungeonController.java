@@ -85,6 +85,7 @@ public class DungeonController {
         	break;
         case ESCAPE:
         	menuScreen.start();
+        	break;
         default:
             break;
         }

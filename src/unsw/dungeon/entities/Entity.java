@@ -18,7 +18,7 @@ public class Entity {
     private IntegerProperty x, y;
     private boolean canMove = false;
     protected BooleanProperty alive = new SimpleBooleanProperty(true);
-    protected BooleanProperty open = new SimpleBooleanProperty(true);
+    protected BooleanProperty open = new SimpleBooleanProperty(false);
     protected IntegerProperty fuseLength = new SimpleIntegerProperty(4);
 
     /**

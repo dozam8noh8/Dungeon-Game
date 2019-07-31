@@ -34,7 +34,7 @@ public class Door extends Entity{
 			p.getKey().setPickedUp(false);
 			p.getDungeon().removeEntity(p.getKey());
 			p.setKey(null);
-			
+			this.open.setValue(true);
 			System.out.println("Door is opened!");
 		}
 	}
@@ -47,9 +47,8 @@ public class Door extends Entity{
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		if (!opened) {
+		if (!opened) { //try to open door (need correct key).
 			openDoor(p);
-			this.open.setValue(false);
 		}
 		if (!opened) { //if still not opened after calling openDoor
 			p.setCanMove(false);
