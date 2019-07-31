@@ -18,6 +18,7 @@ public class Entity {
     private IntegerProperty x, y;
     private boolean canMove = false;
     protected BooleanProperty alive = new SimpleBooleanProperty(true);
+    protected BooleanProperty open = new SimpleBooleanProperty(true);
 
     /**
      * Create an entity positioned in square (x,y)
@@ -81,5 +82,9 @@ public class Entity {
     
     public BooleanProperty isAlive() {
     	return this.alive;
+    }
+    
+    public BooleanProperty isOpen() {
+    	return this.open;
     }
 }

@@ -69,6 +69,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         potionImage = new Image("bubbly.png");
         swordImage = new Image("greatsword_1_new.png");
         switchImage = new Image("pressure_plate.png");
+        openDoorImage = new Image("open_door.png");
     }
 
 	@Override
@@ -176,6 +177,11 @@ public class DungeonControllerLoader extends DungeonLoader {
         	if (newValue == false) {
         		GridPane.setColumnIndex(node, 500);
         		GridPane.setRowIndex(node, 500);
+        	}
+        });
+        entity.isOpen().addListener((Observable, oldValue, newValue) -> {
+        	if (newValue == false) {
+        		((ImageView) node).setImage(openDoorImage);
         	}
         });
     }

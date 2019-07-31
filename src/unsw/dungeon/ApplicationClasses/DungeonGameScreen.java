@@ -27,7 +27,7 @@ public class DungeonGameScreen {
 	}
 
 	public void setFirstGame() throws IOException {
-		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advancedWithBoulder.json");
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
         DungeonController controller = dungeonLoader.loadController();
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);

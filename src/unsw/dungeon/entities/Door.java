@@ -49,6 +49,7 @@ public class Door extends Entity{
 	public void squareBehav(Player p, String direction) {
 		if (!opened) {
 			openDoor(p);
+			this.open.setValue(false);
 		}
 		if (!opened) { //if still not opened after calling openDoor
 			p.setCanMove(false);
