@@ -17,6 +17,7 @@ public class StartDungeonApplication extends Application{
 		failedLevelScreen.getController().setMenuScreen(menuScreen);
 		DungeonGameScreen firstGameScreen = new DungeonGameScreen(primaryStage);
 		menuScreen.getController().setFirstScreen(firstGameScreen);
+		//firstGameScreen.setAllScreen(menuScreen, failedLevelScreen, finishedLevelScreen);
 		firstGameScreen.setMenuScreen(menuScreen);
 		firstGameScreen.setFailedLevelScreen(failedLevelScreen);
 		firstGameScreen.setFinishedLevelScreen(finishedLevelScreen);

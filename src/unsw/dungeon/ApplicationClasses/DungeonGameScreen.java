@@ -28,7 +28,11 @@ public class DungeonGameScreen {
 
 	public void setFirstGame() throws IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
-        DungeonController controller = dungeonLoader.loadController();
+        setGameLoader(dungeonLoader);
+	}
+
+	private void setGameLoader(DungeonControllerLoader dungeonLoader) throws FileNotFoundException, IOException {
+		DungeonController controller = dungeonLoader.loadController();
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
@@ -38,6 +42,7 @@ public class DungeonGameScreen {
         stage.setScene(scene);
         stage.show();
         this.controller = controller;
+        //setAllScreen(menuScreen, failedLevelScreen, finishedLevelScreen);
         setMenuScreen(menuScreen);
         setFailedLevelScreen(failedLevelScreen);
         setFinishedLevelScreen(finishedLevelScreen);
@@ -54,21 +59,18 @@ public class DungeonGameScreen {
 	
 	public void setSecondGame() throws IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze25.json");
-        DungeonController controller = dungeonLoader.loadController();
-        loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
-        loader.setController(controller);
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        this.scene = scene;
-        root.requestFocus();
-        stage.setScene(scene);
-        stage.show();
-        this.controller = controller;
-        setMenuScreen(menuScreen);
-        setFailedLevelScreen(failedLevelScreen);
-        setFinishedLevelScreen(finishedLevelScreen);
+		setGameLoader(dungeonLoader);
 	}
-
+	
+	public void setAllScreen(DungeonMenuScreen menuScreen, FailedLevelScreen failedLevelScreen, FinishedLevelScreen finishedLevelScreen) {
+		controller.setMenuScreen(menuScreen);
+		this.menuScreen = menuScreen;
+		controller.setFailedLevelScreen(failedLevelScreen);
+		this.menuScreen = menuScreen;
+		controller.setFinishedLevelScreen(finishedLevelScreen);
+		this.menuScreen = menuScreen;
+	}
+	
 	public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		controller.setMenuScreen(menuScreen);
 		this.menuScreen = menuScreen;

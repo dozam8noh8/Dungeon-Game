@@ -14,7 +14,7 @@ import unsw.dungeon.Observer;
  *
  */
 public class Bomb extends Entity implements Runnable{
-	private int fuseLength; //Represents the time till detonation for the icons
+	//Represents the time till detonation for the icons
 	private Player player; //Represents the player holding the bomb
 	private Dungeon dungeon; //Represents the dungeon the bomb is stored in.
 	
@@ -26,7 +26,6 @@ public class Bomb extends Entity implements Runnable{
 	 */
 	public Bomb(int x, int y, Dungeon dungeon) {
 		super(x, y);
-		fuseLength = 3;
 		this.dungeon = dungeon;
 	}
 	
@@ -130,13 +129,16 @@ public class Bomb extends Entity implements Runnable{
 	@Override
 	public void run() {
 		try {
+			fuseLength.setValue(fuseLength.getValue()-1);
 			Thread.sleep(1000);
-			fuseLength--; //this should be observed by frontend i think.
+			fuseLength.setValue(fuseLength.getValue()-1);
 			Thread.sleep(1000);
-			fuseLength--;
+			fuseLength.setValue(fuseLength.getValue()-1);
 			Thread.sleep(1000);
-			fuseLength--;
-			this.detonateBomb(); //Can add another second here so we can see the explosion.
+			fuseLength.setValue(fuseLength.getValue()-1);
+			this.detonateBomb();
+			Thread.sleep(1000);
+			fuseLength.setValue(fuseLength.getValue()-1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

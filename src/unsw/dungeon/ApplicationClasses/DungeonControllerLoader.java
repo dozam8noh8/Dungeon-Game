@@ -51,6 +51,10 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image potionImage;
     private Image swordImage;
     private Image openDoorImage;
+    private Image bombLit1Image;
+    private Image bombLit2Image;
+    private Image bombLit3Image;
+    private Image bombLit4Image;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -70,6 +74,10 @@ public class DungeonControllerLoader extends DungeonLoader {
         swordImage = new Image("greatsword_1_new.png");
         switchImage = new Image("pressure_plate.png");
         openDoorImage = new Image("open_door.png");
+        bombLit1Image = new Image("bomb_lit_1.png");
+        bombLit2Image = new Image("bomb_lit_2.png");
+        bombLit3Image = new Image("bomb_lit_3.png");
+        bombLit4Image = new Image("bomb_lit_4.png");
     }
 
 	@Override
@@ -183,6 +191,24 @@ public class DungeonControllerLoader extends DungeonLoader {
         	if (newValue == false) {
         		((ImageView) node).setImage(openDoorImage);
         	}
+        });
+        entity.getBombState().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+            	if (newValue.intValue() == 3) {
+            		((ImageView) node).setImage(bombLit1Image);
+            	} else if (newValue.intValue() == 2) {
+            		((ImageView) node).setImage(bombLit2Image);
+            	} else if (newValue.intValue() == 1) {
+            		((ImageView) node).setImage(bombLit3Image);
+            	} else if (newValue.intValue() == 0) {
+            		((ImageView) node).setImage(bombLit4Image);
+            	} else if (newValue.intValue() == -1) {
+            		GridPane.setColumnIndex(node, 500);
+            		GridPane.setRowIndex(node, 500);
+            	}
+            }
         });
     }
 

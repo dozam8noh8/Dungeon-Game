@@ -19,6 +19,7 @@ public class Entity {
     private boolean canMove = false;
     protected BooleanProperty alive = new SimpleBooleanProperty(true);
     protected BooleanProperty open = new SimpleBooleanProperty(true);
+    protected IntegerProperty fuseLength = new SimpleIntegerProperty(4);
 
     /**
      * Create an entity positioned in square (x,y)
@@ -86,5 +87,9 @@ public class Entity {
     
     public BooleanProperty isOpen() {
     	return this.open;
+    }
+    
+    public IntegerProperty getBombState() {
+    	return this.fuseLength;
     }
 }
