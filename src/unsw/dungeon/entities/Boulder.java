@@ -17,7 +17,6 @@ import unsw.dungeon.Subject;
 public class Boulder extends Entity implements Subject{
 	private boolean canMove;
 	private Dungeon dungeon;
-	private boolean alive;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	/**
@@ -30,7 +29,6 @@ public class Boulder extends Entity implements Subject{
 		super(x, y);
 		this.canMove = true;
 		this.dungeon = dungeon;
-		this.alive = true;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -140,7 +138,7 @@ public class Boulder extends Entity implements Subject{
 	 * Remove a boulder when a bomb hits the boulder
 	 */
 	public void killBoulder() {
-		this.alive = false;
+		this.alive.setValue(false);
 	}
 
 }

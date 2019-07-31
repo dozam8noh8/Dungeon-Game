@@ -51,6 +51,7 @@ public class Bomb extends Entity implements Runnable{
 	public void lightBomb() {
 		setX(player.getX());
 		setY(player.getY());
+		this.alive.setValue(true);
 		Thread t1 = new Thread(this);
 		t1.start();
 		
@@ -139,6 +140,7 @@ public class Bomb extends Entity implements Runnable{
 			this.detonateBomb();
 			Thread.sleep(1000);
 			fuseLength.setValue(fuseLength.getValue()-1);
+			this.alive.setValue(false);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
