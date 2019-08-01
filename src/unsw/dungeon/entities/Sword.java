@@ -80,5 +80,8 @@ public class Sword extends Entity implements Weapon{
 			}
 		}
 	}
+	public int getAttacks() {
+		return this.attacks;
+	}
 		
 }

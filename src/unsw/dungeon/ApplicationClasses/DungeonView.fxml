@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="squares" onKeyPressed="#handleKeyPress" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-   <children>
+
+<SplitPane dividerPositions="0.5" onKeyReleased="#handleKeyPress" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <GridPane fx:id="squares" onKeyPressed="#handleKeyPress">
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+         <children>
 
    </children>
-</GridPane>
+      </GridPane>
+      <Pane prefHeight="200.0" prefWidth="418.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Inventory" />
+            <Label layoutX="25.0" layoutY="38.0" text="Sword: " />
+            <Label layoutX="87.0" layoutY="38.0" text="Label" />
+         </children>
+      </Pane>
+   </items>
+</SplitPane>

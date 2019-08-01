@@ -83,6 +83,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	@Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
+        view.visibleProperty().bindBidirectional(player.isAlive());
         addEntity(player, view);
     }
 
@@ -94,28 +95,33 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Exit exit) {
     	ImageView view = new ImageView(exitImage);
+    	
     	addEntity(exit, view);
     }
     @Override
     public void onLoad(Enemy enemy) {
     	ImageView view = new ImageView(enemyImage);
+    	view.visibleProperty().bindBidirectional(enemy.isAlive());
     	addEntity(enemy, view);
     }
     @Override
 	public void onLoad(Treasure treasure) {
     	ImageView view = new ImageView(treasureImage);
+    	view.visibleProperty().bindBidirectional(treasure.isAlive());
     	addEntity(treasure, view);		
 	}
 
 	@Override
 	public void onLoad(Bomb bomb) {
     	ImageView view = new ImageView(unlitBImage);
+    	view.visibleProperty().bindBidirectional(bomb.isAlive());
     	addEntity(bomb, view);				
 	}
 
 	@Override
 	public void onLoad(Boulder boulder) {
     	ImageView view = new ImageView(boulderImage);
+    	view.visibleProperty().bindBidirectional(boulder.isAlive());
     	addEntity(boulder, view);				
 	}
 
@@ -128,6 +134,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	@Override
 	public void onLoad(Key key) {
     	ImageView view = new ImageView(keyImage);
+    	view.visibleProperty().bindBidirectional(key.isAlive());
     	addEntity(key, view);			
 	}
 
@@ -139,11 +146,13 @@ public class DungeonControllerLoader extends DungeonLoader {
 	@Override
 	public void onLoad(Potion potion) {
 		ImageView view = new ImageView(potionImage);
+		view.visibleProperty().bindBidirectional(potion.isAlive());
 		addEntity(potion, view);
 	}
 	@Override
 	public void onLoad(Sword sword) {
 		ImageView view = new ImageView(swordImage);
+		view.visibleProperty().bindBidirectional(sword.isAlive());
 		addEntity(sword, view);
 	}
 	
@@ -180,12 +189,6 @@ public class DungeonControllerLoader extends DungeonLoader {
                     Number oldValue, Number newValue) {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
-        });
-        entity.isAlive().addListener((Observable, oldValue, newValue) -> {
-        	if (newValue == false) {
-        		GridPane.setColumnIndex(node, 500);
-        		GridPane.setRowIndex(node, 500);
-        	}
         });
         entity.isOpen().addListener((Observable, oldValue, newValue) -> {
         	if (newValue == true) {
