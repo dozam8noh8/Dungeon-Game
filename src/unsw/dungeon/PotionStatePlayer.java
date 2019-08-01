@@ -16,7 +16,6 @@ public class PotionStatePlayer implements PotionState {
 	 */
 	@Override
 	public PotionState changeToPotionState() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 

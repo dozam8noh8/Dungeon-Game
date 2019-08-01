@@ -39,6 +39,7 @@ public class Bomb extends Entity implements Runnable{
 		System.out.println("STEPPED ON A Bomb");
 		Dungeon dungeon = p.getDungeon();
 		p.addBomb(this);
+		p.setBombCount(p.getBombs().size()+ " Bombs");
 		this.player = p;
 		dungeon.removeEntity(this);
 		this.alive.setValue(false);

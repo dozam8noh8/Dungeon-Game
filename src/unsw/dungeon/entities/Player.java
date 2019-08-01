@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -33,6 +34,8 @@ public class Player extends Entity implements Subject {
     private List<Treasure> treasures = new ArrayList<Treasure>();  //list of treasures colected
     private Key key; //current key being held.
     private StringProperty weaponName = new SimpleStringProperty("None");
+	private StringProperty bombCount = new SimpleStringProperty("None");
+	private StringProperty potionStateInfo = new SimpleStringProperty("You don't have potion");
 
 	/**
      * Create a player positioned in square (x,y)
@@ -179,8 +182,20 @@ public class Player extends Entity implements Subject {
 	 */
 	public void changeToPotionState() {
 		potionState = potionState.changeToPotionState();
-		PotionStateThread potionThread = new PotionStateThread(this);
-		potionThread.start();
+		setPotionStateInfo("You've got a potion!");
+		new Thread(new Runnable() {
+		    @Override public void run() {
+		    	try { Thread.sleep(10000); } catch (Exception e) {}
+				changeToNoPotionState();
+		    	Platform.runLater(new Runnable() {
+		        @Override public void run() {
+		        	setPotionStateInfo("You don't have potion");
+		        }
+		     });
+		    }
+		}).start();
+		//PotionStateThread potionThread = new PotionStateThread(this);
+		//potionThread.start();
 	}
 	
 	/**
@@ -240,6 +255,7 @@ public class Player extends Entity implements Subject {
 			System.out.println("Attacking");
 			bombs.get(bombs.size()-1).lightBomb();
 			bombs.remove(bombs.size() - 1);
+			this.setBombCount(getBombs().size()+ " Bombs");
 		}
 	}
 
@@ -338,6 +354,21 @@ public class Player extends Entity implements Subject {
 	}
 	public void setWeaponName(String name) {
 		this.weaponName.setValue(name);
+	}
+
+	public StringProperty getBombCount() {
+		return this.bombCount;
+	}
+	public void setBombCount(String count) {
+		this.bombCount.setValue(count);
+	}
+
+	public StringProperty getPotionStateInfo() {
+		return this.potionStateInfo;
+	}
+	
+	public void setPotionStateInfo(String info) {
+		this.potionStateInfo.setValue(info);
 	}
 	
 }

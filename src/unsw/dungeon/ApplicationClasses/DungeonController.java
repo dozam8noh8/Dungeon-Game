@@ -28,6 +28,12 @@ public class DungeonController {
     private Label swordLabel;
     
     @FXML
+    private Label swordLabel2;
+    
+    @FXML
+    private Label swordLabel3;
+    
+    @FXML
     private Pane InventoryPane;
 
 
@@ -64,6 +70,10 @@ public class DungeonController {
         
         swordLabel.setText("None");
     	player.getWeaponName().bindBidirectional(swordLabel.textProperty());
+    	swordLabel2.setText("None");
+    	player.getBombCount().bindBidirectional(swordLabel2.textProperty());
+    	swordLabel3.setText("You don't have potion");
+    	player.getPotionStateInfo().bindBidirectional(swordLabel3.textProperty());
     }
     
     // To implement
@@ -77,21 +87,6 @@ public class DungeonController {
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println(player.getWeaponName().getValue());
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
-    	System.out.println("------------------------------");
         switch (event.getCode()) {
         case UP:
             player.moveUp();
