@@ -204,7 +204,6 @@ public class Player extends Entity implements Subject {
 	 */
 	public void setWeapon(Weapon w) {
 		this.weapon = w;
-		setWeaponName();
 	}
 	
 	/**
@@ -331,16 +330,14 @@ public class Player extends Entity implements Subject {
 	public boolean entityMoveThrough() {
 		System.out.println("Enemy caught a player");
 		this.killPlayer();
-		//System.exit(1);
 		return false;
 	}
 
 	public StringProperty getWeaponName() {
-		// TODO Auto-generated method stub
 		return this.weaponName;
 	}
-	public void setWeaponName() {
-		this.weaponName.setValue("jhhhjjjj"); //this.weapon.getName
+	public void setWeaponName(String name) {
+		this.weaponName.setValue(name);
 	}
 	
 }

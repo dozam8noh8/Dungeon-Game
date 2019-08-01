@@ -16,7 +16,6 @@ import unsw.dungeon.Weapon;
 public class Sword extends Entity implements Weapon{
 	private int attacks = 5; //The number of attacks the weapon has
 	private Player p; //The player using the sword.
-	
 	/**
 	 * 
 	 * @param x - the x coordinate on which the sword lies
@@ -37,6 +36,7 @@ public class Sword extends Entity implements Weapon{
 		dungeon.removeEntity(this);
 		p.setWeapon(this);
 		this.alive.setValue(false);
+		p.setWeaponName(attacks+" Hits Left");
 	}
 
 	/**
@@ -57,8 +57,10 @@ public class Sword extends Entity implements Weapon{
 				attackOnSquare(x,y+1, p, dungeon); //attack down
 				attackOnSquare(x,y-1, p, dungeon); //attack up
 				attacks --;
+				p.setWeaponName(attacks+" Hits Left");
 				if (attacks < 1) {
 					p.setWeapon(null);
+					p.setWeaponName("None");
 				}
 
 	}
@@ -84,12 +86,6 @@ public class Sword extends Entity implements Weapon{
 	}
 	public int getAttacks() {
 		return this.attacks;
-	}
-
-	@Override
-	public StringProperty getName() {
-		// TODO Auto-generated method stub
-		return new SimpleStringProperty("Sword");
 	}
 		
 }

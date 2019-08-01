@@ -77,7 +77,21 @@ public class DungeonController {
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
-    	
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println(player.getWeaponName().getValue());
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
+    	System.out.println("------------------------------");
         switch (event.getCode()) {
         case UP:
             player.moveUp();

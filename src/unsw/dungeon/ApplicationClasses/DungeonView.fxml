@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <SplitPane dividerPositions="0.5" onKeyReleased="#handleKeyPress" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <GridPane fx:id="squares" onKeyPressed="#handleKeyPress">

@@ -5,6 +5,4 @@ import unsw.dungeon.entities.Player;
 
 public interface Weapon {
 	public void attack(Player p);
-	public StringProperty getName();
-	
 }
