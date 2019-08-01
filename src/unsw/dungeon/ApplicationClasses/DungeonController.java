@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Player;
@@ -21,12 +23,19 @@ public class DungeonController {
 
     @FXML
     private GridPane squares;
+    
+    @FXML
+    private Label swordLabel;
+    
+    @FXML
+    private Pane InventoryPane;
+
 
     private List<ImageView> initialEntities;
 
     private Player player;
 
-    protected Dungeon dungeon;
+    private Dungeon dungeon;
 
 	private DungeonMenuScreen menuScreen;
 	private FinishedLevelScreen finishedLevelScreen;
@@ -36,12 +45,13 @@ public class DungeonController {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
+        
+        
     }
 
     @FXML
     public void initialize() {
         Image ground = new Image("/dirt_0_new.png");
-
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
             for (int y = 0; y < dungeon.getHeight(); y++) {
@@ -51,6 +61,9 @@ public class DungeonController {
 
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
+        
+        swordLabel.setText("None");
+    	player.getWeaponName().bindBidirectional(swordLabel.textProperty());
     }
     
     // To implement
@@ -64,6 +77,7 @@ public class DungeonController {
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
+    	
         switch (event.getCode()) {
         case UP:
             player.moveUp();

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
@@ -30,6 +32,7 @@ public class Player extends Entity implements Subject {
     private List<Bomb> bombs = new ArrayList<Bomb>(); //list of bombs the player is holding
     private List<Treasure> treasures = new ArrayList<Treasure>();  //list of treasures colected
     private Key key; //current key being held.
+    private StringProperty weaponName = new SimpleStringProperty("None");
 
 	/**
      * Create a player positioned in square (x,y)
@@ -201,6 +204,7 @@ public class Player extends Entity implements Subject {
 	 */
 	public void setWeapon(Weapon w) {
 		this.weapon = w;
+		setWeaponName();
 	}
 	
 	/**
@@ -329,6 +333,14 @@ public class Player extends Entity implements Subject {
 		this.killPlayer();
 		//System.exit(1);
 		return false;
+	}
+
+	public StringProperty getWeaponName() {
+		// TODO Auto-generated method stub
+		return this.weaponName;
+	}
+	public void setWeaponName() {
+		this.weaponName.setValue("jhhhjjjj"); //this.weapon.getName
 	}
 	
 }

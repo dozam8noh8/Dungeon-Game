@@ -2,6 +2,8 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Weapon;
 
@@ -82,6 +84,12 @@ public class Sword extends Entity implements Weapon{
 	}
 	public int getAttacks() {
 		return this.attacks;
+	}
+
+	@Override
+	public StringProperty getName() {
+		// TODO Auto-generated method stub
+		return new SimpleStringProperty("Sword");
 	}
 		
 }
