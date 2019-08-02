@@ -15,7 +15,7 @@
       <Pane fx:id="objectivesPane" prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label layoutX="66.0" layoutY="31.0" text="Objectives" />
-            <Label fx:id="jsonObjectives" layoutX="69.0" layoutY="62.0" text="JsonObj" />
+            <Label fx:id="jsonObjectivesLabel" layoutX="69.0" layoutY="62.0" maxWidth="100.0" text="JsonObj" wrapText="true" />
          </children>
       </Pane>
       <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="5.0" prefWidth="0.0">

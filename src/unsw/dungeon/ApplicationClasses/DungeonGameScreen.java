@@ -3,6 +3,8 @@ package unsw.dungeon.ApplicationClasses;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.json.JSONObject;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,12 +29,14 @@ public class DungeonGameScreen {
 	}
 
 	public void setFirstGame() throws IOException {
-		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("TwoEnemies.json");
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
         setGameLoader(dungeonLoader);
 	}
 
 	private void setGameLoader(DungeonControllerLoader dungeonLoader) throws FileNotFoundException, IOException {
 		DungeonController controller = dungeonLoader.loadController();
+
+		
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
@@ -42,6 +46,8 @@ public class DungeonGameScreen {
         stage.setScene(scene);
         stage.show();
         this.controller = controller;
+		JSONObject objectiveList = dungeonLoader.getJSONObjectivesFX();
+        controller.initialize(objectiveList);
         //setAllScreen(menuScreen, failedLevelScreen, finishedLevelScreen);
         setMenuScreen(menuScreen);
         setFailedLevelScreen(failedLevelScreen);

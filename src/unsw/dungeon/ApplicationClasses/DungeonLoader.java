@@ -44,6 +44,7 @@ import unsw.dungeon.objectives.TreasureObjective;
 public abstract class DungeonLoader {
 
     private JSONObject json;
+    private String objString = "";
     
 
     public DungeonLoader(String filename) throws FileNotFoundException {
@@ -80,6 +81,7 @@ public abstract class DungeonLoader {
         	return null;
         }
        dungeon.initialiseNumTreasures();
+       System.out.println(objString);
         return dungeon;
     }
     
@@ -90,11 +92,16 @@ public abstract class DungeonLoader {
      * @return
      */
     private Objective createOrObjective (Dungeon dungeon, JSONArray jsonArr) {
+    	objString += " \n( ";
     	Objective o = new StrategyObjective(new ArrayList<Objective>(), new OrObjectives() );
     	for (int i = 0; i < jsonArr.length(); i++) {
     		JSONObject jobj = jsonArr.getJSONObject(i);
     		handleObjectiveCases(o, dungeon, jobj);
+    		if (i != jsonArr.length() -1) {
+    			objString += " OR ";
+    		}
     	}
+    	objString += " )";
     	return o;
     }
     
@@ -105,11 +112,16 @@ public abstract class DungeonLoader {
      * @return
      */
     private Objective createAndObjective (Dungeon dungeon, JSONArray jsonArr) {
+    	objString += "\n ( ";
     	Objective o = new StrategyObjective(new ArrayList<Objective>(), new AndObjectives());
     	for (int i = 0; i < jsonArr.length(); i++) {
     		JSONObject jobj = jsonArr.getJSONObject(i);
     		handleObjectiveCases(o, dungeon, jobj);
+    		if (i != jsonArr.length() -1) {
+    			objString += " AND ";
+    		}
     	}
+    	objString += ")";
     	return o;
     }
     
@@ -125,33 +137,38 @@ public abstract class DungeonLoader {
     	switch(goal) { //we no longer default instantiate an objective in the dungeon so we need to add one before we can add children.
     	case "AND":
     		//Do some composite stuff
+    		//objString += "\nAND";
     		currObj.addChild(createAndObjective(dungeon, json.getJSONArray("subgoals")));
     		System.out.println("Added and");
     		break;
     	case "OR":
+    		//objString+= "\nOR";
     		currObj.addChild(createOrObjective(dungeon, json.getJSONArray("subgoals")));
     		//Do some composite stuff
     		System.out.println("Added or");
     		break;
     	case "enemies":
+    		objString += " Kill All Enemies";
     		currObj.addChild(new EnemyObjective());
     		System.out.println("Added Enemy");
     		break;
     	case "treasure":
+    		objString += " Collect all treasure";
     		currObj.addChild(new TreasureObjective());
     		System.out.println("Added Treasure");
     		break;
     	case "exit":
+    		objString +=" Exit the dungeon";
     		currObj.addChild(new ExitObjective());
     		System.out.println("Added Exit");
     		break;
     	case "boulders":
+    		objString += " Place all boulders on switches";
     		currObj.addChild(new BoulderObjective());
     		System.out.println("Added Boulder");
     		break;
     	}
     }
-    
     /**
      * Load entities from JSON to dungeon object
      * @param dungeon - Game dungeon
@@ -253,7 +270,10 @@ public abstract class DungeonLoader {
        
         dungeon.addEntity(entity);
     }
-    
+    public JSONObject getJSONObjectivesFX() {
+    	
+    	return json.getJSONObject("goal-condition");
+    }
 
     public abstract void onLoad(Entity player);
 

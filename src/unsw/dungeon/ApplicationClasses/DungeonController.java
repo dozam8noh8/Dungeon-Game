@@ -3,6 +3,8 @@ package unsw.dungeon.ApplicationClasses;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -46,6 +48,10 @@ public class DungeonController {
     @FXML
     private Pane objectivesPane;
 
+    @FXML
+    private Label jsonObjectivesLabel;
+
+
     private List<ImageView> initialEntities;
 
     private Player player;
@@ -65,7 +71,7 @@ public class DungeonController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize(JSONObject objectives) {
         Image ground = new Image("/dirt_0_new.png");
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
@@ -85,6 +91,7 @@ public class DungeonController {
     	player.getBombCount().bindBidirectional(swordLabel2.textProperty());
     	swordLabel3.setText("You don't have potion");
     	player.getPotionStateInfo().bindBidirectional(swordLabel3.textProperty());
+    	jsonObjectivesLabel.textProperty().setValue(objectives.toString());
     }
     
     // To implement
