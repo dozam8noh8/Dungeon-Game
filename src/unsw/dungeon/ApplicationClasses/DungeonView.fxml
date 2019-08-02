@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -27,12 +29,24 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Label layoutX="29.0" layoutY="54.0" text="Sword: " />
             <Label fx:id="swordLabel" layoutX="91.0" layoutY="54.0" text="Hello" />
-            <Label layoutX="29.0" layoutY="78.0" text="Bomb:" />
-            <Label fx:id="swordLabel2" layoutX="91.0" layoutY="78.0" text="Hello" />
-            <Label layoutX="30.0" layoutY="106.0" text="Potion:" />
-            <Label fx:id="swordLabel3" layoutX="91.0" layoutY="106.0" text="Hello" />
+            <Label fx:id="swordLabel2" layoutX="91.0" layoutY="87.0" text="Hello" />
+            <Label fx:id="swordLabel3" layoutX="91.0" layoutY="117.0" text="Hello" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/greatsword_1_new.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/bomb_unlit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/brilliant_blue_new.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </items>
