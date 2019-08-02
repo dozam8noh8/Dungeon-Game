@@ -46,7 +46,7 @@ public class DungeonGameScreen {
         stage.setScene(scene);
         stage.show();
         this.controller = controller;
-		JSONObject objectiveList = dungeonLoader.getJSONObjectivesFX();
+		String objectiveList = dungeonLoader.getObjString();
         controller.initialize(objectiveList);
         //setAllScreen(menuScreen, failedLevelScreen, finishedLevelScreen);
         setMenuScreen(menuScreen);

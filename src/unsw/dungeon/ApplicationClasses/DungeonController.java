@@ -71,7 +71,7 @@ public class DungeonController {
     }
 
     @FXML
-    public void initialize(JSONObject objectives) {
+    public void initialize(String objectiveList) {
         Image ground = new Image("/dirt_0_new.png");
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
@@ -91,7 +91,7 @@ public class DungeonController {
     	player.getBombCount().bindBidirectional(swordLabel2.textProperty());
     	swordLabel3.setText("You don't have potion");
     	player.getPotionStateInfo().bindBidirectional(swordLabel3.textProperty());
-    	jsonObjectivesLabel.textProperty().setValue(objectives.toString());
+    	jsonObjectivesLabel.textProperty().setValue(objectiveList);
     }
     
     // To implement

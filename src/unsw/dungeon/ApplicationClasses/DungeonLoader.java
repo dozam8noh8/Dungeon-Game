@@ -98,7 +98,7 @@ public abstract class DungeonLoader {
     		JSONObject jobj = jsonArr.getJSONObject(i);
     		handleObjectiveCases(o, dungeon, jobj);
     		if (i != jsonArr.length() -1) {
-    			objString += " OR ";
+    			objString += "\n    OR \n";
     		}
     	}
     	objString += " )";
@@ -118,7 +118,7 @@ public abstract class DungeonLoader {
     		JSONObject jobj = jsonArr.getJSONObject(i);
     		handleObjectiveCases(o, dungeon, jobj);
     		if (i != jsonArr.length() -1) {
-    			objString += " AND ";
+    			objString += "\n    AND ";
     		}
     	}
     	objString += ")";
@@ -270,9 +270,9 @@ public abstract class DungeonLoader {
        
         dungeon.addEntity(entity);
     }
-    public JSONObject getJSONObjectivesFX() {
+    public String getObjString() {
     	
-    	return json.getJSONObject("goal-condition");
+    	return this.objString;
     }
 
     public abstract void onLoad(Entity player);
