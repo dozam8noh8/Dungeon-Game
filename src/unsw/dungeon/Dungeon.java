@@ -12,6 +12,7 @@ import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Key;
 import unsw.dungeon.entities.PPlate;
 import unsw.dungeon.entities.Player;
+import unsw.dungeon.entities.Treasure;
 import unsw.dungeon.entities.Wall;
 import unsw.dungeon.objectives.BoulderObjective;
 import unsw.dungeon.objectives.EnemyObjective;
@@ -38,6 +39,8 @@ public class Dungeon implements Observer{
     private List<PPlate> plates = new ArrayList<PPlate>();
     private Objective objective;
     private boolean complete = false;
+    private int numTreasures;
+    
     //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
 
@@ -58,6 +61,21 @@ public class Dungeon implements Observer{
      */
     public void setFinalObjective (Objective o) {
     	this.objective = o;
+    }
+    /**
+     * Returns the num of treasures in a dungeon.
+     * @return - int the number of treasures in a dungeon.
+     */
+    public int getNumTreasures() {
+    	return this.numTreasures;
+    }
+    public void initialiseNumTreasures() {
+    	numTreasures = 0;
+    	for (Entity e : this.entities) {
+    		if (e instanceof Treasure) {
+    			numTreasures++;
+    		}
+    	}
     }
     /**
      * Returns the width of the dungeon in square blocks.

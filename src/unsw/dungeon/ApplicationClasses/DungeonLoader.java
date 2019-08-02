@@ -79,7 +79,7 @@ public abstract class DungeonLoader {
         	System.out.println("No character found");
         	return null;
         }
-       
+       dungeon.initialiseNumTreasures();
         return dungeon;
     }
     

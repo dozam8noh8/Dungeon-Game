@@ -3,6 +3,7 @@ package unsw.dungeon.ApplicationClasses;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -32,6 +33,12 @@ public class DungeonController {
     
     @FXML
     private Label swordLabel3;
+    
+    @FXML
+    private Label totalTrez;
+    
+    @FXML
+    private Label collectedTrez;
     
     @FXML
     private Pane InventoryPane;
@@ -70,6 +77,8 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
+        totalTrez.setText(Integer.toString(dungeon.getNumTreasures()));
+        collectedTrez.textProperty().bindBidirectional(player.getColTreasureFX());
         swordLabel.setText("None");
     	player.getWeaponName().bindBidirectional(swordLabel.textProperty());
     	swordLabel2.setText("None");

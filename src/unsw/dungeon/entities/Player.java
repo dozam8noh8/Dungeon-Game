@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import unsw.dungeon.Dungeon;
@@ -32,6 +34,7 @@ public class Player extends Entity implements Subject {
     private Weapon weapon = null; //the weapon the player is currently holding
     private List<Bomb> bombs = new ArrayList<Bomb>(); //list of bombs the player is holding
     private List<Treasure> treasures = new ArrayList<Treasure>();  //list of treasures colected
+    private StringProperty collectedTreasure = new SimpleStringProperty("0");
     private Key key; //current key being held.
     private StringProperty weaponName = new SimpleStringProperty("None");
 	private StringProperty bombCount = new SimpleStringProperty("None");
@@ -47,8 +50,18 @@ public class Player extends Entity implements Subject {
         super(x, y);
         this.dungeon = dungeon;
         this.setCanMove(true);
+        
     }
-
+    public StringProperty getColTreasureFX () {
+    	return this.collectedTreasure;
+    }
+    public String getColTreasure() {
+    	return this.collectedTreasure.getValue();
+    }
+    public void incrementTrez() {
+    	int newNum = Integer.parseInt(collectedTreasure.getValue())+1;
+    	this.collectedTreasure.setValue(Integer.toString(newNum));
+    }
     /**
      * After checking if it is a valid move in the dungeon, this will move the player up.
      * The method also notifies any observers of the player that the player has moved.
@@ -289,6 +302,7 @@ public class Player extends Entity implements Subject {
 	 */
 	public void addTreasure(Treasure treasure) {
 		this.treasures.add(treasure);
+		this.incrementTrez();
 	}
 	
 	/**
