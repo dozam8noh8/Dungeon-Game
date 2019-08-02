@@ -182,20 +182,35 @@ public class Player extends Entity implements Subject {
 	 */
 	public void changeToPotionState() {
 		potionState = potionState.changeToPotionState();
-		setPotionStateInfo("You've got a potion!");
-		new Thread(new Runnable() {
-		    @Override public void run() {
-		    	try { Thread.sleep(10000); } catch (Exception e) {}
-				changeToNoPotionState();
-		    	Platform.runLater(new Runnable() {
-		        @Override public void run() {
-		        	setPotionStateInfo("You don't have potion");
-		        }
-		     });
-		    }
-		}).start();
-		//PotionStateThread potionThread = new PotionStateThread(this);
-		//potionThread.start();
+		setPotionStateInfo("You've got a potion for 10 sec");
+		potionThread(10);
+	}
+	
+	private void potionThread(int j) {
+	    class OneShotTask implements Runnable {
+	        int j;
+	        OneShotTask(int i) { j = i; }
+	        public void run() {
+	        	try { Thread.sleep(1000); } catch (Exception e) {}
+	        	if (j == 1) {
+	        		changeToNoPotionState();
+	        	}
+	        	Platform.runLater(new Runnable() {
+			        @Override public void run() {
+			        	
+			        	if (j == 1) {
+			        		setPotionStateInfo("You don't have potion");
+			        	} else {
+			        		setPotionStateInfo("You have potion for "+(j-1)+" sec");
+			        		Thread t = new Thread(new OneShotTask(j-1));
+			        		t.start();
+			        	}
+			        }
+	        	});
+	        }
+	    }
+	    Thread t = new Thread(new OneShotTask(10));
+	    t.start();
 	}
 	
 	/**
