@@ -182,7 +182,7 @@ public class Player extends Entity implements Subject {
 	 */
 	public void changeToPotionState() {
 		potionState = potionState.changeToPotionState();
-		setPotionStateInfo("You've got a potion for 10 sec");
+		setPotionStateInfo("You've got potion for 10 sec");
 		potionThread(10);
 	}
 	

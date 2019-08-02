@@ -35,7 +35,9 @@ public class DungeonController {
     
     @FXML
     private Pane InventoryPane;
-
+    
+    @FXML
+    private Pane objectivesPane;
 
     private List<ImageView> initialEntities;
 
