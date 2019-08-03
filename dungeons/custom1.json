@@ -2,17 +2,25 @@
   "width": 10,
   "height": 10,"entities": [
     {
-      "x": 1,
-      "y": 1,
+      "x": 0,
+      "y": 0,
       "type": "player"
     },
     {
+      "x": 1,
+      "y": 0,
+      "type": "invincibility"
+    },
+    {
       "x": 2,
-      "y": 1,
+      "y": 0,
       "type": "treasure"
     },
     {
       "x": 3,
-      "y": 1,
-      "type": "treasure"
-    },],"goal-condition":{"goal": "treasure"},}
+      "y": 0,
+      "type": "enemy"
+    },],
+"goal-condition": { "goal": "AND", "subgoals":
+  [ {"goal": "enemies"},{"goal": "treasure"},]
+}}
