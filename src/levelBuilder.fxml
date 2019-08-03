@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="enemyButton" disable="true" layoutX="19.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleEnemyButton" prefHeight="26.0" prefWidth="76.0" text="Enemy" />
+      <Button fx:id="treasureButton" disable="true" layoutX="20.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleTreasureButton" prefHeight="26.0" prefWidth="76.0" text="Treasure" />
+      <Button fx:id="startBuildButton" layoutX="36.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleStartBuildButton" prefHeight="26.0" prefWidth="119.0" text="Start Build" />
+      <Label layoutX="173.0" layoutY="27.0" text="Filename = custom" />
+      <TextField fx:id="fileTextField" layoutX="323.0" layoutY="22.0" text="1" />
+      <Button fx:id="endButton" disable="true" layoutX="51.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleEndButton" prefHeight="26.0" prefWidth="87.0" text="End Build" />
+      <Button fx:id="startEntityButton" disable="true" layoutX="36.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleStartEntityButton" text="Start Entity List" />
+      <Button fx:id="endEntityButton" disable="true" layoutX="39.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleEndEntityButton" text="End Entity List" />
+      <Button fx:id="startObjectivesButton" disable="true" layoutX="38.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleStartObjectivesButton" text="Start Objectives" />
+      <Button fx:id="endObjectivesButton" disable="true" layoutX="41.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleEndObjectivesButton" text="End Objectives" />
+      <TextField fx:id="heightField" layoutX="649.0" layoutY="74.0" prefHeight="26.0" prefWidth="76.0" text="10" />
+      <Label layoutX="577.0" layoutY="79.0" text="Height" />
+      <Label layoutX="579.0" layoutY="121.0" text="Width" />
+      <TextField fx:id="widthField" layoutX="649.0" layoutY="116.0" prefHeight="26.0" prefWidth="76.0" text="10" />
+      <Label layoutX="569.0" layoutY="424.0" text="x :" />
+      <Label layoutX="569.0" layoutY="461.0" text="y :" />
+      <TextField layoutX="611.0" layoutY="419.0" prefHeight="26.0" prefWidth="76.0" text="1" fx:id="xCoordField" />
+      <TextField fx:id="yCoordField" layoutX="611.0" layoutY="456.0" prefHeight="26.0" prefWidth="76.0" text="1" />
+      <Button fx:id="restartButton" layoutX="618.0" layoutY="30.0" mnemonicParsing="false" text="Restart" />
+      <Pane fx:id="gridPaneBase" layoutX="194.0" layoutY="61.0" prefHeight="372.0" prefWidth="364.0" />
+      <Button fx:id="potionButton" disable="true" layoutX="20.0" layoutY="372.0" mnemonicParsing="false" onAction="#handlePotionButton" prefHeight="26.0" prefWidth="76.0" text="Potion" />
+      <Button fx:id="boulderButton" disable="true" layoutX="20.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleBoulderButton" prefHeight="26.0" prefWidth="76.0" text="Boulder" />
+      <Button fx:id="switchButton" disable="true" layoutX="19.0" layoutY="448.0" mnemonicParsing="false" onAction="#handleSwitchButton" prefHeight="26.0" prefWidth="76.0" text="Switch" />
+      <Button fx:id="keyButton" disable="true" layoutX="20.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleKeyButton" prefHeight="26.0" prefWidth="76.0" text="Key" />
+      <Button fx:id="doorButton" disable="true" layoutX="20.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleDoorButton" prefHeight="26.0" prefWidth="76.0" text="Door" />
+      <Label layoutX="518.0" layoutY="500.0" text="Key/Door I.D" />
+      <TextField fx:id="IDField" layoutX="613.0" layoutY="495.0" prefHeight="26.0" prefWidth="76.0" text="1" />
+      <Button fx:id="wallButton" disable="true" layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleWallButton" prefHeight="26.0" prefWidth="76.0" text="Wall" />
+      <Button fx:id="bombButton" disable="true" layoutX="100.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleBombButton" prefHeight="26.0" prefWidth="76.0" text="Bomb" />
+      <Button fx:id="enemyObjButton" disable="true" layoutX="185.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleEnemyObjButton" prefHeight="26.0" prefWidth="112.0" text="EnemyObj" />
+      <Button fx:id="treasureObjButton" disable="true" layoutX="185.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleTreasureObjButton" prefHeight="26.0" prefWidth="112.0" text="TreasureObj" />
+      <Button fx:id="boulderObjButton" disable="true" layoutX="313.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleBoulderObjButton" prefHeight="26.0" prefWidth="112.0" text="BoulderObj" />
+      <Button fx:id="exitObjButton" disable="true" layoutX="313.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleExitObjButton" prefHeight="26.0" prefWidth="112.0" text="ExitObj" />
+      <Button fx:id="ANDObjButton" disable="true" layoutX="185.0" layoutY="487.0" mnemonicParsing="false" onAction="#handleANDButton" prefHeight="26.0" prefWidth="112.0" text="AND" />
+      <Button fx:id="ORObjButton" disable="true" layoutX="313.0" layoutY="487.0" mnemonicParsing="false" onAction="#handleORButton" prefHeight="26.0" prefWidth="112.0" text="OR" />
+      <Label layoutX="133.0" layoutY="461.0" text="Click AND or OR before objective combo, then click FINISH" />
+      <Button fx:id="finishObjButton" disable="true" layoutX="446.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleFinishObjButton" text="Finish AND/OR" />
+      <Label fx:id="FEObjString" layoutX="598.0" layoutY="173.0" prefHeight="204.0" prefWidth="170.0" wrapText="true" />
+      <Label layoutX="651.0" layoutY="150.0" text="OBJECTIVES" />
+      <Label fx:id="allDone" layoutX="210.0" layoutY="394.0" text="ALL DONE" visible="false">
+         <font>
+            <Font size="63.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

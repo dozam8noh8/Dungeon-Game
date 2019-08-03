@@ -93,7 +93,7 @@ public class DungeonController {
     	player.getPotionStateInfo().bindBidirectional(swordLabel3.textProperty());
     	jsonObjectivesLabel.textProperty().setValue(objectiveList);
     }
-    
+
     // To implement
     public void removeEntities() {
     	for (Entity e : dungeon.getEntities()) {
