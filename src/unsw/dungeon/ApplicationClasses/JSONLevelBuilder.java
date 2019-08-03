@@ -17,7 +17,7 @@ public class JSONLevelBuilder {
 	private PrintWriter writer;
 	private int Dwidth;
 	private int Dheight;
-	private String objString;
+	private String objString = "";
 	public JSONLevelBuilder (String filename) throws JSONException, FileNotFoundException, UnsupportedEncodingException {
 		this.filename = filename;
 		writer = new PrintWriter("dungeons/"+filename , "UTF-8");
