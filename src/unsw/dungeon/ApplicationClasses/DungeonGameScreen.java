@@ -59,6 +59,7 @@ public class DungeonGameScreen {
 	
 	public void start() {
 		instructionScreen.getController().setEnableButton(false);
+		instructionScreen.getController().setGameScreen(this);
 		stage.setTitle(title);
 		stage.setScene(scene);
 		stage.show();

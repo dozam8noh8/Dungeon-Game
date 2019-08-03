@@ -12,7 +12,6 @@ public class InstructionController {
     private Button RetToGame;
 
 
-
 	public void setStartScreen(DungeonStartScreen startScreen) {
 		this.startScreen = startScreen;
 	}
