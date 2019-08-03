@@ -51,9 +51,9 @@ public class Bomb extends Entity implements Runnable{
 	 * Lights the bomb which creates a thread with a timer on it.
 	 * Sets coordinates based on the square where player used it.
 	 */
-	public void lightBomb() {
-		setX(player.getX());
-		setY(player.getY());
+	public void lightBomb(int x, int y) {
+		setX(x);
+		setY(y);
 		setAlive(true);
 		Thread t1 = new Thread(this);
 		t1.start();
@@ -81,6 +81,7 @@ public class Bomb extends Entity implements Runnable{
 	 * immediate left,right,up,down for any bomb targets to remove from the dungeon.
 	 */
 	public void detonateBomb() {
+		System.out.println("Bomb exploding at" + getX() + getY());
 		int x = this.getX();
 		int y = this.getY();
 		if (x> 0) {

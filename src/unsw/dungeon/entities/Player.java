@@ -295,7 +295,7 @@ public class Player extends Entity implements Subject {
 	 */
 	public void useBomb() {
 		if (bombs.size() > 0) {
-			bombs.get(bombs.size()-1).lightBomb();
+			bombs.get(bombs.size()-1).lightBomb(getX(), getY());
 			bombs.remove(bombs.size() - 1);
 			this.setBombCount(getBombs().size()+ " Bombs");
 		}

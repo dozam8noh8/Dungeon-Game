@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 import javafx.scene.image.Image;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.Bomb;
+import unsw.dungeon.entities.BossEnemy;
 import unsw.dungeon.entities.Boulder;
 import unsw.dungeon.entities.Door;
 import unsw.dungeon.entities.Enemy;
@@ -272,6 +273,11 @@ public abstract class DungeonLoader {
         	onLoad(life);
         	entity = life;
         	break;
+        case "boss":
+        	BossEnemy boss = new BossEnemy(dungeon,x,y);
+        	onLoad(boss);
+        	entity = boss;
+        	break;
         }
        
         dungeon.addEntity(entity);
@@ -307,7 +313,6 @@ public abstract class DungeonLoader {
     
     public abstract void onLoad(Life life);
 
-
-	public void onLoad() {} 
+	public abstract void onLoad(BossEnemy boss);
 
 }

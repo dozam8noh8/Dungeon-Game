@@ -8,6 +8,7 @@ import unsw.dungeon.Dungeon;
 import unsw.dungeon.ApplicationClasses.DungeonControllerLoader;
 import unsw.dungeon.ApplicationClasses.DungeonLoader;
 import unsw.dungeon.entities.Bomb;
+import unsw.dungeon.entities.BossEnemy;
 import unsw.dungeon.entities.Boulder;
 import unsw.dungeon.entities.Door;
 import unsw.dungeon.entities.Enemy;
@@ -101,6 +102,12 @@ public class MazeController extends DungeonLoader {
 
 	@Override
 	public void onLoad(Life life) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoad(BossEnemy boss) {
 		// TODO Auto-generated method stub
 		
 	}

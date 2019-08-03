@@ -1,0 +1,14 @@
+{
+  "width": 20,
+  "height": 20,"entities": [
+    {
+      "x": 1,
+      "y": 1,
+      "type": "player"
+    },
+    {
+      "x": 10,
+      "y": 10,
+      "type": "boss"
+    },],
+"goal-condition":{"goal": "enemies"},}
