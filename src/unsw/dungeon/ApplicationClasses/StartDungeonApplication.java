@@ -25,6 +25,10 @@ public class StartDungeonApplication extends Application{
 		startScreen.getController().setInstructionScreen(instructionScreen);
 		startScreen.getController().setMenuScreen(menuScreen);
 		instructionScreen.getController().setStartScreen(startScreen);
+		// Adding levelbuilder screen
+		JSONBuilderScreen builderScreen = new JSONBuilderScreen(primaryStage);
+		menuScreen.getController().setBuilder(builderScreen);
+		builderScreen.getController().setMenuScreen(menuScreen);
 		startScreen.start();
 	}
     public static void main(String[] args) {

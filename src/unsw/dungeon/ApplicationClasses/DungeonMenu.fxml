@@ -17,6 +17,8 @@
          <children>
             <Button fx:id="firstLevel" mnemonicParsing="false" onAction="#handleFirstLevel" prefHeight="52.0" prefWidth="228.0" text="Level 1" textAlignment="CENTER" />
             <Button fx:id="secondLevel" mnemonicParsing="false" onAction="#handleSecondLevel" prefHeight="52.0" prefWidth="228.0" text="Level 2" textAlignment="CENTER" />
+            <Button fx:id="customLevel" mnemonicParsing="false" onAction="#handleCustomLevel" prefHeight="52.0" prefWidth="228.0" text="Custom Level" textAlignment="CENTER" />
+            <Button fx:id="builderButton" mnemonicParsing="false" onAction="#handleBuilderButton" prefHeight="52.0" prefWidth="228.0" text="Builder" textAlignment="CENTER" />
          </children>
       </VBox>
    </children>

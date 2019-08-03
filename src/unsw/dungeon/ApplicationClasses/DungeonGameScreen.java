@@ -29,7 +29,7 @@ public class DungeonGameScreen {
 	}
 
 	public void setFirstGame() throws IOException {
-		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("custom1.json");
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
         setGameLoader(dungeonLoader);
 	}
 

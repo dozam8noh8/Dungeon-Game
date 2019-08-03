@@ -13,6 +13,29 @@ public class DungeonMenuController {
     private Button firstLevel;
     @FXML
     private Button secondLevel;
+    
+    @FXML
+    private Button customLevel;
+
+    @FXML
+    private Button builderButton;
+    
+    private JSONBuilderScreen builderScreen;
+
+    @FXML
+    void handleBuilderButton(ActionEvent event) {
+    	builderScreen.start();
+    }
+
+    @FXML
+    void handleCustomLevel(ActionEvent event) {
+    	try {
+			firstScreen.setSecondGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		firstScreen.start();
+    }
 
     @FXML
     void handleFirstLevel(ActionEvent event) {
@@ -25,6 +48,10 @@ public class DungeonMenuController {
     }
 	public void setFirstScreen(DungeonGameScreen firstGameScreen) {
 		this.firstScreen = firstGameScreen;
+	}
+	
+	public void setBuilder(JSONBuilderScreen builderScreen) {
+		this.builderScreen = builderScreen;
 	}
 	
 	@FXML
