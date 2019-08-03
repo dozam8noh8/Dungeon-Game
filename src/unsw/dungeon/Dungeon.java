@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import unsw.dungeon.entities.Boulder;
+import unsw.dungeon.entities.Enemy;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Key;
 import unsw.dungeon.entities.PPlate;
@@ -40,6 +44,8 @@ public class Dungeon implements Observer{
     private Objective objective;
     private boolean complete = false;
     private int numTreasures;
+    private StringProperty boulderCount = new SimpleStringProperty("None");
+    private int totalEnemies = 0;
     
     //private ArrayList<Objective> objectives = new ArrayList<Objective>();
     //to make things quicker, it may be worth having a list of switches, list of treasure... etc, so we can check objectives quicker.s
@@ -222,7 +228,7 @@ public class Dungeon implements Observer{
 	}
 
 
-	private void updateBoulderObjective() {
+	public void updateBoulderObjective() {
 		int count = 0;
 		setPlates();
 		for (PPlate p : getPlates()) {
@@ -234,6 +240,7 @@ public class Dungeon implements Observer{
 	    		}
 	    	}
 		}
+		boulderCount.setValue(count+"/"+getPlates().size());
 		if (count == getPlates().size()) {
 			completeBoulderObjective(this.getObjective());
 		}else {
@@ -415,5 +422,25 @@ public class Dungeon implements Observer{
 			resetBoulderObjective(o);
 		}
 
+	}
+	public StringProperty getPlateInfo() {
+		return this.boulderCount;
+	}
+	
+	public StringProperty getEnemyInformation() {
+		return player.getEnemyInformation();
+	}
+	public void setTotalEnemies() {
+		int count = 0;
+		for (Entity e : entities) {
+			if (e instanceof Enemy) {
+				count++;
+			}
+		}
+		this.totalEnemies = count;
+	}
+	
+	public int getDungeonEnemies() {
+		return this.totalEnemies;
 	}
 }

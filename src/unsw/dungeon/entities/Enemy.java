@@ -192,12 +192,13 @@ public class Enemy extends Entity implements Observer {
 	public void killEnemy() {
 		this.alive.setValue(false);
 		dungeon.removeEntity(this);
+		Player p = dungeon.getPlayer();
+		p.incrementEnemies();
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
 				return;
 			}
 		}
-		
 		dungeon.completeEnemyObjective(dungeon.getObjective());
 	}
 	

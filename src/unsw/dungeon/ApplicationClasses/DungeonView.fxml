@@ -61,6 +61,24 @@
                   <Image url="@../../../../images/gold_pile.png" />
                </image>
             </ImageView>
+            <Label fx:id="collectedSwitch" layoutX="91.0" layoutY="179.0" text=" " />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/pressure_plate.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="collectedEnemy" layoutX="91.0" layoutY="204.0" text="Col'd Tres" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/deep_elf_master_archer.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="totalLives" layoutX="89.0" layoutY="237.0" text="Col'd Tres" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="36.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/heart.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </items>

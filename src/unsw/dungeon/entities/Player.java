@@ -40,6 +40,8 @@ public class Player extends Entity implements Subject {
 	private StringProperty bombCount = new SimpleStringProperty("None");
 	private StringProperty potionStateInfo = new SimpleStringProperty("You don't have potion");
 	private IntegerProperty lives = new SimpleIntegerProperty(1);
+	private int killedEnemies = 0;
+	private StringProperty enemyInformation = new SimpleStringProperty("None");
 
 	/**
      * Create a player positioned in square (x,y)
@@ -451,5 +453,19 @@ public class Player extends Entity implements Subject {
 	
 	public int getLives() {
 		return this.lives.getValue();
+	}
+	
+	public IntegerProperty getLivesProperty() {
+		return this.lives;
+	}
+
+	public StringProperty getEnemyInformation() {
+		enemyInformation.setValue(killedEnemies+"/"+dungeon.getDungeonEnemies());
+		return enemyInformation;
+	}
+	
+	public void incrementEnemies() {
+		this.killedEnemies = killedEnemies+1;
+		dungeon.getEnemyInformation();
 	}
 }
