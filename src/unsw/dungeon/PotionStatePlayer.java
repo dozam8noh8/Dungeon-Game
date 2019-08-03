@@ -11,21 +11,11 @@ package unsw.dungeon;
 public class PotionStatePlayer implements PotionState {
 
 	/**
-	 * Change potionState of player to potion state
-	 * return PotionState - returns PotionStatePlayer to change state
-	 */
-	@Override
-	public PotionState changeToPotionState() {
-		return this;
-	}
-
-	/**
 	 * Change potionState of player to noPotion state
 	 * return PotionState - returns NoPotionStatePlayer to change state
 	 */
 	@Override
-	public PotionState changeToNoPotionState() {
-		// TODO Auto-generated method stub
+	public PotionState transition() {
 		return new NoPotionState();
 	}
 

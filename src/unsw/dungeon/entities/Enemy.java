@@ -44,6 +44,10 @@ public class Enemy extends Entity implements Observer {
 		return this.alive.getValue();
 	}
 	
+	/**
+	 * Returns if enemy is alive or not
+	 * @return alive - BooleanProperty to find if enemy is alive or not
+	 */
 	@Override
 	public BooleanProperty isAlive() {
 		return this.alive;
@@ -57,11 +61,10 @@ public class Enemy extends Entity implements Observer {
 	public void squareBehav(Player p, String direction) {
 		if (alive.getValue()) {
 			if (p.getPotionState() instanceof NoPotionState) {
-				System.out.println("STEPPED ON AN ENEMY");
 				p.killPlayer();
 			} else {
-				System.out.println("You are invincible!!!!");
 				this.killEnemy();
+				p.getDungeon().removeEntity(this);
 			}
 		}
 	}
@@ -73,10 +76,8 @@ public class Enemy extends Entity implements Observer {
 	@Override
 	public void update(Subject o) {
 		if (this.alive.getValue()) {
-			System.out.println("Enemy updating");
 			this.moveCounter ++;
 			if (this.moveCounter == 3) {
-				System.out.println("moving enemy");
 				moveTowardsPlayer();
 				this.moveCounter = 0;
 			}
@@ -190,7 +191,6 @@ public class Enemy extends Entity implements Observer {
 	 */
 	public void killEnemy() {
 		this.alive.setValue(false);
-		System.out.println("Killed the enemy");
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
 				return;

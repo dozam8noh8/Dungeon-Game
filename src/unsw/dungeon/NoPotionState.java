@@ -14,18 +14,8 @@ public class NoPotionState implements PotionState {
 	 * Changes from no potion state to potion state.
 	 */
 	@Override
-	public PotionState changeToPotionState() {
+	public PotionState transition() {
 		// TODO Auto-generated method stub
 		return new PotionStatePlayer();
 	}
-
-	/**
-	 * Makes no change because potion state is already no potion state.
-	 */
-	@Override
-	public PotionState changeToNoPotionState() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
 }

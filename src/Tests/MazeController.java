@@ -14,6 +14,7 @@ import unsw.dungeon.entities.Enemy;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Exit;
 import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.Life;
 import unsw.dungeon.entities.PPlate;
 import unsw.dungeon.entities.Potion;
 import unsw.dungeon.entities.Sword;
@@ -94,6 +95,12 @@ public class MazeController extends DungeonLoader {
 
 	@Override
 	public void onLoad(Sword sword) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoad(Life life) {
 		// TODO Auto-generated method stub
 		
 	}

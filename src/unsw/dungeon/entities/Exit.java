@@ -23,10 +23,12 @@ public class Exit extends Entity implements Observer {
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		System.out.println("Found an exit");
 		dungeon.completeExitObjective(dungeon.getObjective());
 	}
 
+	/**
+	 * Let the dungeon know that the player is moving into an exit
+	 */
 	@Override
 	public void update(Subject o) {
 		int playerX = ((Player)o).getX();

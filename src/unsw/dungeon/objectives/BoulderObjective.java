@@ -42,7 +42,6 @@ public class BoulderObjective implements Objective {
 	 */
 	@Override
 	public void incomplete(Objective o) {
-		System.out.println("incompleting " + this);
 		this.complete = false;
 	}
 

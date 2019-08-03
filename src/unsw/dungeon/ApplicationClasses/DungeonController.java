@@ -94,15 +94,6 @@ public class DungeonController {
     	jsonObjectivesLabel.textProperty().setValue(objectiveList);
     }
 
-    // To implement
-    public void removeEntities() {
-    	for (Entity e : dungeon.getEntities()) {
-    		if (!e.isAlive().getValue()) {
-    			System.out.println(e+"------ is not alive");
-    		}
-    	}
-    }
-
     @FXML
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
@@ -138,7 +129,6 @@ public class DungeonController {
         	failedLevelScreen.start();
         }
         
-        removeEntities();
     }
     
     public void setMenuScreen(DungeonMenuScreen menuScreen) {

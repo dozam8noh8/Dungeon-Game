@@ -13,7 +13,6 @@ public class Treasure extends Entity{
 	
 	public Treasure(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -26,18 +25,14 @@ public class Treasure extends Entity{
 		Dungeon dungeon = p.getDungeon();
 		p.addTreasure(this);
 		dungeon.removeEntity(this);
-		this.alive.setValue(false);
+		setAlive(false);
 		for (Entity e : dungeon.getEntities()) { //not complete
 			if (e instanceof Treasure) {
 				return;
 			}
 		}
 		dungeon.completeTreasureObjective(dungeon.getObjective()); //should loop through alltreasures! FIX
-		alive.setValue(false);
-	}
-	
-	public BooleanProperty isAlive() {
-		return this.alive;
+		setAlive(false);
 	}
 
 }

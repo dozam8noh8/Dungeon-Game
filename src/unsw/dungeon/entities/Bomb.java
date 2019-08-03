@@ -2,6 +2,9 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Observer;
 
@@ -14,9 +17,9 @@ import unsw.dungeon.Observer;
  *
  */
 public class Bomb extends Entity implements Runnable{
-	//Represents the time till detonation for the icons
-	private Player player; //Represents the player holding the bomb
-	private Dungeon dungeon; //Represents the dungeon the bomb is stored in.
+	private Player player;
+	private Dungeon dungeon;
+    private IntegerProperty fuseLength = new SimpleIntegerProperty(4);
 	
 	/**
 	 * Instantiates bomb
@@ -36,13 +39,12 @@ public class Bomb extends Entity implements Runnable{
 	 */
 	@Override
 	public void squareBehav(Player p, String direction) {
-		System.out.println("STEPPED ON A Bomb");
 		Dungeon dungeon = p.getDungeon();
 		p.addBomb(this);
 		p.setBombCount(p.getBombs().size()+ " Bombs");
 		this.player = p;
 		dungeon.removeEntity(this);
-		this.alive.setValue(false);
+		setAlive(false);
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class Bomb extends Entity implements Runnable{
 	public void lightBomb() {
 		setX(player.getX());
 		setY(player.getY());
-		this.alive.setValue(true);
+		setAlive(true);
 		Thread t1 = new Thread(this);
 		t1.start();
 		
@@ -71,7 +73,6 @@ public class Bomb extends Entity implements Runnable{
 	 * @param y - the y coordinate of the bomb
 	 */
 	public void setY(int y) {
-		// TODO Auto-generated method stub
 		y().set(y);
 	}
 	
@@ -80,7 +81,6 @@ public class Bomb extends Entity implements Runnable{
 	 * immediate left,right,up,down for any bomb targets to remove from the dungeon.
 	 */
 	public void detonateBomb() {
-		System.out.println("DETONATING BOMB");
 		int x = this.getX();
 		int y = this.getY();
 		if (x> 0) {
@@ -141,10 +141,18 @@ public class Bomb extends Entity implements Runnable{
 			this.detonateBomb();
 			Thread.sleep(1000);
 			fuseLength.setValue(fuseLength.getValue()-1);
-			this.alive.setValue(false);
+			setAlive(false);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Get the length of the bomb fuse
+	 * @return fuseLength
+	 */
+	public IntegerProperty getBombState() {
+		return this.fuseLength ;
 	}
 
 

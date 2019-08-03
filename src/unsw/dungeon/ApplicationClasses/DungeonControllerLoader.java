@@ -21,6 +21,7 @@ import unsw.dungeon.entities.Enemy;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Exit;
 import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.Life;
 import unsw.dungeon.entities.PPlate;
 import unsw.dungeon.entities.Potion;
 import unsw.dungeon.entities.Sword;
@@ -55,6 +56,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image bombLit2Image;
     private Image bombLit3Image;
     private Image bombLit4Image;
+	private Image lifeImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -78,7 +80,15 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombLit2Image = new Image("bomb_lit_2.png");
         bombLit3Image = new Image("bomb_lit_3.png");
         bombLit4Image = new Image("bomb_lit_4.png");
+        lifeImage = new Image("heart.png");
     }
+    
+    @Override
+	public void onLoad(Life life) {
+    	ImageView view = new ImageView(lifeImage);
+    	view.visibleProperty().bindBidirectional(life.isAlive());
+    	addEntity(life, view);
+	}
 
 	@Override
     public void onLoad(Entity player) {
@@ -115,6 +125,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	public void onLoad(Bomb bomb) {
     	ImageView view = new ImageView(unlitBImage);
     	view.visibleProperty().bindBidirectional(bomb.isAlive());
+    	trackPositionBomb(bomb, view);
     	addEntity(bomb, view);				
 	}
 
@@ -141,6 +152,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	@Override
 	public void onLoad(Door door) {
     	ImageView view = new ImageView(doorImage);
+    	trackPositionDoor(door, view);
     	addEntity(door, view);			
 	}
 	@Override
@@ -190,12 +202,19 @@ public class DungeonControllerLoader extends DungeonLoader {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
         });
-        entity.isOpen().addListener((Observable, oldValue, newValue) -> {
+    }
+    
+    private void trackPositionDoor(Door door, Node node) {
+    	door.isOpen().addListener((Observable, oldValue, newValue) -> {
         	if (newValue == true) {
         		((ImageView) node).setImage(openDoorImage);
         	}
         });
-        entity.getBombState().addListener(new ChangeListener<Number>() {
+    }
+    
+
+    private void trackPositionBomb(Bomb bomb, Node node) {
+    	bomb.getBombState().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
@@ -208,13 +227,12 @@ public class DungeonControllerLoader extends DungeonLoader {
             	} else if (newValue.intValue() == 0) {
             		((ImageView) node).setImage(bombLit4Image);
             	} else if (newValue.intValue() == -1) {
-            		GridPane.setColumnIndex(node, 500);
-            		GridPane.setRowIndex(node, 500);
+            		bomb.setAlive(false);
             	}
             }
         });
     }
-
+    
     /**
      * Create a controller that can be attached to the DungeonView with all the
      * loaded entities.
