@@ -57,6 +57,12 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image bombLit3Image;
     private Image bombLit4Image;
 	private Image lifeImage;
+	private Image blueDoor;
+	private Image greenDoor;
+	private Image redDoor;
+	private Image redKey;
+	private Image blueKey;
+	private Image greenKey;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -81,6 +87,12 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombLit3Image = new Image("bomb_lit_3.png");
         bombLit4Image = new Image("bomb_lit_4.png");
         lifeImage = new Image("heart.png");
+        blueKey = new Image("key_blue.png");
+        greenKey = new Image("key_green.png");
+        redKey = new Image("key_red.png");
+        blueDoor = new Image("closed_door_blue.png");
+        redDoor = new Image("closed_door_red.png");
+        greenDoor = new Image("closed_door_green.png");
     }
     
     @Override
@@ -144,14 +156,34 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	@Override
 	public void onLoad(Key key) {
-    	ImageView view = new ImageView(keyImage);
+		ImageView view;
+		if (key.getId() == 0) {
+			view = new ImageView(blueKey);
+		} else if (key.getId() == 1) {
+			view = new ImageView(greenKey);
+		} else if (key.getId() == 2) {
+			view = new ImageView(redKey);
+		} else {
+			view = new ImageView(keyImage);
+		}
     	view.visibleProperty().bindBidirectional(key.isAlive());
     	addEntity(key, view);			
 	}
 
 	@Override
 	public void onLoad(Door door) {
-    	ImageView view = new ImageView(doorImage);
+		ImageView view;
+		System.out.println(door.getId());
+		if (door.getId() == 0) {
+			System.out.println("Comes Here!!!!!!!!!!!");
+			view = new ImageView(blueDoor);
+		} else if (door.getId() == 1) {
+			view = new ImageView(greenDoor);
+		} else if (door.getId() == 2) {
+			view = new ImageView(redDoor);
+		} else {
+			view = new ImageView(doorImage);
+		}
     	trackPositionDoor(door, view);
     	addEntity(door, view);			
 	}

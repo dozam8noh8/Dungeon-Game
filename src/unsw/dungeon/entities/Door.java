@@ -78,4 +78,8 @@ public class Door extends Entity{
 	public BooleanProperty isOpen() {
 		return this.open;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 }
