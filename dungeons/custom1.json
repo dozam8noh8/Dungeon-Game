@@ -9,11 +9,28 @@
     {
       "x": 2,
       "y": 1,
-      "type": "treasure"
+      "type": "enemy"
     },
     {
       "x": 3,
       "y": 1,
-      "type": "treasure"
+      "type": "bomb"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "invincibility"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "exit"
     },],
-null"goal-condition":{"goal": "treasure"},}
+"goal-condition": { "goal": "AND", "subgoals":
+  [ {"goal": "enemies"},{"goal": "treasure"},]
+}}
