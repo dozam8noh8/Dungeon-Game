@@ -12,13 +12,13 @@
 
 <SplitPane dividerPositions="0.3, 0.5" onKeyReleased="#handleKeyPress" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <items>
-      <Pane fx:id="objectivesPane" prefHeight="200.0" prefWidth="200.0">
+      <Pane fx:id="objectivesPane" prefHeight="500.0" prefWidth="500.0">
          <children>
             <Label layoutX="66.0" layoutY="31.0" text="Objectives" />
             <Label fx:id="jsonObjectivesLabel" layoutX="69.0" layoutY="62.0" maxWidth="100.0" text="JsonObj" wrapText="true" />
          </children>
       </Pane>
-      <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="5.0" prefWidth="0.0">
+      <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="500.0" prefWidth="500.0">
          <columnConstraints>
             <ColumnConstraints />
          </columnConstraints>
@@ -29,7 +29,7 @@
 
    </children>
       </GridPane>
-      <Pane fx:id="InventoryPane" prefHeight="200.0" prefWidth="418.0">
+      <Pane fx:id="InventoryPane" prefHeight="500.0" prefWidth="200.0">
          <children>
             <Label layoutX="45.0" layoutY="14.0" text="Inventory">
                <font>
@@ -53,9 +53,14 @@
                   <Image url="@../../../../images/brilliant_blue_new.png" />
                </image>
             </ImageView>
-            <Label fx:id="collectedTrez" layoutX="39.0" layoutY="160.0" text="Col'd Tres" />
-            <Label layoutX="89.0" layoutY="160.0" text="/" />
-            <Label fx:id="totalTrez" layoutX="106.0" layoutY="160.0" text="Label" />
+            <Label fx:id="collectedTrez" layoutX="73.0" layoutY="157.0" text="Col'd Tres" />
+            <Label layoutX="87.0" layoutY="157.0" text="/" />
+            <Label fx:id="totalTrez" layoutX="95.0" layoutY="158.0" text="Label" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/gold_pile.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </items>
