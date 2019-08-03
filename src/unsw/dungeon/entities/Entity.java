@@ -11,15 +11,13 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @authors Robert Clifton-Everest, Owen Silver and Waqif Alam
  *
  */
-public class Entity {
+public abstract class Entity {
 
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
     private boolean canMove = false;
-    protected BooleanProperty alive = new SimpleBooleanProperty(true);
-    protected BooleanProperty open = new SimpleBooleanProperty(false);
-    protected IntegerProperty fuseLength = new SimpleIntegerProperty(4);
+    private BooleanProperty alive = new SimpleBooleanProperty(true);
 
     /**
      * Create an entity positioned in square (x,y)
@@ -31,23 +29,50 @@ public class Entity {
         this.y = new SimpleIntegerProperty(y);
     }
 
+    /**
+     * Returns the x coordinate of the entity
+     * @return x
+     */
     public IntegerProperty x() {
         return x;
     }
 
+    /**
+     * Returns the y coordinate of the entity
+     * @return y
+     */
     public IntegerProperty y() {
         return y;
     }
+    
+    /**
+     * Returns boolean of whether entity can move or not
+     * @return boolean of whether entity can move or not
+     */
     public boolean getCanMove() {
     	return this.canMove;
     }
+    
+    /**
+     * Sets if enemy can move or not
+     * @param b - of whether enemy can move or not
+     */
     public void setCanMove (boolean b) {
     	this.canMove = b;
     }
+    
+    /**
+     * Get y coordinate of entity
+     * @return y coordinate of entity
+     */
     public int getY() {
         return y().get();
     }
-
+    
+    /**
+     * Get x coordinate of entity
+     * @return x coordinate of entity
+     */
     public int getX() {
         return x().get();
     }
@@ -81,15 +106,19 @@ public class Entity {
     	return true;
     }
     
+    /**
+     * Returns if entity is alive or not
+     * @return BooleanProperty of whether entity can move or not
+     */
     public BooleanProperty isAlive() {
     	return this.alive;
     }
     
-    public BooleanProperty isOpen() {
-    	return this.open;
-    }
-    
-    public IntegerProperty getBombState() {
-    	return this.fuseLength;
+    /**
+     * Sets entity as moveable or not moveable
+     * @param bool
+     */
+    public void setAlive(Boolean bool) {
+    	this.alive.setValue(bool);
     }
 }

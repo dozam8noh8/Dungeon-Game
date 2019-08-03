@@ -18,7 +18,7 @@
             <Label fx:id="jsonObjectivesLabel" layoutX="69.0" layoutY="62.0" maxWidth="100.0" text="JsonObj" wrapText="true" />
          </children>
       </Pane>
-      <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="500.0" prefWidth="500.0">
+      <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="530.0" prefWidth="500.0">
          <columnConstraints>
             <ColumnConstraints />
          </columnConstraints>
@@ -53,10 +53,10 @@
                   <Image url="@../../../../images/brilliant_blue_new.png" />
                </image>
             </ImageView>
-            <Label fx:id="collectedTrez" layoutX="73.0" layoutY="157.0" text="Col'd Tres" />
-            <Label layoutX="87.0" layoutY="157.0" text="/" />
-            <Label fx:id="totalTrez" layoutX="95.0" layoutY="158.0" text="Label" />
-            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+            <Label fx:id="collectedTrez" layoutX="91.0" layoutY="150.0" text="Col'd Tres" />
+            <Label layoutX="105.0" layoutY="150.0" text="/" />
+            <Label fx:id="totalTrez" layoutX="113.0" layoutY="151.0" text="Label" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="38.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/gold_pile.png" />
                </image>

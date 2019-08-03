@@ -35,7 +35,7 @@ public class Sword extends Entity implements Weapon{
 		Dungeon dungeon = p.getDungeon();
 		dungeon.removeEntity(this);
 		p.setWeapon(this);
-		this.alive.setValue(false);
+		setAlive(false);
 		p.setWeaponName(attacks+" Hits Left");
 	}
 
@@ -84,6 +84,11 @@ public class Sword extends Entity implements Weapon{
 			}
 		}
 	}
+	
+	/**
+	 * Get how many attacks the sword has
+	 * @return int of how many attacks
+	 */
 	public int getAttacks() {
 		return this.attacks;
 	}

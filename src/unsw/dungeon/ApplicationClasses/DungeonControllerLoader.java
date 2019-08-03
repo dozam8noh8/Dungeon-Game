@@ -115,6 +115,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	public void onLoad(Bomb bomb) {
     	ImageView view = new ImageView(unlitBImage);
     	view.visibleProperty().bindBidirectional(bomb.isAlive());
+    	trackPositionBomb(bomb, view);
     	addEntity(bomb, view);				
 	}
 
@@ -141,6 +142,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	@Override
 	public void onLoad(Door door) {
     	ImageView view = new ImageView(doorImage);
+    	trackPositionDoor(door, view);
     	addEntity(door, view);			
 	}
 	@Override
@@ -190,12 +192,19 @@ public class DungeonControllerLoader extends DungeonLoader {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
         });
-        entity.isOpen().addListener((Observable, oldValue, newValue) -> {
+    }
+    
+    private void trackPositionDoor(Door door, Node node) {
+    	door.isOpen().addListener((Observable, oldValue, newValue) -> {
         	if (newValue == true) {
         		((ImageView) node).setImage(openDoorImage);
         	}
         });
-        entity.getBombState().addListener(new ChangeListener<Number>() {
+    }
+    
+
+    private void trackPositionBomb(Bomb bomb, Node node) {
+    	bomb.getBombState().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
@@ -208,13 +217,12 @@ public class DungeonControllerLoader extends DungeonLoader {
             	} else if (newValue.intValue() == 0) {
             		((ImageView) node).setImage(bombLit4Image);
             	} else if (newValue.intValue() == -1) {
-            		GridPane.setColumnIndex(node, 500);
-            		GridPane.setRowIndex(node, 500);
+            		bomb.setAlive(false);
             	}
             }
         });
     }
-
+    
     /**
      * Create a controller that can be attached to the DungeonView with all the
      * loaded entities.

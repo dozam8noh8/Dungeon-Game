@@ -18,13 +18,10 @@ public class AndObjectives implements ObjectiveCheck {
 	@Override
 	public boolean checkComplete(ArrayList<Objective> children) {
 		for (Objective o : children) {
-			System.out.println("--------"+o.isComplete());
 			if (!o.isComplete()) {
-				System.out.println(o + " is not complete!, AND not complete");
 				return false;
 			}
 		}
-		System.out.println("All objectives complete!!");
 		return true;
 	}
 	

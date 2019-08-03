@@ -1,5 +1,9 @@
 package unsw.dungeon.entities;
 
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * This entity represents a door which can be opened with a key of corresponding id.
  * Once a door is opened, a key is consumed and it will not be closed. 
@@ -7,8 +11,9 @@ package unsw.dungeon.entities;
  *
  */
 public class Door extends Entity{
-	private boolean opened = false; //Whether the door is open or not, closed by default.
-	private int id; //the id of the door
+	private boolean opened = false;
+	private int id;
+    private BooleanProperty open = new SimpleBooleanProperty(false);
 	
 	/**
 	 * Constructor for instance of door.
@@ -30,12 +35,11 @@ public class Door extends Entity{
 	 */
 	public void openDoor(Player p) {
 		if (p.getKeyId() == id) {
-			opened = true; //could make a use key function for these
+			opened = true;
 			p.getKey().setPickedUp(false);
 			p.getDungeon().removeEntity(p.getKey());
 			p.setKey(null);
 			this.open.setValue(true);
-			System.out.println("Door is opened!");
 		}
 	}
 	
@@ -65,5 +69,13 @@ public class Door extends Entity{
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Check if door is open or not
+	 * @return open - BooleanProperty to find if door is open or not
+	 */
+	public BooleanProperty isOpen() {
+		return this.open;
 	}
 }

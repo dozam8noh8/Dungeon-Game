@@ -11,7 +11,6 @@ public class Potion extends Entity {
 
 	public Potion(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -23,6 +22,6 @@ public class Potion extends Entity {
 		Dungeon dungeon = p.getDungeon();
 		p.changeToPotionState();
 		dungeon.removeEntity(this);
-		this.alive.setValue(false);
+		setAlive(false);
 	}
 }

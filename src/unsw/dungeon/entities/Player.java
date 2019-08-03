@@ -52,12 +52,26 @@ public class Player extends Entity implements Subject {
         this.setCanMove(true);
         
     }
+    
+    /**
+     * Get how many treasure is collected by player
+     * @return StringProperty that says how many treasure is collected
+     */
     public StringProperty getColTreasureFX () {
     	return this.collectedTreasure;
     }
+    
+    /**
+     * Get how many treasure is collected by player
+     * @return int of how many treasure is collected
+     */
     public String getColTreasure() {
     	return this.collectedTreasure.getValue();
     }
+    
+    /**
+     * Increment the number of treasure the player holds
+     */
     public void incrementTrez() {
     	int newNum = Integer.parseInt(collectedTreasure.getValue())+1;
     	this.collectedTreasure.setValue(Integer.toString(newNum));
@@ -87,7 +101,7 @@ public class Player extends Entity implements Subject {
             addObserver();
             notifyObservers();
         }
-        setCanMove(true); //BAD DESIGN?
+        setCanMove(true);
     }
 
     /**
@@ -101,7 +115,7 @@ public class Player extends Entity implements Subject {
             addObserver();
         	notifyObservers();
         }
-        setCanMove(true); //BAD DESIGN?
+        setCanMove(true);
     }
 
     /**
@@ -110,12 +124,12 @@ public class Player extends Entity implements Subject {
      */
     public void moveRight() {
     	dungeon.makeMovePlayer(getX()+1, getY(), "right");
-        if ((getX() < dungeon.getWidth() - 1)&& (getCanMove())){ //should separate first if for before makeMovePlayer call
+        if ((getX() < dungeon.getWidth() - 1)&& (getCanMove())){
             x().set(getX() + 1);
             addObserver();
             notifyObservers();
         }
-        setCanMove(true); //BAD DESIGN?
+        setCanMove(true);
     }
 
     /**
@@ -125,10 +139,6 @@ public class Player extends Entity implements Subject {
 	public boolean isCanMove() {
 		return getCanMove();
 	}
-	/**
-	 * Sets the canMove attribute that represents whether a player can move or not.
-	 * @param canMove - boolean representing whether a player can move.
-	 */
 
 
 	/**
@@ -166,7 +176,6 @@ public class Player extends Entity implements Subject {
 	 */
 	@Override
 	public void notifyObservers() {
-		// TODO Auto-generated method stub
 		for (Observer o : observers) {
 			o.update(this);
 		}
@@ -194,14 +203,18 @@ public class Player extends Entity implements Subject {
 	 * after which the player will be returned to normal state.
 	 */
 	public void changeToPotionState() {
-		potionState = potionState.changeToPotionState();
+		potionState = potionState.transition();
 		setPotionStateInfo("You've got potion for 10 sec");
-		potionThread(10);
+		potionThread();
 	}
 	
-	private void potionThread(int j) {
+	/**
+	 * Starts a thread for potion that enables potion state on player for 10 secs then converts
+	 * to non potion state
+	 */
+	private void potionThread() {
 	    class OneShotTask implements Runnable {
-	        int j;
+	        int j = 10;
 	        OneShotTask(int i) { j = i; }
 	        public void run() {
 	        	try { Thread.sleep(1000); } catch (Exception e) {}
@@ -210,7 +223,6 @@ public class Player extends Entity implements Subject {
 	        	}
 	        	Platform.runLater(new Runnable() {
 			        @Override public void run() {
-			        	
 			        	if (j == 1) {
 			        		setPotionStateInfo("You don't have potion");
 			        	} else {
@@ -230,7 +242,7 @@ public class Player extends Entity implements Subject {
 	 * Returns player to original state that is not under effects of potion.
 	 */
 	public void changeToNoPotionState() {
-		potionState = potionState.changeToNoPotionState();
+		potionState = potionState.transition();
 	}
 
 	/**
@@ -280,7 +292,6 @@ public class Player extends Entity implements Subject {
 	 */
 	public void useBomb() {
 		if (bombs.size() > 0) {
-			System.out.println("Attacking");
 			bombs.get(bombs.size()-1).lightBomb();
 			bombs.remove(bombs.size() - 1);
 			this.setBombCount(getBombs().size()+ " Bombs");
@@ -317,7 +328,6 @@ public class Player extends Entity implements Subject {
 			this.key = null;
 		}
 		if (key != null) { //puts key down where other key was
-			System.out.println("Player stepped on key, with id " + k.getId());
 			key.setX(k.getX());
 			key.setY(k.getY());
 			key.setPickedUp(false);
@@ -357,19 +367,13 @@ public class Player extends Entity implements Subject {
 	 */
 	public void killPlayer() {
 		System.out.println("killing player");
-		this.alive.setValue(false);
+		setAlive(false);
 		
-	}
-	/**
-	 * indicates whether the player is alive
-	 * @return - boolean, true for alive, false for dead.
-	 */
-	public BooleanProperty isAlive() {
-		return this.alive;
 	}
 	
 	/**
 	 * If an enemy is moving to a player, the game will end
+	 * @return Boolean of if entity can move through
 	 */
 	@Override
 	public boolean entityMoveThrough() {
@@ -378,24 +382,50 @@ public class Player extends Entity implements Subject {
 		return false;
 	}
 
+	/**
+	 * Get the weapon name of the player
+	 * @return StringProperty of the weapon name
+	 */
 	public StringProperty getWeaponName() {
 		return this.weaponName;
 	}
+	
+	/**
+	 * Set Weapon name being held by the player
+	 * @param name - name of the weapon
+	 */
 	public void setWeaponName(String name) {
 		this.weaponName.setValue(name);
 	}
 
+	/**
+	 * Get the count of how many bombs player holds
+	 * @return
+	 */
 	public StringProperty getBombCount() {
 		return this.bombCount;
 	}
+	
+	/**
+	 * Set the bomb count held by the player
+	 * @param count - how many bombs held by player
+	 */
 	public void setBombCount(String count) {
 		this.bombCount.setValue(count);
 	}
 
+	/**
+	 * Get the potionstateinfo of the player
+	 * @return StringProperty of the potion state of the player
+	 */
 	public StringProperty getPotionStateInfo() {
 		return this.potionStateInfo;
 	}
 	
+	/**
+	 * Set the potionstateinfo of the player
+	 * @param info - potion state info of the player
+	 */
 	public void setPotionStateInfo(String info) {
 		this.potionStateInfo.setValue(info);
 	}

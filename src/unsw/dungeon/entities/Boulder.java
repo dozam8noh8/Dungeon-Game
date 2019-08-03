@@ -29,7 +29,6 @@ public class Boulder extends Entity implements Subject{
 		super(x, y);
 		this.canMove = true;
 		this.dungeon = dungeon;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,7 +40,7 @@ public class Boulder extends Entity implements Subject{
 	public void squareBehav(Player p, String direction) {
 		switch(direction){
 		case "right":
-			canMove = dungeon.makeMoveEntity(getX()+ 1, getY()); //doesnt check if edge of map
+			canMove = dungeon.makeMoveEntity(getX()+ 1, getY());
 			moveTo(getX()+1, getY(), canMove, p);
 			break;
 		case "left":
@@ -115,7 +114,6 @@ public class Boulder extends Entity implements Subject{
 	 */
 	@Override
 	public void removeObserver(Observer o) {
-		// TODO Auto-generated method stub
 		int i = observers.indexOf(o);
 		if (i >= 0) {
 			observers.remove(i);
@@ -127,7 +125,6 @@ public class Boulder extends Entity implements Subject{
 	 */
 	@Override
 	public void notifyObservers() {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < observers.size(); i++) {
 			Observer observer = (Observer)observers.get(i);
 			observer.update(this);
@@ -138,7 +135,7 @@ public class Boulder extends Entity implements Subject{
 	 * Remove a boulder when a bomb hits the boulder
 	 */
 	public void killBoulder() {
-		this.alive.setValue(false);
+		setAlive(false);
 	}
 
 }

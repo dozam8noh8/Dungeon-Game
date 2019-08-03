@@ -7,9 +7,12 @@ package unsw.dungeon.entities;
  *
  */
 public class PPlate extends Entity {
-	
+	/**
+	 * Constructor for the PPlate
+	 * @param x
+	 * @param y
+	 */
 	public PPlate(int x, int y) {
 		super(x, y);
 	}
-
 }

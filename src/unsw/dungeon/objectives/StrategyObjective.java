@@ -15,12 +15,6 @@ public class StrategyObjective implements Objective {
 		this.children = children;
 		this.strategy = ANDorOR;
 	}
-	/*public void PrintAllChildren(int level) {
-		if (level == 0) {
-			
-		}
-		for (Objective child : this.getObjectives())
-	}*/
 
 	/**
 	 * Check if objective is complete or not
