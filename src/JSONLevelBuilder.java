@@ -253,7 +253,7 @@ public class JSONLevelBuilder {
 		writer.write("{\"goal\": \"treasure\"},");
 	}
 	public void makeBoulderObjective() {
-		writer.write("{\"goal\": \"boulder\"},");
+		writer.write("{\"goal\": \"boulders\"},");
 	}
 
 	

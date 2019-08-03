@@ -75,7 +75,7 @@ public class Dungeon implements Observer{
     		if (e instanceof Treasure) {
     			numTreasures++;
     		}
-    	}
+    	}	
     }
     /**
      * Returns the width of the dungeon in square blocks.

@@ -15,7 +15,6 @@ public class JSONLevelBuilderApplication extends Application {
         primaryStage.setTitle("Level Builder");
 
         LevelBuilderController controller = new LevelBuilderController();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("levelBuilder.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
