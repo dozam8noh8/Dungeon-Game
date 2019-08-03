@@ -39,6 +39,7 @@ public class LevelBuilderController {
     private Image potionImage;
     private Image swordImage;
     private DungeonMenuScreen menuScreen;
+    private LevelBuilderController levelController;
     
     public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		this.menuScreen = menuScreen;
@@ -62,7 +63,9 @@ public class LevelBuilderController {
     private Button ANDObjButton;
     @FXML
     private Label allDone;
-
+    @FXML
+    private Button resetObj;
+    
     @FXML
     private Button ORObjButton;
 	private GridPane levelGrid;
@@ -70,6 +73,10 @@ public class LevelBuilderController {
     private Button boulderButton;
 	 @FXML
 	 private Button bombButton;
+	 @FXML
+	 private Button swordButton;
+	 @FXML
+	 private Button exitButton;
 	 @FXML
 	 private Button potionButton;
 	 @FXML
@@ -157,7 +164,31 @@ public class LevelBuilderController {
     	jb.endDungeon();
     	jb.closeWriter();
     	popup();
+    	try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     	menuScreen.start();
+    }
+    @FXML
+    void handleRestartButton(ActionEvent event) {
+    	//jb.endDungeon();
+    	jb.emptyObjString();
+    	jb.closeWriter();
+    	disableAllExceptStart(true);
+    	gridPaneBase.getChildren().remove(levelGrid);
+    	widthField.setText("10");
+    	heightField.setText("10");
+    	currX.setValue(0);
+    	currY.setValue(0);
+    	startBuildButton.setDisable(false);
+    	restartObjectives();
+    	//this = new LevelBuilderController();
+    }
+    void restartObjectives() {
+    	ObjString = "";
+    	jb.emptyObjString();
     }
 
     @FXML
@@ -226,7 +257,14 @@ public class LevelBuilderController {
     	keyButton.setDisable(disable);
     	doorButton.setDisable(disable);
     	bombButton.setDisable(disable);
+    	swordButton.setDisable(disable);
+    	exitButton.setDisable(disable);
 
+    }
+    public void disableAllExceptStart(boolean disable) {
+    	disableObjButtons(disable);
+    	disableEntityButtons(disable);
+    	endEntityButton.setDisable(disable);
     }
     public void disableObjButtons(boolean disable) {
     	treasureObjButton.setDisable(disable);
@@ -235,7 +273,8 @@ public class LevelBuilderController {
     	boulderObjButton.setDisable(disable);
     	ANDObjButton.setDisable(disable);
     	ORObjButton.setDisable(disable);
-    	finishObjButton.setDisable(disable);
+    	resetObj.setDisable(disable);
+    	//finishObjButton.setDisable(disable);
 
     }
     public void initialiseGridPane(int x, int y) {
@@ -253,12 +292,14 @@ public class LevelBuilderController {
     @FXML
     void handleStartBuildButton(ActionEvent event) {
     	try {
+    		System.out.println("Starting again");
 			jb = new JSONLevelBuilder("custom" + fileTextField.getText() + ".json");
 			int xDim = Integer.parseInt(heightField.getText());
 			int yDim = Integer.parseInt(widthField.getText());
 			jb.makeDungeonDimensions(xDim, yDim);
 			initialiseGridPane(xDim, yDim);
 			startEntityButton.setDisable(false);
+			startBuildButton.setDisable(true);
 			fileTextField.setDisable(true);
 			heightField.setDisable(true);
 			widthField.setDisable(true);
@@ -331,6 +372,18 @@ public class LevelBuilderController {
     	incrementXY();
     }
     @FXML
+    void handleExitButton(ActionEvent event) {
+    	jb.makeExit(currX.getValue(),currY.getValue());
+    	levelGrid.add(new ImageView(exitImage), currX.getValue(), currY.getValue()); 
+    	incrementXY();
+    }
+    @FXML
+    void handleSwordButton(ActionEvent event) {
+    	jb.makeSword(currX.getValue(),currY.getValue());
+    	levelGrid.add(new ImageView(swordImage), currX.getValue(), currY.getValue()); 
+    	incrementXY();
+    }
+    @FXML
     void handleEnemyObjButton(ActionEvent event) {
     	jb.makeEnemyObjective();
     	ObjString += "Kill all enemies\n";
@@ -359,12 +412,14 @@ public class LevelBuilderController {
     @FXML
     void handleANDButton(ActionEvent event) {
     	jb.startAndObjective();
+    	finishObjButton.setDisable(false);
     	ObjString += "AND {\n";
     	FEObjString.textProperty().setValue(ObjString);
     }
     @FXML
     void handleORButton(ActionEvent event) {
     	jb.startOrObjective();
+    	finishObjButton.setDisable(false);
     	ObjString += "OR {\n";
     	FEObjString.textProperty().setValue(ObjString);
     }
@@ -373,6 +428,14 @@ public class LevelBuilderController {
     	jb.endObjective();
     	ObjString += "}\n";
     	FEObjString.textProperty().setValue(ObjString);
+    }
+    @FXML
+    void handleResetObj(ActionEvent even) {
+    	restartObjectives();
+    	jb.startObjective();
+    	FEObjString.textProperty().setValue(ObjString);
+
+    	
     }
     
     

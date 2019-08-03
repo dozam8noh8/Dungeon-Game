@@ -17,6 +17,7 @@ public class JSONLevelBuilder {
 	private PrintWriter writer;
 	private int Dwidth;
 	private int Dheight;
+	private String objString;
 	public JSONLevelBuilder (String filename) throws JSONException, FileNotFoundException, UnsupportedEncodingException {
 		this.filename = filename;
 		writer = new PrintWriter("dungeons/"+filename , "UTF-8");
@@ -142,12 +143,16 @@ public class JSONLevelBuilder {
 		writer.write("\"entities\": [");
 	}
 	public void endEntityList() {
-		writer.write("],");
+		writer.write("],\n");
 	}
 	public void endDungeon() {
+		writer.write(objString);
+		emptyObjString();
 		writer.write("}");
 	}
-
+	public void emptyObjString() {
+		this.objString = "";
+	}
 	public void closeWriter() {
 		writer.close();
 	}
@@ -156,6 +161,13 @@ public class JSONLevelBuilder {
 				"      \"x\": "+x +",\n" + 
 				"      \"y\": "+y +",\n" + 
 				"      \"type\": \"player\"\n" + 
+				"    },");
+	}
+	public void makeExit(int x, int y) {
+		writer.write("\n    {\n" + 
+				"      \"x\": "+x +",\n" + 
+				"      \"y\": "+y +",\n" + 
+				"      \"type\": \"exit\"\n" + 
 				"    },");
 	}
 	public void makeTreasure(int x, int y) {
@@ -231,30 +243,40 @@ public class JSONLevelBuilder {
 				"    },");
 	}
 	public void startObjective() {
-		writer.write("\"goal-condition\":");
+		//writer.write("\"goal-condition\":");
+		objString += "\"goal-condition\":";
 	}
 	public void startAndObjective() {
-		writer.write(" { \"goal\": \"AND\", \"subgoals\":\n" + 
-				"  [ ");
+		/*writer.write(" { \"goal\": \"AND\", \"subgoals\":\n" + 
+				"  [ ");*/
+		objString += " { \"goal\": \"AND\", \"subgoals\":\n" + 
+				"  [ ";
 	}
 	public void startOrObjective() {
-		writer.write(" { \"goal\": \"OR\", \"subgoals\":\n" + 
-				"  [ ");
+		/*writer.write(" { \"goal\": \"OR\", \"subgoals\":\n" + 
+				"  [ ");*/
+		objString += " { \"goal\": \"OR\", \"subgoals\":\n" + 
+				"  [ ";
 	}
 	public void endObjective() {
-		writer.write("]\n}");
+		//writer.write("]\n}");
+		objString += "]\n}";
 	}
 	public void makeEnemyObjective() {
-		writer.write("{\"goal\": \"enemies\"},");
+		//writer.write("{\"goal\": \"enemies\"},");
+		objString += "{\"goal\": \"enemies\"},";
 	}
 	public void makeExitObjective() {
-		writer.write("{\"goal\": \"exit\"},");
+		//writer.write("{\"goal\": \"exit\"},");
+		objString += "{\"goal\": \"exit\"},";
 	}
 	public void makeTreasureObjective() {
-		writer.write("{\"goal\": \"treasure\"},");
+		//writer.write("{\"goal\": \"treasure\"},");
+		objString += "{\"goal\": \"treasure\"},";
 	}
 	public void makeBoulderObjective() {
-		writer.write("{\"goal\": \"boulders\"},");
+		//writer.write("{\"goal\": \"boulders\"},");
+		objString += "{\"goal\": \"boulders\"},";
 	}
 
 	
