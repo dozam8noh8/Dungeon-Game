@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.converter.NumberStringConverter;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Player;
@@ -41,6 +42,15 @@ public class DungeonController {
     
     @FXML
     private Label collectedTrez;
+    
+    @FXML
+    private Label collectedSwitch;
+    
+    @FXML
+    private Label totalLives;
+
+    @FXML
+    private Label collectedEnemy;
     
     @FXML
     private Pane InventoryPane;
@@ -83,10 +93,15 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
+        dungeon.setTotalEnemies();
+        dungeon.updateBoulderObjective();
+        collectedSwitch.textProperty().bindBidirectional(dungeon.getPlateInfo());
+        collectedEnemy.textProperty().bindBidirectional(dungeon.getEnemyInformation());
         totalTrez.setText(Integer.toString(dungeon.getNumTreasures()));
         collectedTrez.textProperty().bindBidirectional(player.getColTreasureFX());
         swordLabel.setText("None");
     	player.getWeaponName().bindBidirectional(swordLabel.textProperty());
+    	totalLives.textProperty().bindBidirectional(player.getLivesProperty(), new NumberStringConverter());
     	swordLabel2.setText("None");
     	player.getBombCount().bindBidirectional(swordLabel2.textProperty());
     	swordLabel3.setText("You don't have potion");
