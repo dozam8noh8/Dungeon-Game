@@ -79,6 +79,14 @@
                   <Image url="@../../../../images/heart.png" />
                </image>
             </ImageView>
+            <Label layoutX="48.0" layoutY="336.0" text="ArrowKeys to move" />
+            <Label layoutX="48.0" layoutY="364.0" text="Space to attack with sword" />
+            <Label layoutX="48.0" layoutY="397.0" text="Press L to light bomb" />
+            <Label layoutX="36.0" layoutY="287.0" text="Instructions" textAlignment="CENTER">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </items>

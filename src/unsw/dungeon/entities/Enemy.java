@@ -32,7 +32,7 @@ public class Enemy extends Entity implements Observer {
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(x, y);
 		this.dungeon = dungeon;
-		this.moveCounter = 0;
+		this.setMoveCounter(0);
 		this.alive = new SimpleBooleanProperty(true);
 		this.canMove = true;
 	}
@@ -76,10 +76,10 @@ public class Enemy extends Entity implements Observer {
 	@Override
 	public void update(Subject o) {
 		if (this.alive.getValue()) {
-			this.moveCounter ++;
-			if (this.moveCounter == 3) {
+			this.setMoveCounter(this.getMoveCounter() + 1);
+			if (this.getMoveCounter() == 3) {
 				moveTowardsPlayer();
-				this.moveCounter = 0;
+				this.setMoveCounter(0);
 			}
 		}
 	}
@@ -207,6 +207,20 @@ public class Enemy extends Entity implements Observer {
 	@Override
 	public boolean entityMoveThrough() {
 		return false;
+	}
+	public int getMoveCounter() {
+		return moveCounter;
+	}
+	public void setMoveCounter(int moveCounter) {
+		this.moveCounter = moveCounter;
+	}
+	
+	public Dungeon getDungeon() {
+		return this.dungeon;
+	}
+	
+	public Player getPlayer() {
+		return dungeon.getPlayer();
 	}
 
 }
