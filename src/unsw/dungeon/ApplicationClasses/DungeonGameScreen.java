@@ -97,6 +97,11 @@ public class DungeonGameScreen {
 		this.failedLevelScreen = failedLevelScreen;
 		this.finishedLevelScreen = finishedLevelScreen;
 	}
+
+	public void setCustomGame() throws FileNotFoundException, IOException {
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("custom1.json");
+		setGameLoader(dungeonLoader);
+	}
 	
 	
 

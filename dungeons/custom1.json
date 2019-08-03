@@ -9,50 +9,5 @@
     {
       "x": 2,
       "y": 1,
-      "type": "enemy"
-    },
-    {
-      "x": 3,
-      "y": 1,
-      "type": "wall"
-    },
-    {
-      "x": 4,
-      "y": 1,
-      "type": "wall"
-    },
-    {
-      "x": 5,
-      "y": 1,
-      "type": "bomb"
-    },
-    {
-      "x": 6,
-      "y": 1,
-      "type": "bomb"
-    },
-    {
-      "x": 7,
-      "y": 1,
       "type": "treasure"
-    },
-    {
-      "x": 8,
-      "y": 1,
-      "type": "treasure"
-    },
-    {
-      "x": 9,
-      "y": 1,
-      "type": "invincibility"
-    },
-    {
-      "x": 0,
-      "y": 2,
-      "type": "invincibility"
-    },
-    {
-      "x": 1,
-      "y": 2,
-      "type": "invincibility"
     },],"goal-condition":{"goal": "treasure"},}

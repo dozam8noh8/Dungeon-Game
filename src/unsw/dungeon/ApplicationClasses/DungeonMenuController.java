@@ -30,7 +30,7 @@ public class DungeonMenuController {
     @FXML
     void handleCustomLevel(ActionEvent event) {
     	try {
-			firstScreen.setSecondGame();
+			firstScreen.setCustomGame();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
