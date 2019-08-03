@@ -20,6 +20,7 @@ public class StartController {
 
     @FXML
     void handleInstructionsButton(ActionEvent event) {
+    	instructionScreen.getController().disableGameButton(true);
     	instructionScreen.start();
     }
     public void setInstructionScreen(InstructionScreen c) {

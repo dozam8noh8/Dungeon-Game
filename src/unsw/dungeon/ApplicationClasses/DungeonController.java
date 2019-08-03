@@ -72,19 +72,18 @@ public class DungeonController {
 	private FinishedLevelScreen finishedLevelScreen;
 	private FailedLevelScreen failedLevelScreen;
 	private InstructionScreen instructionScreen;
+	private DungeonGameScreen gameScreen;
+	private DungeonStartScreen startScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
-        
-        
     }
 
     @FXML
     public void initialize(String objectiveList) {
         Image ground = new Image("/dirt_0_new.png");
-        // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
             for (int y = 0; y < dungeon.getHeight(); y++) {
                 squares.add(new ImageView(ground), x, y);
@@ -132,7 +131,7 @@ public class DungeonController {
         	player.attack();
         	break;
         case ESCAPE:
-        	menuScreen.start();
+        	instructionScreen.start();
         	break;
         default:
             break;
@@ -159,9 +158,12 @@ public class DungeonController {
 		this.failedLevelScreen = failedLevelScreen;
 	}
 	public void setInstructionScreen(InstructionScreen instructionSc) {
-		System.out.println("In instruction screen");
 		this.instructionScreen = instructionSc;
 	}
-
+	
+	public void setAllScreens(DungeonGameScreen gameScreen, DungeonStartScreen startScreen) {
+		this.gameScreen = gameScreen;
+		this.startScreen = startScreen;
+	}
 }
 

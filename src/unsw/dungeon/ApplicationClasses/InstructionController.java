@@ -30,6 +30,8 @@ public class InstructionController {
     void disableGameButton(boolean disable) {
     	RetToGame.setDisable(disable);
     }
-    
+	public void setEnableButton(boolean disable) {
+		RetToGame.setDisable(disable);
+	}
 
 }

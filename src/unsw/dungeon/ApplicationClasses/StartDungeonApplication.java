@@ -33,8 +33,8 @@ public class StartDungeonApplication extends Application{
 		builderScreen.getController().setMenuScreen(menuScreen);
 		menuScreen.getController().setStartScreen(startScreen);
 		firstGameScreen.getController().setInstructionScreen(instructionScreen);
+		firstGameScreen.getController().setAllScreens(firstGameScreen, startScreen);
 		startScreen.start();
-
 	}
     public static void main(String[] args) {
         launch(args);

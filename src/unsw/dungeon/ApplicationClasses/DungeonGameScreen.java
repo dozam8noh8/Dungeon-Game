@@ -38,9 +38,7 @@ public class DungeonGameScreen {
         setGameLoader(dungeonLoader);
 	}
 	private void setGameLoader(DungeonControllerLoader dungeonLoader) throws FileNotFoundException, IOException {
-		System.out.println("In setGameLoader");
 		DungeonController controller = dungeonLoader.loadController();
-		//InstructionScreen instructionSc = new InstructionScreen(primaryStage);
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
@@ -60,6 +58,7 @@ public class DungeonGameScreen {
 	}
 	
 	public void start() {
+		instructionScreen.getController().setEnableButton(false);
 		stage.setTitle(title);
 		stage.setScene(scene);
 		stage.show();
@@ -85,20 +84,31 @@ public class DungeonGameScreen {
 	public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		controller.setMenuScreen(menuScreen);
 		this.menuScreen = menuScreen;
-		
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
+		this.instructionScreen = instructionScreen;
 	}
 	public void setInstructionScreen(InstructionScreen instructionScreen) {
-		System.out.println("1");
 		controller.setInstructionScreen(instructionScreen);
+		this.instructionScreen = instructionScreen;
+		this.menuScreen = menuScreen;
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
 	}
 	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
 		controller.setFailedLevelScreen(failedLevelScreen);
+		this.menuScreen = menuScreen;
 		this.failedLevelScreen = failedLevelScreen;
-
+		this.finishedLevelScreen = finishedLevelScreen;
+		this.instructionScreen = instructionScreen;
 	}
 	
 	public void setFinishedLevelScreen(FinishedLevelScreen finishedLevelScreen) {
 		controller.setFinishedLevelScreen(finishedLevelScreen);
+		this.menuScreen = menuScreen;
+		this.failedLevelScreen = failedLevelScreen;
+		this.finishedLevelScreen = finishedLevelScreen;
+		this.instructionScreen = instructionScreen;
 	}
 
 	public void setLastBuiltGame() throws FileNotFoundException, IOException {
