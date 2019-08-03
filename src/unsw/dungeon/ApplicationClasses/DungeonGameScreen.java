@@ -20,6 +20,7 @@ public class DungeonGameScreen {
 	private DungeonMenuScreen menuScreen;
 	private FailedLevelScreen failedLevelScreen;
 	private FinishedLevelScreen finishedLevelScreen;
+	private InstructionScreen instructionScreen;
 	
 	public DungeonGameScreen(Stage primaryStage) throws IOException {
 		this.stage = primaryStage;
@@ -32,11 +33,14 @@ public class DungeonGameScreen {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
         setGameLoader(dungeonLoader);
 	}
-
+	public void setCustomGame(String levelName) throws IOException {
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(levelName);
+        setGameLoader(dungeonLoader);
+	}
 	private void setGameLoader(DungeonControllerLoader dungeonLoader) throws FileNotFoundException, IOException {
+		System.out.println("In setGameLoader");
 		DungeonController controller = dungeonLoader.loadController();
-
-		
+		//InstructionScreen instructionSc = new InstructionScreen(primaryStage);
         loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
@@ -52,6 +56,7 @@ public class DungeonGameScreen {
         setMenuScreen(menuScreen);
         setFailedLevelScreen(failedLevelScreen);
         setFinishedLevelScreen(finishedLevelScreen);
+        setInstructionScreen(instructionScreen);
 	}
 	
 	public void start() {
@@ -80,25 +85,23 @@ public class DungeonGameScreen {
 	public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		controller.setMenuScreen(menuScreen);
 		this.menuScreen = menuScreen;
-		this.failedLevelScreen = failedLevelScreen;
-		this.finishedLevelScreen = finishedLevelScreen;
+		
 	}
-	
+	public void setInstructionScreen(InstructionScreen instructionScreen) {
+		System.out.println("1");
+		controller.setInstructionScreen(instructionScreen);
+	}
 	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
 		controller.setFailedLevelScreen(failedLevelScreen);
-		this.menuScreen = menuScreen;
 		this.failedLevelScreen = failedLevelScreen;
-		this.finishedLevelScreen = finishedLevelScreen;
+
 	}
 	
 	public void setFinishedLevelScreen(FinishedLevelScreen finishedLevelScreen) {
 		controller.setFinishedLevelScreen(finishedLevelScreen);
-		this.menuScreen = menuScreen;
-		this.failedLevelScreen = failedLevelScreen;
-		this.finishedLevelScreen = finishedLevelScreen;
 	}
 
-	public void setCustomGame() throws FileNotFoundException, IOException {
+	public void setLastBuiltGame() throws FileNotFoundException, IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("custom1.json");
 		setGameLoader(dungeonLoader);
 	}

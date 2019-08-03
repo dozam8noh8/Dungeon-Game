@@ -12,6 +12,7 @@ public class InstructionScreen {
 	private String title;
 	private InstructionController controller;
 	private DungeonStartScreen startScreen;
+	private DungeonGameScreen gameScreen;
 	private Scene scene;
 	
 	public InstructionScreen(Stage stage) throws IOException {
@@ -24,6 +25,10 @@ public class InstructionScreen {
 		scene = new Scene(root);
 		
 		
+	}
+	public void setGameScreen(DungeonGameScreen dgs) {
+		this.gameScreen = dgs;
+		controller.disableGameButton(false);
 	}
 	public void start() {
 		stage.setTitle(title);

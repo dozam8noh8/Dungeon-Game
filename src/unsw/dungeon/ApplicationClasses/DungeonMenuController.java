@@ -5,18 +5,22 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class DungeonMenuController {
 
 	private DungeonGameScreen firstScreen;
+	private DungeonStartScreen startScreen;
     @FXML
     private Button firstLevel;
     @FXML
     private Button secondLevel;
     
     @FXML
-    private Button customLevel;
+    private Button lastBuiltButton;
 
+    @FXML
+    private TextField customTextField;
     @FXML
     private Button builderButton;
     
@@ -28,9 +32,9 @@ public class DungeonMenuController {
     }
 
     @FXML
-    void handleCustomLevel(ActionEvent event) {
+    void handleLastBuiltLevel(ActionEvent event) {
     	try {
-			firstScreen.setCustomGame();
+			firstScreen.setLastBuiltGame();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +54,10 @@ public class DungeonMenuController {
 		this.firstScreen = firstGameScreen;
 	}
 	
+	public void setStartScreen(DungeonStartScreen startScreen) {
+		this.startScreen = startScreen;
+	}
+	
 	public void setBuilder(JSONBuilderScreen builderScreen) {
 		this.builderScreen = builderScreen;
 	}
@@ -63,5 +71,17 @@ public class DungeonMenuController {
 		}
 		firstScreen.start();
 	}
-
+	@FXML
+	void handleCustomButton (ActionEvent event) {
+		try {
+			firstScreen.setCustomGame(customTextField.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		firstScreen.start();
+	}
+	@FXML
+	void handleBackButton(ActionEvent event) {
+		startScreen.start();
+	}
 }

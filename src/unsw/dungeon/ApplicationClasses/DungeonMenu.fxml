@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,9 +18,13 @@
          <children>
             <Button fx:id="firstLevel" mnemonicParsing="false" onAction="#handleFirstLevel" prefHeight="52.0" prefWidth="228.0" text="Level 1" textAlignment="CENTER" />
             <Button fx:id="secondLevel" mnemonicParsing="false" onAction="#handleSecondLevel" prefHeight="52.0" prefWidth="228.0" text="Level 2" textAlignment="CENTER" />
-            <Button fx:id="customLevel" mnemonicParsing="false" onAction="#handleCustomLevel" prefHeight="52.0" prefWidth="228.0" text="Custom Level" textAlignment="CENTER" />
+            <Button fx:id="lastBuiltButton" mnemonicParsing="false" onAction="#handleLastBuiltLevel" prefHeight="52.0" prefWidth="228.0" text="Last Built Level" textAlignment="CENTER" />
             <Button fx:id="builderButton" mnemonicParsing="false" onAction="#handleBuilderButton" prefHeight="52.0" prefWidth="228.0" text="Builder" textAlignment="CENTER" />
+            <Button fx:id="loadCustomButton" mnemonicParsing="false" onAction="#handleCustomButton" prefHeight="60.0" prefWidth="227.0" text="Load Custom Level" />
          </children>
       </VBox>
+      <TextField fx:id="customTextField" layoutX="23.0" layoutY="295.0" text="advanced.json" />
+      <Label layoutX="36.0" layoutY="271.0" text="JSON FILE NAME HERE" />
+      <Button fx:id="backButton" layoutX="16.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="26.0" prefWidth="185.0" text="Back to Main Menu" />
    </children>
 </Pane>

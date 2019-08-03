@@ -61,6 +61,7 @@ public class DungeonController {
 	private DungeonMenuScreen menuScreen;
 	private FinishedLevelScreen finishedLevelScreen;
 	private FailedLevelScreen failedLevelScreen;
+	private InstructionScreen instructionScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -141,6 +142,10 @@ public class DungeonController {
 	
 	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
 		this.failedLevelScreen = failedLevelScreen;
+	}
+	public void setInstructionScreen(InstructionScreen instructionSc) {
+		System.out.println("In instruction screen");
+		this.instructionScreen = instructionSc;
 	}
 
 }

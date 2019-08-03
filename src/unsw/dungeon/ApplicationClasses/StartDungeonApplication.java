@@ -17,11 +17,13 @@ public class StartDungeonApplication extends Application{
 		failedLevelScreen.getController().setMenuScreen(menuScreen);
 		DungeonGameScreen firstGameScreen = new DungeonGameScreen(primaryStage);
 		menuScreen.getController().setFirstScreen(firstGameScreen);
-		//firstGameScreen.setAllScreen(menuScreen, failedLevelScreen, finishedLevelScreen);
+		
 		firstGameScreen.setMenuScreen(menuScreen);
 		firstGameScreen.setFailedLevelScreen(failedLevelScreen);
 		firstGameScreen.setFinishedLevelScreen(finishedLevelScreen);
 		InstructionScreen instructionScreen = new InstructionScreen(primaryStage);
+		firstGameScreen.setInstructionScreen(instructionScreen);
+
 		startScreen.getController().setInstructionScreen(instructionScreen);
 		startScreen.getController().setMenuScreen(menuScreen);
 		instructionScreen.getController().setStartScreen(startScreen);
@@ -29,7 +31,10 @@ public class StartDungeonApplication extends Application{
 		JSONBuilderScreen builderScreen = new JSONBuilderScreen(primaryStage);
 		menuScreen.getController().setBuilder(builderScreen);
 		builderScreen.getController().setMenuScreen(menuScreen);
+		menuScreen.getController().setStartScreen(startScreen);
+		firstGameScreen.getController().setInstructionScreen(instructionScreen);
 		startScreen.start();
+
 	}
     public static void main(String[] args) {
         launch(args);

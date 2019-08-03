@@ -64,7 +64,7 @@ public class Enemy extends Entity implements Observer {
 				p.killPlayer();
 			} else {
 				this.killEnemy();
-				p.getDungeon().removeEntity(this);
+
 			}
 		}
 	}
@@ -191,6 +191,7 @@ public class Enemy extends Entity implements Observer {
 	 */
 	public void killEnemy() {
 		this.alive.setValue(false);
+		dungeon.removeEntity(this);
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
 				return;
