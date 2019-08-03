@@ -21,6 +21,7 @@ import unsw.dungeon.entities.Enemy;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Exit;
 import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.Life;
 import unsw.dungeon.entities.PPlate;
 import unsw.dungeon.entities.Potion;
 import unsw.dungeon.entities.Sword;
@@ -55,6 +56,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image bombLit2Image;
     private Image bombLit3Image;
     private Image bombLit4Image;
+	private Image lifeImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -78,7 +80,15 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombLit2Image = new Image("bomb_lit_2.png");
         bombLit3Image = new Image("bomb_lit_3.png");
         bombLit4Image = new Image("bomb_lit_4.png");
+        lifeImage = new Image("heart.png");
     }
+    
+    @Override
+	public void onLoad(Life life) {
+    	ImageView view = new ImageView(lifeImage);
+    	view.visibleProperty().bindBidirectional(life.isAlive());
+    	addEntity(life, view);
+	}
 
 	@Override
     public void onLoad(Entity player) {

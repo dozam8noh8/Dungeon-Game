@@ -39,6 +39,7 @@ public class Player extends Entity implements Subject {
     private StringProperty weaponName = new SimpleStringProperty("None");
 	private StringProperty bombCount = new SimpleStringProperty("None");
 	private StringProperty potionStateInfo = new SimpleStringProperty("You don't have potion");
+	private IntegerProperty lives = new SimpleIntegerProperty(1);
 
 	/**
      * Create a player positioned in square (x,y)
@@ -367,7 +368,11 @@ public class Player extends Entity implements Subject {
 	 */
 	public void killPlayer() {
 		System.out.println("killing player");
-		setAlive(false);
+		if (getLives() == 1) {
+			setAlive(false);
+		} else {
+			decrementLives();
+		}
 		
 	}
 	
@@ -430,4 +435,21 @@ public class Player extends Entity implements Subject {
 		this.potionStateInfo.setValue(info);
 	}
 	
+	/**
+	 * Decrement lives for player
+	 */
+	public void decrementLives() {
+		this.lives.setValue(lives.getValue()-1);
+	}
+	
+	/**
+	 * Increment lives for player
+	 */
+	public void incrementLives() {
+		this.lives.setValue(lives.getValue()+1);
+	}
+	
+	public int getLives() {
+		return this.lives.getValue();
+	}
 }

@@ -17,6 +17,7 @@ import unsw.dungeon.entities.Enemy;
 import unsw.dungeon.entities.Entity;
 import unsw.dungeon.entities.Exit;
 import unsw.dungeon.entities.Key;
+import unsw.dungeon.entities.Life;
 import unsw.dungeon.entities.PPlate;
 import unsw.dungeon.entities.Player;
 import unsw.dungeon.entities.Potion;
@@ -266,6 +267,11 @@ public abstract class DungeonLoader {
         	onLoad(sword);
         	entity = sword;
         	break;
+        case "life":
+        	Life life = new Life(x,y);
+        	onLoad(life);
+        	entity = life;
+        	break;
         }
        
         dungeon.addEntity(entity);
@@ -298,6 +304,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Potion potion);
     
     public abstract void onLoad(Sword sword);
+    
+    public abstract void onLoad(Life life);
 
 
 	public void onLoad() {} 
