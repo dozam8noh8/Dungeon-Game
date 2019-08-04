@@ -90,16 +90,13 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombLit3Image = new Image("bomb_lit_3.png");
         bombLit4Image = new Image("bomb_lit_4.png");
         lifeImage = new Image("heart.png");
-<<<<<<< HEAD
         blueKey = new Image("key_blue.png");
         greenKey = new Image("key_green.png");
         redKey = new Image("key_red.png");
         blueDoor = new Image("closed_door_blue.png");
         redDoor = new Image("closed_door_red.png");
         greenDoor = new Image("closed_door_green.png");
-=======
         bossImage = new Image("gnome.png");
->>>>>>> finalDayOwen
     }
     
     @Override
