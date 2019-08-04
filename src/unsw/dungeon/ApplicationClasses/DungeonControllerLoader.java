@@ -23,6 +23,7 @@ import unsw.dungeon.entities.Exit;
 import unsw.dungeon.entities.Key;
 import unsw.dungeon.entities.Life;
 import unsw.dungeon.entities.PPlate;
+import unsw.dungeon.entities.Player;
 import unsw.dungeon.entities.Potion;
 import unsw.dungeon.entities.Sword;
 import unsw.dungeon.entities.Treasure;
@@ -109,7 +110,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         addEntity(player, view);
     }
 
-    @Override
+	@Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
         addEntity(wall, view);

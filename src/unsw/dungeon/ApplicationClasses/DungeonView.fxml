@@ -79,14 +79,29 @@
                   <Image url="@../../../../images/heart.png" />
                </image>
             </ImageView>
-            <Label layoutX="48.0" layoutY="336.0" text="ArrowKeys to move" />
-            <Label layoutX="48.0" layoutY="364.0" text="Space to attack with sword" />
-            <Label layoutX="48.0" layoutY="397.0" text="Press L to light bomb" />
-            <Label layoutX="36.0" layoutY="287.0" text="Instructions" textAlignment="CENTER">
+            <Label layoutX="49.0" layoutY="373.0" text="ArrowKeys to move" />
+            <Label layoutX="49.0" layoutY="401.0" text="Space to attack with sword" />
+            <Label layoutX="49.0" layoutY="434.0" text="Press L to light bomb" />
+            <Label layoutX="37.0" layoutY="324.0" text="Instructions" textAlignment="CENTER">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
+            <ImageView fx:id="keyBlue" fitHeight="30.0" fitWidth="25.0" layoutX="61.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../../../images/key_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="keyGreen" fitHeight="30.0" fitWidth="25.0" layoutX="111.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../../../images/key_green.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="keyRed" fitHeight="30.0" fitWidth="25.0" layoutX="163.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../../../images/key_red.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </items>

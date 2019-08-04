@@ -40,6 +40,7 @@ public class Player extends Entity implements Subject {
 	private StringProperty bombCount = new SimpleStringProperty("None");
 	private StringProperty potionStateInfo = new SimpleStringProperty("You don't have potion");
 	private IntegerProperty lives = new SimpleIntegerProperty(1);
+	private IntegerProperty keyId = new SimpleIntegerProperty(-1);
 	private int killedEnemies = 0;
 	private StringProperty enemyInformation = new SimpleStringProperty("None");
 
@@ -338,6 +339,11 @@ public class Player extends Entity implements Subject {
 								      //picked back up
 		}
 		key = k;
+		if (key == null) {
+			keyId.setValue(-1);
+		} else {
+			keyId.setValue(key.getId());
+		}
 	}
 	
 	/**
@@ -467,5 +473,9 @@ public class Player extends Entity implements Subject {
 	public void incrementEnemies() {
 		this.killedEnemies = killedEnemies+1;
 		dungeon.getEnemyInformation();
+	}
+	
+	public IntegerProperty getKeyIdProperty() {
+		return this.keyId;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -51,6 +52,15 @@ public class DungeonController {
 
     @FXML
     private Label collectedEnemy;
+    
+    @FXML
+    private ImageView keyBlue;
+
+    @FXML
+    private ImageView keyGreen;
+
+    @FXML
+    private ImageView keyRed;
     
     @FXML
     private Pane InventoryPane;
@@ -107,6 +117,18 @@ public class DungeonController {
     	swordLabel3.setText("You don't have potion");
     	player.getPotionStateInfo().bindBidirectional(swordLabel3.textProperty());
     	jsonObjectivesLabel.textProperty().setValue(objectiveList);
+    	keyRed.visibleProperty().bind(Bindings.when(
+    	        player.getKeyIdProperty().isEqualTo(2))
+    	        .then(true)
+    	        .otherwise(false));
+    	keyBlue.visibleProperty().bind(Bindings.when(
+    	        player.getKeyIdProperty().isEqualTo(0))
+    	        .then(true)
+    	        .otherwise(false));
+    	keyGreen.visibleProperty().bind(Bindings.when(
+    	        player.getKeyIdProperty().isEqualTo(1))
+    	        .then(true)
+    	        .otherwise(false));
     }
 
     @FXML
