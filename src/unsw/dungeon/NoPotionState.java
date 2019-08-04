@@ -15,7 +15,6 @@ public class NoPotionState implements PotionState {
 	 */
 	@Override
 	public PotionState transition() {
-		// TODO Auto-generated method stub
 		return new PotionStatePlayer();
 	}
 }

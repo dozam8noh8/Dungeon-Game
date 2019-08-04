@@ -2,14 +2,24 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.scene.image.ImageView;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Subject;
+import unsw.dungeon.ApplicationClasses.DungeonController;
+import unsw.dungeon.ApplicationClasses.DungeonControllerLoader;
 
-public class BossEnemy extends Enemy{
-
+public class BossEnemy extends Enemy implements Runnable{
+	private boolean alive = true;
+	private boolean bombing = false;
+	private Thread bombThread;
+	private DungeonControllerLoader controller;
 	public BossEnemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
+		System.out.println("In Constructor");
+
+
 	}
+	//We may want a way to return two coordinates from a function (a point).
 	
 	/**
 	 * Update method called every time a player moves.
@@ -17,10 +27,17 @@ public class BossEnemy extends Enemy{
 	 */
 	@Override
 	public void update(Subject o) {
+		if (bombing == false) {
+			System.out.println("Do something");
+			bombThread = new Thread(this);
+			bombThread.start();
+			bombing = true;
+			}
 		if (isAlive().getValue()) {
 			this.setMoveCounter(this.getMoveCounter() + 1);
 			if (this.getMoveCounter() == 2) {
-				moveTowardsPlayer();
+				System.out.println("Doing something");
+				makeMove();
 				this.setMoveCounter(0);
 			}
 		}
@@ -66,6 +83,36 @@ public class BossEnemy extends Enemy{
 		for (Entity e: entOnSq) {
 			if (e instanceof Player) {
 				getPlayer().killPlayer();
+			}
+		}
+	}
+	public void spawnBomb () { //not actually added to list of entities.
+		Player player = getDungeon().getPlayer();
+		int yDiff = (int) (Math.random()*2 -1 );
+		int xDiff = (int) (Math.random()*2 -1);
+		System.out.println("yDiff =" + yDiff );
+		System.out.println("xDiff =" + xDiff );
+		int playerX = player.getX();
+		int playerY = player.getY();
+		Bomb bomb = new Bomb(playerX+ xDiff, playerY+yDiff, getDungeon());
+		Sword sword = new Sword(5,5);
+		controller.onLoad(bomb);
+		this.getDungeon().addEntity(bomb);
+		controller.onLoad(sword);
+		bomb.lightBomb(playerX + xDiff, playerY+yDiff);
+	}
+	public void setController(DungeonControllerLoader dgc) {
+		this.controller = dgc;
+	}
+	@Override
+	public void run() {
+		System.out.println("Running");
+		while (this.alive == true && getDungeon().getPlayerStatus()) {
+			spawnBomb();
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 
+import javafx.animation.PauseTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
 public class LevelBuilderController {
@@ -161,15 +163,16 @@ public class LevelBuilderController {
 	}
     @FXML
     void handleEndButton(ActionEvent event) {
+    	allDone.setVisible(true);
     	jb.endDungeon();
+
     	jb.closeWriter();
-    	popup();
-    	try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-    	menuScreen.start();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event2 -> {
+            menuScreen.start();
+        });
+        pause.play();
+
     }
     @FXML
     void handleRestartButton(ActionEvent event) {
@@ -204,6 +207,7 @@ public class LevelBuilderController {
     void handleEndObjectivesButton(ActionEvent event) {
     	disableObjButtons(true);
     	endButton.setDisable(false);
+    	endObjectivesButton.setDisable(true);
 
     }
     @FXML

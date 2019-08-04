@@ -106,7 +106,13 @@ public class Dungeon implements Observer{
     public Player getPlayer() {
         return player;
     }
-
+    /**
+     * Returns whether the player is alive or not.
+     * @return - boolean representing player status.
+     */
+    public boolean getPlayerStatus() {
+    	return player.isAlive().getValue();
+    }
     /**
      * Set Player instance stored in dungeon.
      * The Player represents the player of the game in real life.
@@ -149,6 +155,8 @@ public class Dungeon implements Observer{
      * @return - a boolean representing whether a move can be made.
      */
     public boolean makeMoveEntity (int x, int y) {
+    	if (x < 0 || y < 0) return false;
+    	if (x >= this.getWidth() || y >= this.getHeight())return false; 
     	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
     	for (Entity e: entOnSq) {
     		boolean toReturn = e.entityMoveThrough();
@@ -247,6 +255,7 @@ public class Dungeon implements Observer{
 			resetBoulderObjective(this.getObjective());
 		}
 	}
+	
 	/**
 	 * Removes an entity from the dungeon entity list
 	 * @param e1 - the Entity instance wishing to be removed.
