@@ -150,6 +150,10 @@ public class DungeonController implements Observer {
     		}
     	}
     }
+    /**
+     * Handles player key press in game
+     * @param event
+     */
     @FXML
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
@@ -207,6 +211,10 @@ public class DungeonController implements Observer {
 		this.startScreen = startScreen;
 	}
 
+	/**
+	 * Gets updated when a bossEnemy spawns an orb or a bomb
+	 * so we can update the view in the the front end.
+	 */
 	@Override
 	public void update(Subject o) {
 		if (dungeon.getComplete()) {
@@ -238,7 +246,11 @@ public class DungeonController implements Observer {
 		}
 		
 	}
-
+	/**
+	 * Tracks the position of an entity in the front end.
+	 * @param entity
+	 * @param node
+	 */
 	private void trackPosition(Entity entity, Node node) {
         GridPane.setColumnIndex(node, entity.getX());
         GridPane.setRowIndex(node, entity.getY());
@@ -257,7 +269,11 @@ public class DungeonController implements Observer {
             }
         });
     }
-	
+	/**
+	 * Tracks fuselength of a bomb in the front end.
+	 * @param bomb
+	 * @param node
+	 */
 	private void trackPositionBomb(Bomb bomb, Node node) {
     	bomb.getBombState().addListener(new ChangeListener<Number>() {
             @Override

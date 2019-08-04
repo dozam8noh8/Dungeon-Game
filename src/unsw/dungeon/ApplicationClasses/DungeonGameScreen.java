@@ -67,15 +67,26 @@ public class DungeonGameScreen {
 	public DungeonController getController () {
 		return controller;
 	}
-	
+	/**
+	 * Set the first game screen.
+	 * @throws IOException
+	 */
 	public void setSecondGame() throws IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("boulders.json");
 		setGameLoader(dungeonLoader);
 	}
+	/**
+	 * Set the maze game screen.
+	 * @throws IOException
+	 */
 	public void setMazeGame() throws IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze.json");
 		setGameLoader(dungeonLoader);
 	}
+	/**
+	 * Set the boss game screen.
+	 * @throws IOException
+	 */
 	public void setBossGame() throws IOException {
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("boss.json");
 		setGameLoader(dungeonLoader);
@@ -89,7 +100,10 @@ public class DungeonGameScreen {
 		controller.setFinishedLevelScreen(finishedLevelScreen);
 		this.menuScreen = menuScreen;
 	}
-	
+	/**
+	 * Sets the menu screen so we can go back in game.
+	 * @param menuScreen
+	 */
 	public void setMenuScreen(DungeonMenuScreen menuScreen) {
 		controller.setMenuScreen(menuScreen);
 		this.menuScreen = menuScreen;
@@ -97,6 +111,10 @@ public class DungeonGameScreen {
 		this.finishedLevelScreen = finishedLevelScreen;
 		this.instructionScreen = instructionScreen;
 	}
+	/**
+	 * Sets the instruction screen so we can view it in game.
+	 * @param instructionScreen
+	 */
 	public void setInstructionScreen(InstructionScreen instructionScreen) {
 		controller.setInstructionScreen(instructionScreen);
 		this.instructionScreen = instructionScreen;
@@ -104,6 +122,10 @@ public class DungeonGameScreen {
 		this.failedLevelScreen = failedLevelScreen;
 		this.finishedLevelScreen = finishedLevelScreen;
 	}
+	/**
+	 * Sets level screen to transition when player dies.
+	 * @param failedLevelScreen
+	 */
 	public void setFailedLevelScreen(FailedLevelScreen failedLevelScreen) {
 		controller.setFailedLevelScreen(failedLevelScreen);
 		this.menuScreen = menuScreen;
@@ -111,7 +133,10 @@ public class DungeonGameScreen {
 		this.finishedLevelScreen = finishedLevelScreen;
 		this.instructionScreen = instructionScreen;
 	}
-	
+	/**
+	 * Sets finished level screen to transition if player wins.
+	 * @param finishedLevelScreen
+	 */
 	public void setFinishedLevelScreen(FinishedLevelScreen finishedLevelScreen) {
 		controller.setFinishedLevelScreen(finishedLevelScreen);
 		this.menuScreen = menuScreen;

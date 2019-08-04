@@ -84,6 +84,12 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 		}
 	}
 
+	/**
+	 * If player walks on enemy, they will die
+	 * @param x
+	 * @param y
+	 * @param dungeon
+	 */
 	private void bossKillsPlayer(int x, int y, Dungeon dungeon) {
 		ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y);
 		for (Entity e: entOnSq) {
@@ -92,6 +98,9 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 			}
 		}
 	}
+	/**
+	 * Spawns  lit bombs at a location up to 3 squares away from player.
+	 */
 	public void spawnBomb () { //not actually added to list of entities.
 		Player player = getDungeon().getPlayer();
 
@@ -118,6 +127,9 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 		//this.getDungeon().addEntity(bomb);
 		bomb.lightBomb(xLoc, yLoc);
 	}
+	/**
+	 * spawns orbs at a random square in the dungeon.
+	 */
 	public void spawnOrb() {
 		int max = this.getDungeon().getHeight()-1;
 		int min = 0;
@@ -132,6 +144,10 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
         
 		
 	}
+	/**
+	 * Runs a thread that drops bombs every 0.5 seconds and orbs 
+	 * every 5seconds.
+	 */
 	@Override
 	public void run() {
 		while (this.alive == true && getDungeon().getPlayerStatus()) {
@@ -169,14 +185,20 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 			o.update(this);
 		}
 	}
-	
+	/**
+	 * Get the most recently added bomb
+	 * @return Bomb
+	 */
 	public Bomb getLastBomb() {
 		if (bombs.size() == 0) {
 			return null;
 		}
 		return bombs.get(bombs.size()-1);
 	}
-
+	/**
+	 * Get the most recently added orb
+	 * @return
+	 */
 	public Orb getLastOrb() {
 		if (orbs.size() == 0) {
 			return null;

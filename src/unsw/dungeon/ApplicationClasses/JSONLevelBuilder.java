@@ -10,6 +10,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * The JSON level builder calls individual functions
+ * to write different parts of a required dungeon build file
+ * It does objectives in a single string and 
+ * writes all at once so it is easier to restart objectives. 
+ * @author Owen Silver and Waqif Alam
+ *
+ */
 public class JSONLevelBuilder {
 
 	private JSONObject json;
@@ -24,15 +32,33 @@ public class JSONLevelBuilder {
 
 
 	}
+	/**
+	 * Makes a new fileWriter
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	public void makeWriter() throws FileNotFoundException, UnsupportedEncodingException {
 		writer = new PrintWriter("dungeons/"+ this.filename , "UTF-8");
 	}
+	/**
+	 * Get dungeon width
+	 * @return
+	 */
 	public int getDungeonWidth() {
 		return this.Dwidth;
 	}
+	/**
+	 * Get dungeon height.
+	 * @return
+	 */
 	public int getDungeonHeight() {
 		return this.Dheight;
 	}
+	/**
+	 * Makes a default level so when there is none we dont null.
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	public void makeDefaultLevel() throws FileNotFoundException, UnsupportedEncodingException {
 		closeWriter();
 		makeWriter();
@@ -156,12 +182,18 @@ public class JSONLevelBuilder {
 		}
 		file2.renameTo(file);
 	}
+	/**
+	 * Starts the entity list in json
+	 */
 	public void startEntityList() {
 		writer.write("\"entities\": [");
 	}
 	public void endEntityList() {
 		writer.write("],\n");
 	}
+	/**
+	 * Ends the entity list in json.
+	 */
 	public void endDungeon() {
 		writer.write(objString);
 		emptyObjString();
@@ -180,6 +212,11 @@ public class JSONLevelBuilder {
 				"      \"type\": \"player\"\n" + 
 				"    },");
 	}
+	/**
+	 * Make an exit in json
+	 * @param x
+	 * @param y
+	 */
 	public void makeExit(int x, int y) {
 		writer.write("\n    {\n" + 
 				"      \"x\": "+x +",\n" + 
@@ -187,6 +224,11 @@ public class JSONLevelBuilder {
 				"      \"type\": \"exit\"\n" + 
 				"    },");
 	}
+	/**
+	 * Make a life in json
+	 * @param x
+	 * @param y
+	 */
 	public void makeLife(int x, int y) {
 		writer.write("\n    {\n" + 
 				"      \"x\": "+x +",\n" + 
@@ -194,6 +236,11 @@ public class JSONLevelBuilder {
 				"      \"type\": \"life\"\n" + 
 				"    },");
 	}
+	/**
+	 * Make treasure entity in json
+	 * @param x
+	 * @param y
+	 */
 	public void makeTreasure(int x, int y) {
 		writer.write("\n    {\n" + 
 				"      \"x\": "+x +",\n" + 
