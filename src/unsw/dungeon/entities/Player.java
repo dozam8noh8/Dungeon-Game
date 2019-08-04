@@ -208,7 +208,7 @@ public class Player extends Entity implements Subject {
 	 * after which the player will be returned to normal state.
 	 */
 	public void changeToPotionState() {
-		potionState = potionState.transition();
+		potionState = potionState.changeToPotionState();
 		setPotionStateInfo("You've got potion for 10 sec");
 		potionThread();
 	}
@@ -247,7 +247,7 @@ public class Player extends Entity implements Subject {
 	 * Returns player to original state that is not under effects of potion.
 	 */
 	public void changeToNoPotionState() {
-		potionState = potionState.transition();
+		potionState = potionState.changeToNoPotionState();
 	}
 
 	/**

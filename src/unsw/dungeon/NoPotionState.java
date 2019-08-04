@@ -14,7 +14,15 @@ public class NoPotionState implements PotionState {
 	 * Changes from no potion state to potion state.
 	 */
 	@Override
-	public PotionState transition() {
+	public PotionState changeToPotionState() {
 		return new PotionStatePlayer();
+	}
+
+	/**
+	 * Changes from no potion state to no potion state.
+	 */
+	@Override
+	public PotionState changeToNoPotionState() {
+		return this;
 	}
 }

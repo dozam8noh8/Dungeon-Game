@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
 public interface PotionState {
-	public PotionState transition();
+	public PotionState changeToPotionState();
+	public PotionState changeToNoPotionState();
 }
