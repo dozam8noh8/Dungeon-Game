@@ -55,5 +55,6 @@
       <Button fx:id="swordButton" disable="true" layoutX="102.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleSwordButton" prefHeight="26.0" prefWidth="76.0" text="Sword" />
       <Button fx:id="exitButton" disable="true" layoutX="102.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="26.0" prefWidth="76.0" text="Exit" />
       <Button fx:id="resetObj" disable="true" layoutX="442.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleResetObj" prefHeight="40.0" prefWidth="119.0" text="RESET OBJECTIVES" />
+      <Button fx:id="menuButton" layoutX="690.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleMenuButton" text="Back to Menu" />
    </children>
 </Pane>

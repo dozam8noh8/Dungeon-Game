@@ -95,7 +95,7 @@ class PotionTests {
 		MazeController maze = new MazeController("potionTests.json");
 		Dungeon dungeon = maze.load();
 		Player player = dungeon.getPlayer();
-		player.moveDown();//pick up potion
+		player.changeToPotionStateBackend();
 		assertTrue(player.getPotionState() instanceof PotionStatePlayer, "player picked up potion");
 		TimeUnit.SECONDS.sleep(15);
 		assertFalse(player.getPotionState() instanceof PotionStatePlayer, "potion timer run out");

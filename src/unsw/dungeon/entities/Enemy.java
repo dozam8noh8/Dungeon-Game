@@ -79,6 +79,13 @@ public class Enemy extends Entity implements Observer {
 	@Override
 	public void update(Subject o) {
 		if (this.alive.getValue()) {
+			if (this.getPlayer().getPotionState() instanceof PotionStatePlayer) {
+				System.out.println(this.moveState);
+				this.moveState = this.moveState.changeToFleeState();
+			}
+			else {
+				this.moveState = this.moveState.changeToChaseState();
+			}
 			this.setMoveCounter(this.getMoveCounter() + 1);
 			if (this.getMoveCounter() == 3) {
 				makeMove();

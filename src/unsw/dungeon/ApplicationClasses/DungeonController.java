@@ -7,7 +7,10 @@ import org.json.JSONObject;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +19,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.converter.NumberStringConverter;
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.Observer;
+import unsw.dungeon.Subject;
+import unsw.dungeon.entities.Bomb;
+import unsw.dungeon.entities.BossEnemy;
 import unsw.dungeon.entities.Entity;
+import unsw.dungeon.entities.Orb;
 import unsw.dungeon.entities.Player;
 
 /**
@@ -24,7 +32,7 @@ import unsw.dungeon.entities.Player;
  * @author Robert Clifton-Everest
  *
  */
-public class DungeonController {
+public class DungeonController implements Observer {
 
     @FXML
     private GridPane squares;
@@ -69,8 +77,10 @@ public class DungeonController {
     private Pane objectivesPane;
 
     @FXML
-    private Label jsonObjectivesLabel;
+    private Label bossLabel;
 
+    @FXML
+    private Label jsonObjectivesLabel;
 
     private List<ImageView> initialEntities;
 
@@ -103,6 +113,8 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
+        findBossEnemy();
+        player.registerObserver(this);
         dungeon.setTotalEnemies();
         dungeon.updateBoulderObjective();
         collectedSwitch.textProperty().bindBidirectional(dungeon.getPlateInfo());
@@ -130,7 +142,14 @@ public class DungeonController {
     	        .then(true)
     	        .otherwise(false));
     }
-
+    public void findBossEnemy() {
+    	for (Entity e : dungeon.getEntities()) {
+    		if (e instanceof BossEnemy) {
+    			((BossEnemy) e).registerObserver(this);
+    	    	bossLabel.setVisible(true);
+    		}
+    	}
+    }
     @FXML
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
@@ -162,7 +181,7 @@ public class DungeonController {
         	finishedLevelScreen.start();
         }
         
-        if (!dungeon.getPlayer().isAlive().getValue()) {
+        else if (!dungeon.getPlayer().isAlive().getValue()) {
         	failedLevelScreen.start();
         }
         
@@ -187,5 +206,81 @@ public class DungeonController {
 		this.gameScreen = gameScreen;
 		this.startScreen = startScreen;
 	}
+
+	@Override
+	public void update(Subject o) {
+		if (dungeon.getComplete()) {
+			return;
+		}
+		if (o instanceof Player) {
+			if (((Player) o).isAlive().getValue() == false) {
+	        	failedLevelScreen.start();
+			}
+		}
+		if (o instanceof BossEnemy) {
+			Bomb bomb = ((BossEnemy) o).getLastBomb();
+			if (bomb != null) {
+				Image unlitBImage = new Image("bomb_unlit.png");
+				ImageView view = new ImageView(unlitBImage);
+				view.visibleProperty().bindBidirectional(bomb.isAlive());
+				trackPositionBomb(bomb, view);
+				trackPosition(bomb, view);
+				squares.getChildren().add(view);
+			}
+			Orb orb = ((BossEnemy) o).getLastOrb();
+			if (orb != null) {
+				Image orbImage = new Image("ball.png");
+				ImageView view = new ImageView(orbImage);
+				view.visibleProperty().bindBidirectional(orb.isAlive());
+				trackPosition(orb, view);
+				squares.getChildren().add(view);
+			}
+		}
+		
+	}
+
+	private void trackPosition(Entity entity, Node node) {
+        GridPane.setColumnIndex(node, entity.getX());
+        GridPane.setRowIndex(node, entity.getY());
+        entity.x().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                GridPane.setColumnIndex(node, newValue.intValue());
+            }
+        });
+        entity.y().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                GridPane.setRowIndex(node, newValue.intValue());
+            }
+        });
+    }
+	
+	private void trackPositionBomb(Bomb bomb, Node node) {
+    	bomb.getBombState().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+            	Image bombLit1Image = new Image("bomb_lit_1.png");
+                Image bombLit2Image = new Image("bomb_lit_2.png");
+                Image bombLit3Image = new Image("bomb_lit_3.png");
+                Image bombLit4Image = new Image("bomb_lit_4.png");
+            	if (newValue.intValue() == 3) {
+            		((ImageView) node).setImage(bombLit1Image);
+            	} else if (newValue.intValue() == 2) {
+            		((ImageView) node).setImage(bombLit2Image);
+            	} else if (newValue.intValue() == 1) {
+            		((ImageView) node).setImage(bombLit3Image);
+            	} else if (newValue.intValue() == 0) {
+            		((ImageView) node).setImage(bombLit4Image);
+            	} else if (newValue.intValue() == -1) {
+            		bomb.setAlive(false);
+            	}
+            }
+        });
+    }
+	
 }
 

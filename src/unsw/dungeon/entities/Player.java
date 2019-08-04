@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.application.Platform;
+import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -44,6 +45,7 @@ public class Player extends Entity implements Subject {
 	private IntegerProperty keyId = new SimpleIntegerProperty(-1);
 	private int killedEnemies = 0;
 	private StringProperty enemyInformation = new SimpleStringProperty("None");
+	private IntegerProperty orbCount  = new SimpleIntegerProperty(0);
 
 	/**
      * Create a player positioned in square (x,y)
@@ -210,28 +212,38 @@ public class Player extends Entity implements Subject {
 	public void changeToPotionState() {
 		potionState = potionState.changeToPotionState();
 		setPotionStateInfo("You've got potion for 10 sec");
-		potionThread();
+		potionThread(10);
 	}
-	
+	public void changeToPotionStateBackend() {
+		changeToPotionState();
+		class PotionThread implements Runnable {
+			@Override
+			public void run() {
+				try { Thread.sleep(10000); } catch (Exception e) {}
+				changeToNoPotionState();
+			}
+		}
+		Thread t = new Thread(new PotionThread());
+	    t.start();
+	}
 	/**
 	 * Starts a thread for potion that enables potion state on player for 10 secs then converts
 	 * to non potion state
 	 */
-	private void potionThread() {
+	private void potionThread(int q) {
 	    class OneShotTask implements Runnable {
-	        int j = 10;
+	        int j = q;
 	        OneShotTask(int i) { j = i; }
 	        public void run() {
 	        	try { Thread.sleep(1000); } catch (Exception e) {}
-	        	if (j == 1) {
-	        		changeToNoPotionState();
-	        	}
 	        	Platform.runLater(new Runnable() {
 			        @Override public void run() {
 			        	if (j == 1) {
 			        		setPotionStateInfo("You don't have potion");
+			        		changeToNoPotionState();
 			        	} else {
 			        		setPotionStateInfo("You have potion for "+(j-1)+" sec");
+			        		System.out.println(getPotionState());
 			        		Thread t = new Thread(new OneShotTask(j-1));
 			        		t.start();
 			        	}
@@ -298,6 +310,14 @@ public class Player extends Entity implements Subject {
 	public void useBomb() {
 		if (bombs.size() > 0) {
 			bombs.get(bombs.size()-1).lightBomb(getX(), getY());
+			bombs.remove(bombs.size() - 1);
+			this.setBombCount(getBombs().size()+ " Bombs");
+		}
+	}
+	//because javafx broke junit.
+	public void useBombBackend() {
+		if (bombs.size() > 0) {
+			bombs.get(bombs.size()-1).lightBombBackend(getX(), getY());
 			bombs.remove(bombs.size() - 1);
 			this.setBombCount(getBombs().size()+ " Bombs");
 		}
@@ -379,9 +399,12 @@ public class Player extends Entity implements Subject {
 		System.out.println("killing player");
 		if (getLives() == 1) {
 			setAlive(false);
+			notifyObservers();
+			//end game
 		} else {
 			decrementLives();
 		}
+
 		
 	}
 	
@@ -483,4 +506,15 @@ public class Player extends Entity implements Subject {
 	public IntegerProperty getKeyIdProperty() {
 		return this.keyId;
 	}
+
+	public void incrementOrb() {
+		this.orbCount.setValue(orbCount.getValue() + 1);
+		if (orbCount.getValue() == 5) {
+			dungeon.completeEnemyObjective(dungeon.getObjective());
+		}
+	}
+	public IntegerProperty getOrbCount() {
+		return this.orbCount;
+	}
+
 }

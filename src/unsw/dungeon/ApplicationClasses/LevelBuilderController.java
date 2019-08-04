@@ -90,6 +90,8 @@ public class LevelBuilderController {
     private Button keyButton;
 
     @FXML
+    private Button menuButton;
+    @FXML
     private Button doorButton;
 
     @FXML
@@ -175,18 +177,25 @@ public class LevelBuilderController {
 
     }
     @FXML
-    void handleRestartButton(ActionEvent event) {
+    void handleRestartButton(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException {
     	//jb.endDungeon();
+    	if (jb != null) {
+    	jb.makeDefaultLevel();
     	jb.emptyObjString();
     	jb.closeWriter();
+    	}
     	disableAllExceptStart(true);
+    	
     	gridPaneBase.getChildren().remove(levelGrid);
     	widthField.setText("10");
+    	widthField.setDisable(false);
+    	heightField.setDisable(false);
     	heightField.setText("10");
     	currX.setValue(0);
     	currY.setValue(0);
     	startBuildButton.setDisable(false);
     	restartObjectives();
+    	
     	//this = new LevelBuilderController();
     }
     void restartObjectives() {
@@ -269,6 +278,9 @@ public class LevelBuilderController {
     	disableObjButtons(disable);
     	disableEntityButtons(disable);
     	endEntityButton.setDisable(disable);
+    	endObjectivesButton.setDisable(disable);
+    	startEntityButton.setDisable(disable);
+    	startObjectivesButton.setDisable(disable);
     }
     public void disableObjButtons(boolean disable) {
     	treasureObjButton.setDisable(disable);
@@ -300,6 +312,14 @@ public class LevelBuilderController {
 			jb = new JSONLevelBuilder("custom" + fileTextField.getText() + ".json");
 			int xDim = Integer.parseInt(heightField.getText());
 			int yDim = Integer.parseInt(widthField.getText());
+			if (xDim > 12) {
+				xDim = 12;
+				widthField.setText("12");
+			}
+			if (yDim > 12) {
+				yDim = 12;
+				heightField.setText("12");
+			}
 			jb.makeDungeonDimensions(xDim, yDim);
 			initialiseGridPane(xDim, yDim);
 			startEntityButton.setDisable(false);
@@ -434,12 +454,17 @@ public class LevelBuilderController {
     	FEObjString.textProperty().setValue(ObjString);
     }
     @FXML
-    void handleResetObj(ActionEvent even) {
+    void handleResetObj(ActionEvent event) {
     	restartObjectives();
     	jb.startObjective();
-    	FEObjString.textProperty().setValue(ObjString);
-
-    	
+    	FEObjString.textProperty().setValue(ObjString);  	
+    }
+    @FXML
+    void handleMenuButton(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException {
+    	if (jb != null) {
+    		jb.makeDefaultLevel();
+    	}
+    	menuScreen.start();
     }
     
     

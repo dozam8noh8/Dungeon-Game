@@ -28,8 +28,13 @@ public class EnemyFleeState implements EnemyMoveState{
 		return false;
 	}
 	@Override
-	public EnemyMoveState transition() {
+	public EnemyMoveState changeToChaseState() {
 		return new EnemyChaseState(this.enemy);
+	}
+
+	@Override
+	public EnemyMoveState changeToFleeState() {
+		return this;
 	}
 
 	

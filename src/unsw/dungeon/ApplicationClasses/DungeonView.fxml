@@ -16,6 +16,7 @@
          <children>
             <Label layoutX="66.0" layoutY="31.0" text="Objectives" />
             <Label fx:id="jsonObjectivesLabel" layoutX="69.0" layoutY="62.0" maxWidth="100.0" text="JsonObj" wrapText="true" />
+            <Label fx:id="bossLabel" layoutX="39.0" layoutY="319.0" prefHeight="145.0" prefWidth="153.0" text="TO KILL THE BOSS DODGE THE BOMBS UNTIL YOU COLLECT 5 ORBS" textAlignment="CENTER" visible="false" wrapText="true" />
          </children>
       </Pane>
       <GridPane fx:id="squares" onKeyPressed="#handleKeyPress" prefHeight="530.0" prefWidth="500.0">

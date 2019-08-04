@@ -142,7 +142,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     	ImageView view = new ImageView(unlitBImage);
     	view.visibleProperty().bindBidirectional(bomb.isAlive());
     	trackPositionBomb(bomb, view);
-    	addEntity(bomb, view);				
+    	addEntity(bomb, view);
 	}
 
 	@Override
@@ -205,7 +205,6 @@ public class DungeonControllerLoader extends DungeonLoader {
 	}
 	@Override
 	public void onLoad(BossEnemy boss ) {
-		boss.setController(this);
 		ImageView view = new ImageView(bossImage);
 		view.visibleProperty().bindBidirectional(boss.isAlive());
 		addEntity(boss, view);

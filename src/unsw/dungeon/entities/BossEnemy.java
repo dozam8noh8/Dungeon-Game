@@ -2,22 +2,28 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.Observer;
 import unsw.dungeon.Subject;
 import unsw.dungeon.ApplicationClasses.DungeonController;
 import unsw.dungeon.ApplicationClasses.DungeonControllerLoader;
 
-public class BossEnemy extends Enemy implements Runnable{
+public class BossEnemy extends Enemy implements Runnable, Subject{
 	private boolean alive = true;
 	private boolean bombing = false;
 	private Thread bombThread;
-	private DungeonControllerLoader controller;
+	private int orbSleepCount = 0;
+	private ArrayList<Observer> observers;
+	private ArrayList<Bomb> bombs;
+	private ArrayList<Orb> orbs;
 	public BossEnemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		System.out.println("In Constructor");
-
-
+		observers = new ArrayList<Observer>();
+		bombs = new ArrayList<Bomb>();
+		orbs = new ArrayList<Orb>();
 	}
 	//We may want a way to return two coordinates from a function (a point).
 	
@@ -61,7 +67,9 @@ public class BossEnemy extends Enemy implements Runnable{
 		}
 		return false;
 	}
-
+	public int getOrbSleepCount() {
+		return this.orbSleepCount;
+	}
 	private void killPlayerAdjacent(int x, int y) {
 		Dungeon dungeon = getDungeon();
 		if (x < dungeon.getWidth()) {
@@ -88,33 +96,94 @@ public class BossEnemy extends Enemy implements Runnable{
 	}
 	public void spawnBomb () { //not actually added to list of entities.
 		Player player = getDungeon().getPlayer();
-		int yDiff = (int) (Math.random()*2 -1 );
-		int xDiff = (int) (Math.random()*2 -1);
-		System.out.println("yDiff =" + yDiff );
-		System.out.println("xDiff =" + xDiff );
+
+        int max = 3; 
+        int min = -3; 
+        int range = max - min + 1; 
+  
+        // generate random numbers within 1 to 10  
+        int yDiff = (int)(Math.random() * range) + min; 
+        int xDiff = (int)(Math.random() * range) + min; 
 		int playerX = player.getX();
 		int playerY = player.getY();
-		Bomb bomb = new Bomb(playerX+ xDiff, playerY+yDiff, getDungeon());
-		Sword sword = new Sword(5,5);
-		controller.onLoad(bomb);
-		this.getDungeon().addEntity(bomb);
-		controller.onLoad(sword);
-		bomb.lightBomb(playerX + xDiff, playerY+yDiff);
+        int xLoc = playerX + xDiff;
+        int yLoc = playerY + yDiff;
+        if (xLoc < 0) xLoc = 0;
+        if (yLoc < 0) yLoc = 0;
+        if (xLoc > this.getDungeon().getWidth()-1) xLoc = this.getDungeon().getWidth()-1;
+        if (yLoc > this.getDungeon().getHeight()-1) yLoc = this.getDungeon().getHeight()-1;
+  
+
+		Bomb bomb = new Bomb(xLoc, yLoc, getDungeon());
+		bombs.add(bomb);
+		notifyObservers();
+		//this.getDungeon().addEntity(bomb);
+		bomb.lightBomb(xLoc, yLoc);
 	}
-	public void setController(DungeonControllerLoader dgc) {
-		this.controller = dgc;
+	public void spawnOrb() {
+		int max = this.getDungeon().getHeight()-1;
+		int min = 0;
+        int range = max - min + 1; 
+		System.out.println("Spawning orb");
+        int y = (int)(Math.random() * range) + min; 
+        int x = (int)(Math.random() * range) + min; 
+        Orb orb = new Orb(x,y);
+        orbs.add(orb);
+        this.getDungeon().addEntity(orb);
+		notifyObservers();
+        
+		
 	}
 	@Override
 	public void run() {
-		System.out.println("Running");
 		while (this.alive == true && getDungeon().getPlayerStatus()) {
-			spawnBomb();
+			if (this.getDungeon().isComplete()) break;
+			orbSleepCount++;
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			Platform.runLater(new Runnable() {
+				@Override public void run() {
+					spawnBomb();
+					if (getOrbSleepCount() % 15 == 0) {
+						spawnOrb();
+					}
+				}
+			});
 		}
+	}
+
+	@Override
+	public void registerObserver(Observer o) {
+		observers.add(o);
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		observers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer o : observers) {
+			o.update(this);
+		}
+	}
+	
+	public Bomb getLastBomb() {
+		if (bombs.size() == 0) {
+			return null;
+		}
+		return bombs.get(bombs.size()-1);
+	}
+
+	public Orb getLastOrb() {
+		if (orbs.size() == 0) {
+			return null;
+		}
+		return orbs.get(orbs.size()-1);
 	}
 
 }

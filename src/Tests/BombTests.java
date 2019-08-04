@@ -69,7 +69,7 @@ class BombTests {
 		Dungeon dungeon = maze.load();
 		Player player = dungeon.getPlayer();
 		player.moveDown();
-		player.useBomb();
+		player.useBombBackend();
 		TimeUnit.SECONDS.sleep(1);
 		List<Entity> entities = dungeon.getEntities();
 		int x = 0;
@@ -79,7 +79,7 @@ class BombTests {
 			}
 		}
 		assertTrue(x==1, "Enemy should be in dungeon because bomb hasnt detonated");
-		TimeUnit.SECONDS.sleep(3);
+		TimeUnit.SECONDS.sleep(5);
 		entities = dungeon.getEntities();
 		int x2 = 0;
 		for (Entity e : entities) {
@@ -113,8 +113,8 @@ class BombTests {
 		assertEquals(checklist.size(), 1, "one bould to up");
 		checklist = dungeon.getEntOnSq(player.getX(), player.getY()+1);
 		assertEquals(checklist.size(), 1, "one bould to down");
-		player.useBomb();
-		TimeUnit.SECONDS.sleep(4); //bomb will have detonated
+		player.useBombBackend();;
+		TimeUnit.SECONDS.sleep(5); //bomb will have detonated
 		int numBoulders2 = 0;
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Boulder) {
@@ -156,8 +156,8 @@ class BombTests {
 		assertEquals(checklist.size(), 1, "one enemy to up");
 		checklist = dungeon.getEntOnSq(player.getX(), player.getY()+1);
 		assertEquals(checklist.size(), 1, "one enemy to down");
-		player.useBomb();
-		TimeUnit.SECONDS.sleep(4); //bomb will have detonated
+		player.useBombBackend();
+		TimeUnit.SECONDS.sleep(5); //bomb will have detonated
 		int numEnemies2 = 0;
 		for (Entity e : dungeon.getEntities()) {
 			if (e instanceof Enemy) {
@@ -184,9 +184,9 @@ class BombTests {
 		b.squareBehav(player, "down");
 		player.moveDown();
 		assertTrue(player.isAlive().getValue(), "player should be alive, no bomb used yet");
-		player.useBomb();
+		player.useBombBackend();
 		player.moveUp();
-		TimeUnit.SECONDS.sleep(4);
+		TimeUnit.SECONDS.sleep(5);
 		assertFalse(player.isAlive().getValue(), "player should be dead, in bomb radius");
 		
 		

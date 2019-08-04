@@ -2,6 +2,7 @@ package unsw.dungeon.entities;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -141,10 +142,14 @@ public class Bomb extends Entity implements Runnable{
 			fuseLength.setValue(fuseLength.getValue()-1);
 			Thread.sleep(1000);
 			fuseLength.setValue(fuseLength.getValue()-1);
-			this.detonateBomb();
 			Thread.sleep(1000);
 			fuseLength.setValue(fuseLength.getValue()-1);
-			setAlive(false);
+			Platform.runLater(new Runnable() {
+				@Override public void run() {
+					detonateBomb();
+					setAlive(false);
+				}
+			});
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -156,6 +161,35 @@ public class Bomb extends Entity implements Runnable{
 	 */
 	public IntegerProperty getBombState() {
 		return this.fuseLength ;
+	}
+
+	public void lightBombBackend(int x, int y) {
+		setX(x);
+		setY(y);
+		setAlive(true);
+		class BombThread implements Runnable {
+			@Override
+			public void run() {
+				try { 	
+				System.out.println("Lighting bomb");
+				fuseLength.setValue(fuseLength.getValue()-1);
+				Thread.sleep(1000);
+				fuseLength.setValue(fuseLength.getValue()-1);
+				Thread.sleep(1000);
+				fuseLength.setValue(fuseLength.getValue()-1);
+				Thread.sleep(1000);
+				fuseLength.setValue(fuseLength.getValue()-1);
+				Thread.sleep(1000);
+				fuseLength.setValue(fuseLength.getValue()-1);
+				detonateBomb();
+				}
+
+				catch (Exception e) {}
+			}
+		}
+		Thread t1 = new Thread(new BombThread());
+		t1.start();
+		
 	}
 
 

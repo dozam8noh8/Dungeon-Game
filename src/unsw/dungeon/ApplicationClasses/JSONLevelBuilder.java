@@ -20,8 +20,12 @@ public class JSONLevelBuilder {
 	private String objString = "";
 	public JSONLevelBuilder (String filename) throws JSONException, FileNotFoundException, UnsupportedEncodingException {
 		this.filename = filename;
-		writer = new PrintWriter("dungeons/"+filename , "UTF-8");
+		makeWriter();
 
+
+	}
+	public void makeWriter() throws FileNotFoundException, UnsupportedEncodingException {
+		writer = new PrintWriter("dungeons/"+ this.filename , "UTF-8");
 	}
 	public int getDungeonWidth() {
 		return this.Dwidth;
@@ -29,6 +33,19 @@ public class JSONLevelBuilder {
 	public int getDungeonHeight() {
 		return this.Dheight;
 	}
+	public void makeDefaultLevel() throws FileNotFoundException, UnsupportedEncodingException {
+		closeWriter();
+		makeWriter();
+		makeDungeonDimensions(10,10);
+		startEntityList();
+		makePlayer(1, 1);
+		endEntityList();
+		startObjective();
+		makeTreasureObjective();
+		endDungeon();
+		closeWriter();
+	}
+
 	public static void main(String[] args) throws JSONException, FileNotFoundException, UnsupportedEncodingException {
 		JSONLevelBuilder jb = new JSONLevelBuilder("owen.json");
 		jb.makeDungeonDimensions(16,16);
