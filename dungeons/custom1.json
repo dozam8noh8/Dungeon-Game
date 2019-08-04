@@ -7,13 +7,23 @@
       "type": "player"
     },
     {
-      "x": 5,
-      "y": 5,
-      "type": "enemy"
+      "x": 2,
+      "y": 1,
+      "type": "bomb"
     },
     {
       "x": 3,
-      "y": 2,
-      "type": "invincibility"
+      "y": 1,
+      "type": "boulder"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "boulder"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "boulder"
     },],
 "goal-condition":{"goal": "enemies"},}
