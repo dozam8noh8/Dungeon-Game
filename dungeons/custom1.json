@@ -9,21 +9,16 @@
     {
       "x": 2,
       "y": 1,
-      "type": "bomb"
+      "type": "life"
     },
     {
       "x": 3,
       "y": 1,
-      "type": "boulder"
+      "type": "life"
     },
     {
       "x": 4,
       "y": 1,
-      "type": "boulder"
-    },
-    {
-      "x": 5,
-      "y": 1,
-      "type": "boulder"
+      "type": "enemy"
     },],
 "goal-condition":{"goal": "enemies"},}

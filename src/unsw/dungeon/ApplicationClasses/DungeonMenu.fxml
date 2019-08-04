@@ -14,13 +14,15 @@
             <Font name="Arial Black" size="37.0" />
          </font>
       </Label>
-      <VBox layoutX="205.0" layoutY="130.0" prefHeight="200.0" prefWidth="372.0">
+      <VBox layoutX="209.0" layoutY="130.0" prefHeight="250.0" prefWidth="368.0">
          <children>
-            <Button fx:id="firstLevel" mnemonicParsing="false" onAction="#handleFirstLevel" prefHeight="52.0" prefWidth="228.0" text="Level 1" textAlignment="CENTER" />
-            <Button fx:id="secondLevel" mnemonicParsing="false" onAction="#handleSecondLevel" prefHeight="52.0" prefWidth="228.0" text="Level 2" textAlignment="CENTER" />
+            <Button fx:id="firstLevel" mnemonicParsing="false" onAction="#handleFirstLevel" prefHeight="52.0" prefWidth="228.0" text="Advanced" textAlignment="CENTER" />
+            <Button fx:id="secondLevel" mnemonicParsing="false" onAction="#handleSecondLevel" prefHeight="52.0" prefWidth="228.0" text="Boulders" textAlignment="CENTER" />
+            <Button fx:id="mazeButton" mnemonicParsing="false" onAction="#handleMazeButton" prefHeight="52.0" prefWidth="228.0" text="Maze" />
             <Button fx:id="lastBuiltButton" mnemonicParsing="false" onAction="#handleLastBuiltLevel" prefHeight="52.0" prefWidth="228.0" text="Last Built Level" textAlignment="CENTER" />
             <Button fx:id="builderButton" mnemonicParsing="false" onAction="#handleBuilderButton" prefHeight="52.0" prefWidth="228.0" text="Builder" textAlignment="CENTER" />
             <Button fx:id="loadCustomButton" mnemonicParsing="false" onAction="#handleCustomButton" prefHeight="60.0" prefWidth="227.0" text="Load Custom Level" />
+            <Button fx:id="bossButton" mnemonicParsing="false" onAction="#handleBossButton" prefHeight="68.0" prefWidth="229.0" text="BOSS LEVEL" />
          </children>
       </VBox>
       <TextField fx:id="customTextField" layoutX="23.0" layoutY="295.0" text="advanced.json" />
