@@ -69,7 +69,15 @@ public class DungeonGameScreen {
 	}
 	
 	public void setSecondGame() throws IOException {
-		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze25.json");
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("boulders.json");
+		setGameLoader(dungeonLoader);
+	}
+	public void setMazeGame() throws IOException {
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("maze.json");
+		setGameLoader(dungeonLoader);
+	}
+	public void setBossGame() throws IOException {
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("boss.json");
 		setGameLoader(dungeonLoader);
 	}
 	

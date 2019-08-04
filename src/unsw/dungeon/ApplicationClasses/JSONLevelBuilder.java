@@ -187,6 +187,13 @@ public class JSONLevelBuilder {
 				"      \"type\": \"exit\"\n" + 
 				"    },");
 	}
+	public void makeLife(int x, int y) {
+		writer.write("\n    {\n" + 
+				"      \"x\": "+x +",\n" + 
+				"      \"y\": "+y +",\n" + 
+				"      \"type\": \"life\"\n" + 
+				"    },");
+	}
 	public void makeTreasure(int x, int y) {
 		writer.write("\n    {\n" + 
 				"      \"x\": "+x +",\n" + 

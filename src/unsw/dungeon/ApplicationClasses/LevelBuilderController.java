@@ -40,6 +40,7 @@ public class LevelBuilderController {
     private Image doorImage;
     private Image potionImage;
     private Image swordImage;
+    private Image lifeImage;
     private DungeonMenuScreen menuScreen;
     private LevelBuilderController levelController;
     
@@ -113,6 +114,9 @@ public class LevelBuilderController {
     private Button endButton;
 
     @FXML
+    private Button lifeButton;
+    
+    @FXML
     private Button startEntityButton;
 
     @FXML
@@ -154,6 +158,7 @@ public class LevelBuilderController {
         potionImage = new Image("bubbly.png");
         swordImage = new Image("greatsword_1_new.png");
         switchImage = new Image("pressure_plate.png");
+        lifeImage = new Image("heart.png");
         
 	}
 
@@ -272,6 +277,7 @@ public class LevelBuilderController {
     	bombButton.setDisable(disable);
     	swordButton.setDisable(disable);
     	exitButton.setDisable(disable);
+    	lifeButton.setDisable(disable);
 
     }
     public void disableAllExceptStart(boolean disable) {
@@ -408,6 +414,12 @@ public class LevelBuilderController {
     	incrementXY();
     }
     @FXML
+    void handleLifeButton(ActionEvent event) {
+    	jb.makeLife(currX.getValue(),currY.getValue());
+    	levelGrid.add(new ImageView(lifeImage), currX.getValue(), currY.getValue()); 
+    	incrementXY();
+    }
+    @FXML
     void handleEnemyObjButton(ActionEvent event) {
     	jb.makeEnemyObjective();
     	ObjString += "Kill all enemies\n";
@@ -427,6 +439,7 @@ public class LevelBuilderController {
     	ObjString += "Boulders on Switches\n";
     	FEObjString.textProperty().setValue(ObjString);
     }
+    
     @FXML
     void handleTreasureObjButton(ActionEvent event) {
     	jb.makeTreasureObjective();

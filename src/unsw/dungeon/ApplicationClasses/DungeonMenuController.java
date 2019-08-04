@@ -15,12 +15,16 @@ public class DungeonMenuController {
     private Button firstLevel;
     @FXML
     private Button secondLevel;
-    
+    @FXML
+    private Button bossButton;
     @FXML
     private Button lastBuiltButton;
 
     @FXML
     private TextField customTextField;
+    
+    @FXML
+    private Button mazeButton;
     @FXML
     private Button builderButton;
     
@@ -66,6 +70,24 @@ public class DungeonMenuController {
 	void handleSecondLevel(ActionEvent event) {
 		try {
 			firstScreen.setSecondGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		firstScreen.start();
+	}
+	@FXML
+	void handleMazeButton(ActionEvent event) {
+		try {
+			firstScreen.setMazeGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		firstScreen.start();
+	}
+	@FXML
+	void handleBossButton(ActionEvent event) {
+		try {
+			firstScreen.setBossGame();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

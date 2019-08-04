@@ -20,7 +20,6 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 	private ArrayList<Orb> orbs;
 	public BossEnemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
-		System.out.println("In Constructor");
 		observers = new ArrayList<Observer>();
 		bombs = new ArrayList<Bomb>();
 		orbs = new ArrayList<Orb>();
@@ -34,7 +33,6 @@ public class BossEnemy extends Enemy implements Runnable, Subject{
 	@Override
 	public void update(Subject o) {
 		if (bombing == false) {
-			System.out.println("Do something");
 			bombThread = new Thread(this);
 			bombThread.start();
 			bombing = true;
