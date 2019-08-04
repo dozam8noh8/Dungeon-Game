@@ -37,7 +37,7 @@ public class BossEnemy extends Enemy implements Runnable{
 			this.setMoveCounter(this.getMoveCounter() + 1);
 			if (this.getMoveCounter() == 2) {
 				System.out.println("Doing something");
-				moveTowardsPlayer();
+				makeMove();
 				this.setMoveCounter(0);
 			}
 		}
@@ -97,6 +97,7 @@ public class BossEnemy extends Enemy implements Runnable{
 		Bomb bomb = new Bomb(playerX+ xDiff, playerY+yDiff, getDungeon());
 		Sword sword = new Sword(5,5);
 		controller.onLoad(bomb);
+		this.getDungeon().addEntity(bomb);
 		controller.onLoad(sword);
 		bomb.lightBomb(playerX + xDiff, playerY+yDiff);
 	}

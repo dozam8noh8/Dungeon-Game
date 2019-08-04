@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import unsw.dungeon.Dungeon;
+import unsw.dungeon.EnemyChaseState;
+import unsw.dungeon.EnemyMoveState;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
 import unsw.dungeon.PotionStatePlayer;
@@ -22,6 +24,7 @@ public class Enemy extends Entity implements Observer {
 	private int moveCounter; //Counts every 3 moves of the player
 	private BooleanProperty alive; //Whether the enemy should be displayed and methods work.
 	private boolean canMove;
+	private EnemyMoveState moveState;
 	
 	/**
 	 * Instantiates an enemy.
@@ -35,6 +38,7 @@ public class Enemy extends Entity implements Observer {
 		this.setMoveCounter(0);
 		this.alive = new SimpleBooleanProperty(true);
 		this.canMove = true;
+		this.moveState = new EnemyChaseState(this);
 	}
 	/**
 	 * Returns whether the enemy can be considered dead (false) or alive (true)
@@ -43,7 +47,6 @@ public class Enemy extends Entity implements Observer {
 	public boolean getAlive() {
 		return this.alive.getValue();
 	}
-	
 	/**
 	 * Returns if enemy is alive or not
 	 * @return alive - BooleanProperty to find if enemy is alive or not
@@ -78,7 +81,7 @@ public class Enemy extends Entity implements Observer {
 		if (this.alive.getValue()) {
 			this.setMoveCounter(this.getMoveCounter() + 1);
 			if (this.getMoveCounter() == 3) {
-				moveTowardsPlayer();
+				makeMove();
 				this.setMoveCounter(0);
 			}
 		}
@@ -92,15 +95,11 @@ public class Enemy extends Entity implements Observer {
 	 * the second priority will be tried. If neither of these are possible, the enemy
 	 * will not move.
 	 */
-	public void moveTowardsPlayer() {
+	public void makeMove() {
 		int xDiff = dungeon.getPlayer().getX() - this.getX();
 		int yDiff = dungeon.getPlayer().getY() - this.getY();
-		boolean potion = false;
 		int xChange = 1;
 		int yChange = 1;
-		if (dungeon.getPlayer().getPotionState() instanceof PotionStatePlayer) {
-			potion = true;
-		}
 		boolean moved = false;
 		if (xDiff < 0) { //change will be left
 			xChange = -1;
@@ -115,20 +114,16 @@ public class Enemy extends Entity implements Observer {
 		else if (yDiff > 0) { //change will be down
 			yChange = 1;
 		}
-		if (potion) {
-			xChange = xChange * -1;
-			yChange = yChange * -1;
-		}
 		if (Math.abs(xDiff) >= Math.abs(yDiff)) {
-			moved = move(xChange, 0);
+			moved = moveState.move(xChange, 0);
 			if (!moved) {
-				move(0,yChange);
+				moveState.move(0,yChange);
 			}
 		}
 		else {
-			moved = move(0, yChange);
+			moved = moveState.move(0, yChange);
 			if (!moved) {
-				move(xChange, 0);
+				moveState.move(xChange, 0);
 			}
 		}
 		
@@ -223,5 +218,6 @@ public class Enemy extends Entity implements Observer {
 	public Player getPlayer() {
 		return dungeon.getPlayer();
 	}
+
 
 }

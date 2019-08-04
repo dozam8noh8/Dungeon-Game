@@ -15,6 +15,7 @@ import unsw.dungeon.Dungeon;
 import unsw.dungeon.NoPotionState;
 import unsw.dungeon.Observer;
 import unsw.dungeon.PotionState;
+import unsw.dungeon.PotionStatePlayer;
 import unsw.dungeon.PotionStateThread;
 import unsw.dungeon.Subject;
 import unsw.dungeon.Weapon;
@@ -385,6 +386,10 @@ public class Player extends Entity implements Subject {
 	@Override
 	public boolean entityMoveThrough() {
 		System.out.println("Enemy caught a player");
+		if (this.potionState instanceof PotionStatePlayer) {
+			System.out.println("Invincible");
+			return false;
+		}
 		this.killPlayer();
 		return false;
 	}

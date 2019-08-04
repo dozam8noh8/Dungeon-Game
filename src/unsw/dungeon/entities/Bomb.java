@@ -105,6 +105,8 @@ public class Bomb extends Entity implements Runnable{
 	 * @param y
 	 */
 	private void checkBombRadius(int x, int y) {
+		if (x < 0 || y <0)return;
+		if (x >= dungeon.getWidth() || y>= dungeon.getHeight()) return;
 		ArrayList<Entity> entOnSq = dungeon.getEntOnSq(x, y);
 		for (Entity e : entOnSq) {
 			if (e instanceof Enemy) {

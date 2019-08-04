@@ -207,6 +207,7 @@ public class LevelBuilderController {
     void handleEndObjectivesButton(ActionEvent event) {
     	disableObjButtons(true);
     	endButton.setDisable(false);
+    	endObjectivesButton.setDisable(true);
 
     }
     @FXML

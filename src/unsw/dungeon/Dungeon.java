@@ -155,6 +155,8 @@ public class Dungeon implements Observer{
      * @return - a boolean representing whether a move can be made.
      */
     public boolean makeMoveEntity (int x, int y) {
+    	if (x < 0 || y < 0) return false;
+    	if (x >= this.getWidth() || y >= this.getHeight())return false; 
     	ArrayList<Entity> entOnSq = getEntOnSq( x, y);
     	for (Entity e: entOnSq) {
     		boolean toReturn = e.entityMoveThrough();
