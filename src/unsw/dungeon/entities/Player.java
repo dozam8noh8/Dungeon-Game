@@ -355,7 +355,7 @@ public class Player extends Entity implements Subject {
 		if (key != null) { //puts key down where other key was
 			key.setX(k.getX());
 			key.setY(k.getY());
-			key.setPickedUp(false);
+			key.setPickedUp(true); // change this to true since we're picking up another
 			key.setJustDropped(true); //set just dropped attribute so key isnt immediately
 								      //picked back up
 		}
